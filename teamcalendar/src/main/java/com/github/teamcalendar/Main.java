@@ -4,12 +4,20 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-@ManagedBean(name = "main")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.github.teamcalendar.services.UserService;
+
+@Component(value = "main")
 @RequestScoped
 public class Main {
 	
 	private String msg;
 
+	@Autowired
+	private UserService userService;
+	
 	public String getMsg() {
 		return msg;
 	}
@@ -21,6 +29,6 @@ public class Main {
 	@PostConstruct
 	private void init()
 	{
-		msg = "Hello World! I'm Teamcalendar";
+		msg = userService.getName();
 	}
 }
