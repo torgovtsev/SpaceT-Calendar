@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com.github.teamcalendar.configurations" })
-@PropertySource({ "classpath:hibernate.properties" })
+@PropertySource({ "classpath:hibernate.properties", "classpath:liquibase/liquibase.properties" })
 public class HibernateConfiguration
 {
     @Autowired
@@ -66,6 +68,29 @@ public class HibernateConfiguration
         return dataSource;
     }
 
+    @Bean
+    @Autowired
+    public HibernateTransactionManager createTransactionManager(SessionFactory sessionFactory)
+    {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory);
+
+        return transactionManager;
+    }
+
+    @Bean
+    @Autowired
+    public SpringLiquibase createLiquibaseBean()
+    {
+        SpringLiquibase liquibase = new SpringLiquibase();
+
+        liquibase.setDataSource(createDataSource());
+        liquibase.setChangeLog("classpath:liquibase/master.xml");
+        liquibase.setContexts("dev");
+
+        return liquibase;
+    }
+
     /**
      * Build Hibernate properties
      * 
@@ -80,15 +105,5 @@ public class HibernateConfiguration
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
 
         return properties;
-    }
-
-    @Bean
-    @Autowired
-    public HibernateTransactionManager createTransactionManager(SessionFactory sessionFactory)
-    {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory);
-
-        return transactionManager;
     }
 }

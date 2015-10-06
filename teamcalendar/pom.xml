@@ -12,6 +12,7 @@
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<jsf.version>2.2.12</jsf.version>
 		<hsqldb.version>2.3.3</hsqldb.version>
+		<liquibase.version>3.4.1</liquibase.version>
 	</properties>
 
 	<dependencies>
@@ -101,18 +102,47 @@
 			<version>${hsqldb.version}</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>${liquibase.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>teamcalendar</finalName>
-
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
+				<inherited>true</inherited>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+					<changeLogFile>src/main/resources/liquibase/master.xml</changeLogFile>
 				</configuration>
 			</plugin>
 		</plugins>
