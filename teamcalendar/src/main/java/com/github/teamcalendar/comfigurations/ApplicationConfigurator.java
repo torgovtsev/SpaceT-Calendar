@@ -1,4 +1,4 @@
-package com.github.teamcalendar;
+package com.github.teamcalendar.comfigurations;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.github.teamcalendar;
+package com.github.teamcalendar.comfigurations;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
