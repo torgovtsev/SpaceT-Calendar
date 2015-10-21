@@ -1,4 +1,4 @@
-package com.github.teamcalendar;
+package com.github.teamcalendar.frontend.component;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
@@ -6,7 +6,7 @@ import javax.faces.bean.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.teamcalendar.services.UserService;
+import com.github.teamcalendar.middleware.services.UserService;
 
 @Component(value = "main")
 @RequestScoped

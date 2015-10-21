@@ -1,4 +1,4 @@
-package com.github.teamcalendar.services;
+package com.github.teamcalendar.middleware.services;
 
 /**
  * Example
