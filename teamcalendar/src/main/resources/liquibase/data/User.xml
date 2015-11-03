@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog   
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+        
+    <changeSet id="user" author="Ivanov Artem">
+    
+    	<insert tableName="user">
+			<column name="id">1</column>
+			<column name="first_name">Artem</column>
+			<column name="last_name">Ivanov</column>
+			<column name="email">Artemka1528@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">What is your name?</column>
+			<column name="secret_answer">Artem</column>
+			<column name="mobile">81111111111</column>
+			<column name="sex">true</column>
+			<column name="age">22</column>
+			<column name="country_id">1</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+		<insert tableName="user">
+			<column name="id">2</column>
+			<column name="first_name">Ivan</column>
+			<column name="last_name">Kopylov</column>
+			<column name="email">Ivan@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">What is your mother name?</column>
+			<column name="secret_answer">Alla</column>
+			<column name="mobile">83244365379</column>
+			<column name="sex">true</column>
+			<column name="age">25</column>
+			<column name="country_id">2</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+		<insert tableName="user">
+			<column name="id">3</column>
+			<column name="first_name">Ivan</column>
+			<column name="last_name">Aldushin</column>
+			<column name="email">AIvan@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">What is your father name?</column>
+			<column name="secret_answer">Oleg</column>
+			<column name="mobile">81518340386</column>
+			<column name="sex">true</column>
+			<column name="age">21</column>
+			<column name="country_id">1</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+		<insert tableName="user">
+			<column name="id">4</column>
+			<column name="first_name">Natalia</column>
+			<column name="last_name">Gavrilova</column>
+			<column name="email">Natalia@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">What is your pet name?</column>
+			<column name="secret_answer">Barsik</column>
+			<column name="mobile">89516730567</column>
+			<column name="sex">true</column>
+			<column name="age">21</column>
+			<column name="country_id">1</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+		<insert tableName="user">
+			<column name="id">5</column>
+			<column name="first_name">Max</column>
+			<column name="last_name">Podlesnov</column>
+			<column name="email">Max@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">What is your favourite company?</column>
+			<column name="secret_answer">T-Systems</column>
+			<column name="mobile">89417340367</column>
+			<column name="sex">true</column>
+			<column name="age">21</column>
+			<column name="country_id">3</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+		<insert tableName="user">
+			<column name="id">6</column>
+			<column name="first_name">Sergey</column>
+			<column name="last_name">Torgovtsev</column>
+			<column name="email">Sergey@yandex.ru</column>
+			<column name="password">1111</column>									
+			<column name="secret_question">Who is your favorite student?</column>
+			<column name="secret_answer">everyone</column>
+			<column name="mobile">84355387268</column>
+			<column name="sex">true</column>
+			<column name="age">24</column>
+			<column name="country_id">1</column>
+			<column name="registration_date"></column>
+			<column name="is_blocked">false</column>
+			<column name="is_deleted">false</column>
+			<column name="is_verified">true</column>
+		</insert>
+		
+	</changeSet>
+		
+</databaseChangeLog>
+		
