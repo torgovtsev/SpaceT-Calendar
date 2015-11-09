@@ -29,21 +29,18 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
 
     private static final Logger LOG = LoggerFactory.getLogger(PermissionEntity.class);
 
-    @Override
     public void addPermission(Permission permission)
     {
         PermissionEntity data = convertPermissionToEntity(permission);
         persist(data);
     }
 
-    @Override
     public void updatePermission(Permission permission)
     {
         PermissionEntity data = convertPermissionToEntity(permission);
         update(data);
     }
 
-    @Override
     public void deletePermissione(Permission permission)
     {
         PermissionEntity data = convertPermissionToEntity(permission);
@@ -51,7 +48,6 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<Permission> getAllPermissions()
     {
         final List<Permission> result = new ArrayList<Permission>();
@@ -74,7 +70,6 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
         return result;
     }
 
-    @Override
     public Permission getPermissionById(Integer id)
     {
 
@@ -97,7 +92,6 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
         return result;
     }
 
-    @Override
     public Permission getPermissionByName(String name)
     {
 
@@ -122,7 +116,6 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public Set<Permission> getPermissionsForRole(Role role)
     {
         String name = role.getName();
@@ -141,7 +134,6 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void updatePermissionsForRole(Role role, List<Permission> rolePermissions)
     {
 

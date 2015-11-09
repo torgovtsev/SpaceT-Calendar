@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.teamcalendar.dao.CountryDAO;
 import com.github.teamcalendar.middleware.dto.Country;
+import com.github.teamcalendar.middleware.services.CountryService;
 
 @Service("countryService")
 @Transactional
-public class CountryServiceImpl implements CountryDAO
+public class CountryServiceImpl implements CountryService
 {
 
     @Autowired

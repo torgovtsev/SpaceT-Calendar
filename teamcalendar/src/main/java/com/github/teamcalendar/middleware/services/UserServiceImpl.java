@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService
     @Autowired
 	private UsersService usersService;
     
+    
     @Override
     public String getName()
     {

@@ -29,21 +29,18 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
 
     private static final Logger LOG = LoggerFactory.getLogger(RoleEntity.class);
 
-    @Override
     public void addRole(Role role)
     {
         RoleEntity data = convertRoleToEntity(role);
         persist(data);
     }
 
-    @Override
     public void updateRole(Role role)
     {
         RoleEntity data = convertRoleToEntity(role);
         update(data);
     }
 
-    @Override
     public void deleteRole(Role role)
     {
         RoleEntity data = convertRoleToEntity(role);
@@ -51,7 +48,6 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<Role> getAllRoles()
     {
         final List<Role> result = new ArrayList<Role>();
@@ -74,7 +70,6 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
         return result;
     }
 
-    @Override
     public Role getRoleById(Integer id)
     {
         Role result = null;
@@ -95,7 +90,6 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
         return result;
     }
 
-    @Override
     public Role getRoleByName(String name)
     {
         Role result = null;
@@ -118,7 +112,6 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public Set<Role> getRolesForUser(User user)
     {
         String email = user.getEmail();
@@ -137,7 +130,6 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void updateRoleForUser(User user, List<Role> userRoles)
     {
 

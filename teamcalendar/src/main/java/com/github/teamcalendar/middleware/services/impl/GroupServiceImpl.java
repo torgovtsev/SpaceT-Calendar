@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.teamcalendar.dao.GroupDAO;
 import com.github.teamcalendar.middleware.dto.Group;
 import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.services.GroupService;
 
 @Service("groupService")
 @Transactional
-public class GroupServiceImpl implements GroupDAO
+public class GroupServiceImpl implements GroupService
 {
 
     @Autowired

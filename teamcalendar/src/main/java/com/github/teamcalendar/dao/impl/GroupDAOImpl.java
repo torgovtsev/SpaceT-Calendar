@@ -29,21 +29,18 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
 
     private static final Logger LOG = LoggerFactory.getLogger(GroupEntity.class);
 
-    @Override
     public void addGroup(Group group)
     {
         GroupEntity data = convertGroupToEntity(group);
         persist(data);
     }
 
-    @Override
     public void updateRole(Group group)
     {
         GroupEntity data = convertGroupToEntity(group);
         update(data);
     }
 
-    @Override
     public void deleteRole(Group group)
     {
         GroupEntity data = convertGroupToEntity(group);
@@ -51,7 +48,6 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<Group> getAllGroup()
     {
 
@@ -75,7 +71,6 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
         return result;
     }
 
-    @Override
     public Group getGroupById(Integer id)
     {
 
@@ -98,7 +93,6 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
 
     }
 
-    @Override
     public Group getGroupByName(String name)
     {
 
@@ -124,7 +118,6 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public Set<Group> getGroupForUser(User user)
     {
         String email = user.getEmail();
@@ -143,7 +136,6 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void updateGroupForUser(User user, List<Group> userGroups)
     {
 

@@ -2,8 +2,6 @@ package com.github.teamcalendar.middleware.services.impl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +15,6 @@ import com.github.teamcalendar.middleware.services.UsersService;
 public class UsersServiceImpl implements UsersService
 {
 
-    //private static final Logger LOG = LoggerFactory.getLogger(UsersServiceImpl.class);
 
     @Autowired
     private UserDAO dao;
@@ -52,10 +49,4 @@ public class UsersServiceImpl implements UsersService
         return dao.getAllUsers();
     }
 
-    //	private User mapUserEntityToUser(UserEntity entity)
-    //	{
-    //		Mapper mapper = MapperService.getInstance();
-    //		
-    //		return mapper.map(entity, User.class);
-    //	}
 }

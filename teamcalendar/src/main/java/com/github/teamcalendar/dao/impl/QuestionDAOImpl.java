@@ -22,21 +22,18 @@ public class QuestionDAOImpl extends AbstractDao<Integer, QuestionEntity> implem
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionEntity.class);
 
-    @Override
     public void add(Question question)
     {
         QuestionEntity data = convertQuestionToEntity(question);
         persist(data);
     }
 
-    @Override
     public void update(Question question)
     {
         QuestionEntity data = convertQuestionToEntity(question);
         update(data);
     }
 
-    @Override
     public void delete(Question question)
     {
         QuestionEntity data = convertQuestionToEntity(question);
@@ -44,7 +41,6 @@ public class QuestionDAOImpl extends AbstractDao<Integer, QuestionEntity> implem
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<Question> getAllQestions()
     {
 

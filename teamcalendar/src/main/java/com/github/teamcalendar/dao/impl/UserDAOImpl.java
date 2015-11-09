@@ -23,28 +23,24 @@ public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements Use
 
     private static final Logger LOG = LoggerFactory.getLogger(UserEntity.class);
 
-    @Override
     public void addUser(User user)
     {
         UserEntity data = convertRoleToEntity(user);
         persist(data);
     }
 
-    @Override
     public void updateUser(User user)
     {
         UserEntity data = convertRoleToEntity(user);
         update(data);
     }
 
-    @Override
     public void deleteUser(User user)
     {
         UserEntity data = convertRoleToEntity(user);
         delete(data);
     }
 
-    @Override
     public User getUserByEmail(String email)
     {
         User res = null;
@@ -67,7 +63,6 @@ public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements Use
         return res;
     }
 
-    @Override
     public User getUserByID(Integer id)
     {
         User res = null;
@@ -88,7 +83,6 @@ public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements Use
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<User> getAllUsers()
     {
         final List<User> result = new ArrayList<User>();

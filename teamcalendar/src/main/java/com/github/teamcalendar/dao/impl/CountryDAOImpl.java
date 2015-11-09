@@ -20,7 +20,6 @@ public class CountryDAOImpl extends AbstractDao<Integer, CountryEntity> implemen
 
     private static final Logger LOG = LoggerFactory.getLogger(CountryEntity.class);
 
-    @Override
     public void addCountry(Country country)
     {
         CountryEntity data = convertCountryToEntity(country);
@@ -28,7 +27,6 @@ public class CountryDAOImpl extends AbstractDao<Integer, CountryEntity> implemen
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public List<Country> getAllCountries()
     {
         final List<Country> result = new ArrayList<Country>();
