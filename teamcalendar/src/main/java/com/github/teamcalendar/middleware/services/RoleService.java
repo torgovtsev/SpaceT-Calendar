@@ -1,4 +1,4 @@
-package com.github.teamcalendar.dao;
+package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.dto.User;
 
-public interface RoleDAO
+public interface RoleService
 {
 
     void addRole(Role role);

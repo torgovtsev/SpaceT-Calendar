@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog   
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-        
-    <changeSet id="question" author="Ivanov Artem">
+
+	<changeSet id="question" author="Ivanov Artem">
+
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists schemaName="public" tableName="question"></tableExists>
+			</not>
+		</preConditions>
 
 		<createTable tableName="question">
 			<column name="id" autoIncrement="true" type="int">
 				<constraints primaryKey="true" primaryKeyName="PK_question" />
 			</column>
-            
+
 			<column name="text" type="varchar(4024)">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		
+
 		<addUniqueConstraint tableName="question"
-			columnNames="text" constraintName="UQ_question_text"/>
-		
+			columnNames="text" constraintName="UQ_question_text" />
+
 	</changeSet>
-		
+
 </databaseChangeLog>

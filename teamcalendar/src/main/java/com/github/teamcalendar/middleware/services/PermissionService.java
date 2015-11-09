@@ -1,4 +1,4 @@
-package com.github.teamcalendar.dao;
+package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import com.github.teamcalendar.middleware.dto.Permission;
 import com.github.teamcalendar.middleware.dto.Role;
 
-public interface PermissionDAO
+public interface PermissionService
 {
 
     void addPermission(Permission permission);
@@ -24,4 +24,5 @@ public interface PermissionDAO
     Set<Permission> getPermissionsForRole(Role role);
 
     void updatePermissionsForRole(Role role, List<Permission> rolePermissions);
+
 }

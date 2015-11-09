@@ -1,4 +1,4 @@
-package com.github.teamcalendar.dao;
+package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import com.github.teamcalendar.middleware.dto.Group;
 import com.github.teamcalendar.middleware.dto.User;
 
-public interface GroupDAO
+public interface GroupService
 {
 
     void addGroup(Group group);
@@ -24,5 +24,4 @@ public interface GroupDAO
     Set<Group> getGroupForUser(User user);
 
     void updateGroupForUser(User user, List<Group> userGroups);
-
 }

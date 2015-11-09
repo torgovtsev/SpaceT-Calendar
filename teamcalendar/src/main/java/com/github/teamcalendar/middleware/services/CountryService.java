@@ -1,10 +1,10 @@
-package com.github.teamcalendar.dao;
+package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
 
 import com.github.teamcalendar.middleware.dto.Country;
 
-public interface CountryDAO
+public interface CountryService
 {
 
     void addCountry(Country country);
