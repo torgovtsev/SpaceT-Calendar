@@ -6,13 +6,14 @@ package com.github.teamcalendar.middleware.services;
  * @author storgovt
  *
  */
-public interface UserService {
+public interface UserService
+{
 
-	/**
-	 * Example
-	 * 
-	 * @return const = "Hello world"
-	 */
-	String getName();
-	
+    /**
+     * Example
+     * 
+     * @return const = "Hello world"
+     */
+    String getName();
+
 }

@@ -3,24 +3,23 @@ package com.github.teamcalendar.dao;
 import java.util.List;
 import java.util.Set;
 
-import com.github.teamcalendar.domain.Permission;
-import com.github.teamcalendar.domain.Role;
+import com.github.teamcalendar.domain.PermissionEntity;
+import com.github.teamcalendar.middleware.dto.Permission;
+import com.github.teamcalendar.middleware.dto.Role;
 
-public interface PermissionDAO {
-	
-	void addPermission(Permission permission);
-	
-	void updatePermission(Permission permission);
-	
-	void deletePermissione(Permission permission);
+public interface PermissionDAO
+{
 
-	List<Permission> allPermissions();
-	
-	Permission getPermissionById(Integer  id);
-	
-	Permission getPermissionByName(String name);
-			
-	Set<Permission> getPermissionsForRole(Role role);
-	
-	void updatePermissionsForRole(Role role, List<Permission> rolePermissions);
+    void addPermission(PermissionEntity permission);
+
+    void updatePermission(PermissionEntity permission);
+
+    void deletePermission(PermissionEntity permission);
+
+    List<PermissionEntity> getAllPermissions();
+
+    PermissionEntity getPermissionById(Integer id);
+
+    PermissionEntity getPermissionByName(String name);
+
 }

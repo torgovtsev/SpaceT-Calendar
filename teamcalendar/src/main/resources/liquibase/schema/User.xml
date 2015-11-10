@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog 
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
 
+
 	<changeSet id="users" author="Ivanov Artem">
+
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists schemaName="public" tableName="country"></tableExists>
+				<tableExists schemaName="public" tableName="user"></tableExists>
+				<tableExists schemaName="public" tableName="groups"></tableExists>
+				<tableExists schemaName="public" tableName="role"></tableExists>
+				<tableExists schemaName="public" tableName="permission"></tableExists>
+				<tableExists schemaName="public" tableName="user_group"></tableExists>
+				<tableExists schemaName="public" tableName="user_role"></tableExists>
+				<tableExists schemaName="public" tableName="group_role"></tableExists>
+				<tableExists schemaName="public" tableName="role_permission"></tableExists>
+			</not>
+		</preConditions>
+
+
 		<createTable tableName="country">
 			<column name="id" autoIncrement="true" type="int">
 				<constraints primaryKey="true" primaryKeyName="PK_country" />
@@ -28,7 +44,7 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="email" type="varchar(128)">
-				<constraints nullable="false"/>
+				<constraints nullable="false" />
 			</column>
 			<column name="password" type="varchar(1024)">
 				<constraints nullable="false" />
@@ -40,7 +56,7 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="mobile" type="varchar(48)">
-				<constraints nullable="false"/>
+				<constraints nullable="false" />
 			</column>
 			<column name="sex" type="boolean"></column>
 			<column name="age" type="int">
@@ -51,7 +67,7 @@
 					references="country(id)" />
 			</column>
 			<column name="registration_date" type="timestamp"></column>
-			
+
 			<column name="is_blocked" type="boolean">
 				<constraints nullable="false" />
 			</column>
@@ -88,7 +104,7 @@
 				<constraints primaryKey="true" primaryKeyName="PK_permission" />
 			</column>
 			<column name="name" type="varchar(64)">
-				<constraints nullable="false"/>
+				<constraints nullable="false" />
 			</column>
 			<column name="description" type="varchar(512)"></column>
 		</createTable>
@@ -138,27 +154,27 @@
 		</createTable>
 	</changeSet>
 
+
 	<changeSet id="alter_table" author="Ivanov Artem">
 		<addUniqueConstraint tableName="country"
-			columnNames="name" constraintName="UQ_country_name"/>
+			columnNames="name" constraintName="UQ_country_name" />
 		<addUniqueConstraint tableName="groups"
-			columnNames="name" constraintName="UQ_group_name"/>
-		<addUniqueConstraint tableName="role"
-			columnNames="name" constraintName="UQ_role_name"/>
+			columnNames="name" constraintName="UQ_group_name" />
+		<addUniqueConstraint tableName="role" columnNames="name"
+			constraintName="UQ_role_name" />
 		<addUniqueConstraint tableName="permission"
-			columnNames="name" constraintName="UQ_permission_name"/>
-		<addUniqueConstraint tableName="user"
-			columnNames="email" constraintName="UQ_user_email"/>
-		<addUniqueConstraint tableName="user"
-			columnNames="mobile" constraintName="UQ_user_mobile"/>			
+			columnNames="name" constraintName="UQ_permission_name" />
+		<addUniqueConstraint tableName="user" columnNames="email"
+			constraintName="UQ_user_email" />
+		<addUniqueConstraint tableName="user" columnNames="mobile"
+			constraintName="UQ_user_mobile" />
 		<addUniqueConstraint tableName="user_group"
-			columnNames="user_id,group_id" constraintName="UQ_user_group"/>
+			columnNames="user_id,group_id" constraintName="UQ_user_group" />
 		<addUniqueConstraint tableName="user_role"
-			columnNames="user_id,role_id" constraintName="UQ_user_role"/>
+			columnNames="user_id,role_id" constraintName="UQ_user_role" />
 		<addUniqueConstraint tableName="group_role"
-			columnNames="group_id,role_id" constraintName="UQ_group_role"/>
-		<addUniqueConstraint tableName="role_permission"
-			columnNames="role_id,permission_id" constraintName="UQ_role_permission"/>
+			columnNames="group_id,role_id" constraintName="UQ_group_role" />
+
 	</changeSet>
 
 </databaseChangeLog>

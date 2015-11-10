@@ -3,27 +3,22 @@ package com.github.teamcalendar.dao;
 import java.util.List;
 import java.util.Set;
 
-import com.github.teamcalendar.domain.Group;
-import com.github.teamcalendar.domain.User;
+import com.github.teamcalendar.domain.GroupEntity;
+import com.github.teamcalendar.middleware.dto.Group;
+import com.github.teamcalendar.middleware.dto.User;
 
+public interface GroupDAO
+{
 
+    void addGroup(GroupEntity group);
 
-public interface GroupDAO {
-	
-	void addGroup(Group group);
-	
-	void updateRole(Group group);
-	
-	void deleteRole(Group group);
-	
-	List<Group> allGroup();
-	
-	Group getGroupById(Integer  id);
-	
-	Group getGroupByName(String name);
-		
-	Set<Group> getGroupForUser(User user);
-	
-	void updateGroupForUser(User user, List<Group> userGroups);
+    void updateGroup(GroupEntity group);
 
+    void deleteGroup(GroupEntity group);
+
+    List<GroupEntity> getAllGroups();
+
+    GroupEntity getGroupById(Integer id);
+
+    GroupEntity getGroupByName(String name);
 }
