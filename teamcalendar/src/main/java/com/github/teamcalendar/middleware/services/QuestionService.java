@@ -7,11 +7,11 @@ import com.github.teamcalendar.middleware.dto.Question;
 public interface QuestionService
 {
 
-    void add(Question question);
+    void addQuestion(Question question);
 
-    void update(Question question);
+    void updateQuestion(Question question);
 
-    void delete(Question question);
+    void deleteQuestion(Question question);
 
     List<Question> getAllQestions();
 }

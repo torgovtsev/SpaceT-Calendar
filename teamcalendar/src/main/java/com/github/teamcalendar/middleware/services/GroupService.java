@@ -11,17 +11,14 @@ public interface GroupService
 
     void addGroup(Group group);
 
-    void updateRole(Group group);
+    void updateGroup(Group group);
 
-    void deleteRole(Group group);
+    void deleteGroup(Group group);
 
-    List<Group> getAllGroup();
+    List<Group> getAllGroups();
 
     Group getGroupById(Integer id);
 
     Group getGroupByName(String name);
 
-    Set<Group> getGroupForUser(User user);
-
-    void updateGroupForUser(User user, List<Group> userGroups);
 }

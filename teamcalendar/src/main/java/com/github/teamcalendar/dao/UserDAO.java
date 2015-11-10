@@ -2,21 +2,22 @@ package com.github.teamcalendar.dao;
 
 import java.util.List;
 
+import com.github.teamcalendar.domain.UserEntity;
 import com.github.teamcalendar.middleware.dto.User;
 
 public interface UserDAO
 {
 
-    void addUser(User user);
+    void addUser(UserEntity user);
 
-    void updateUser(User user);
+    void updateUser(UserEntity user);
 
-    void deleteUser(User user);
+    void deleteUser(UserEntity user);
 
-    User getUserByEmail(String email);
+    UserEntity getUserByEmail(String email);
 
-    User getUserByID(Integer id);
+    UserEntity getUserByID(Integer id);
 
-    List<User> getAllUsers();
+    List<UserEntity> getAllUsers();
 
 }

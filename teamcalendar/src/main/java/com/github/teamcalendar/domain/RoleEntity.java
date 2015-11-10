@@ -1,42 +1,48 @@
 package com.github.teamcalendar.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ROLE", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
-public class RoleEntity
+public class RoleEntity implements Serializable
 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer                   id;
+    private Integer               id;
 
     @Column(name = "NAME", unique = true, nullable = false, length = 64)
-    private String                    name;
+    private String                name;
 
     @Column(name = "DESCRIPTION", length = 512)
-    private String                    description;
+    private String                description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<RolePermissionEntity> rolePermissionEntity = new HashSet<RolePermissionEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rolePermissionEntity")
+    private Set<PermissionEntity> permissionRoleEntity = new HashSet<PermissionEntity>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<UserRoleEntity>       userRoleEntity       = new HashSet<UserRoleEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleUserEntity")
+    private Set<UserEntity>       userRoleEntity       = new HashSet<UserEntity>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<GroupRoleEntity>      groupRoleEntity      = new HashSet<GroupRoleEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "GROUP_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) })
+    private Set<GroupEntity>      groupRoleEntity      = new HashSet<GroupEntity>(0);
 
     public RoleEntity()
     {
@@ -45,6 +51,15 @@ public class RoleEntity
     public RoleEntity(String name)
     {
         this.name = name;
+    }
+
+    public RoleEntity(String name, Set<PermissionEntity> permissionRoleEntity, Set<UserEntity> userRoleEntity,
+            Set<GroupEntity> groupRoleEntity)
+    {
+        this.name = name;
+        this.permissionRoleEntity = permissionRoleEntity;
+        this.userRoleEntity = userRoleEntity;
+        this.groupRoleEntity = groupRoleEntity;
     }
 
     public Integer getId()
@@ -77,34 +92,34 @@ public class RoleEntity
         this.description = description;
     }
 
-    public Set<RolePermissionEntity> getRolePermissionEntity()
+    public Set<PermissionEntity> getPermissionEntity()
     {
-        return this.rolePermissionEntity;
+        return this.permissionRoleEntity;
     }
 
-    public void setRolePermissionEntity(Set<RolePermissionEntity> rolePermissionEntity)
+    public void setPermissionEntity(Set<PermissionEntity> permissionEntity)
     {
-        this.rolePermissionEntity = rolePermissionEntity;
+        this.permissionRoleEntity = permissionEntity;
     }
 
-    public Set<UserRoleEntity> getUserRoleEntity()
+    public Set<UserEntity> getUserEntity()
     {
         return this.userRoleEntity;
     }
 
-    public void setUserRoleEntity(Set<UserRoleEntity> userRoleEntity)
+    public void setUserEntity(Set<UserEntity> userEntity)
     {
-        this.userRoleEntity = userRoleEntity;
+        this.userRoleEntity = userEntity;
     }
 
-    public Set<GroupRoleEntity> getGroupRoleEntity()
+    public Set<GroupEntity> getGroupEntity()
     {
         return this.groupRoleEntity;
     }
 
-    public void setGroupRoleEntity(Set<GroupRoleEntity> groupRoleEntity)
+    public void setGroupEntity(Set<GroupEntity> groupEntity)
     {
-        this.groupRoleEntity = groupRoleEntity;
+        this.groupRoleEntity = groupEntity;
     }
 
 }

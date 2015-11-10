@@ -13,16 +13,12 @@ public interface PermissionService
 
     void updatePermission(Permission permission);
 
-    void deletePermissione(Permission permission);
+    void deletePermission(Permission permission);
 
     List<Permission> getAllPermissions();
 
     Permission getPermissionById(Integer id);
 
     Permission getPermissionByName(String name);
-
-    Set<Permission> getPermissionsForRole(Role role);
-
-    void updatePermissionsForRole(Role role, List<Permission> rolePermissions);
 
 }

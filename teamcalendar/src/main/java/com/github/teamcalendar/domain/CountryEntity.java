@@ -1,5 +1,6 @@
 package com.github.teamcalendar.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,19 +18,16 @@ import com.github.teamcalendar.domain.UserEntity;
 
 @Entity
 @Table(name = "COUNTRY", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
-public class CountryEntity
+public class CountryEntity implements Serializable
 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer         id;
+    private Integer id;
 
     @Column(name = "NAME", unique = true, nullable = false, length = 128)
-    private String          name;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-    private Set<UserEntity> userEntity = new HashSet<UserEntity>(0);
+    private String  name;
 
     public CountryEntity()
     {
@@ -58,16 +56,6 @@ public class CountryEntity
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public Set<UserEntity> getUserEntity()
-    {
-        return this.userEntity;
-    }
-
-    public void setUserEntity(Set<UserEntity> userEntity)
-    {
-        this.userEntity = userEntity;
     }
 
 }

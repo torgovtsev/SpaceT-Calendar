@@ -2,17 +2,18 @@ package com.github.teamcalendar.dao;
 
 import java.util.List;
 
+import com.github.teamcalendar.domain.QuestionEntity;
 import com.github.teamcalendar.middleware.dto.Question;
 
 public interface QuestionDAO
 {
 
-    void add(Question question);
+    void addQuestion(QuestionEntity question);
 
-    void update(Question question);
+    void updateQuestion(QuestionEntity question);
 
-    void delete(Question question);
+    void deleteQuestion(QuestionEntity question);
 
-    List<Question> getAllQestions();
+    List<QuestionEntity> getAllQestions();
 
 }

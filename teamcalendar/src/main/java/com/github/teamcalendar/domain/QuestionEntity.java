@@ -1,5 +1,7 @@
 package com.github.teamcalendar.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "QUESTION", uniqueConstraints = @UniqueConstraint(columnNames = "TEXT"))
-public class QuestionEntity
+public class QuestionEntity implements Serializable
 {
 
     @Id

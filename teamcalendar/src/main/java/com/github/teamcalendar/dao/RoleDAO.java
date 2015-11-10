@@ -3,26 +3,23 @@ package com.github.teamcalendar.dao;
 import java.util.List;
 import java.util.Set;
 
+import com.github.teamcalendar.domain.RoleEntity;
 import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.dto.User;
 
 public interface RoleDAO
 {
 
-    void addRole(Role role);
+    void addRole(RoleEntity role);
 
-    void updateRole(Role role);
+    void updateRole(RoleEntity role);
 
-    void deleteRole(Role role);
+    void deleteRole(RoleEntity role);
 
-    List<Role> getAllRoles();
+    List<RoleEntity> getAllRoles();
 
-    Role getRoleById(Integer id);
+    RoleEntity getRoleById(Integer id);
 
-    Role getRoleByName(String name);
-
-    Set<Role> getRolesForUser(User user);
-
-    void updateRoleForUser(User user, List<Role> userRoles);
+    RoleEntity getRoleByName(String name);
 
 }

@@ -21,8 +21,4 @@ public interface RoleService
 
     Role getRoleByName(String name);
 
-    Set<Role> getRolesForUser(User user);
-
-    void updateRoleForUser(User user, List<Role> userRoles);
-
 }
