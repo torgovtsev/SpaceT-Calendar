@@ -13,6 +13,7 @@
 		<jsf.version>2.2.12</jsf.version>
 		<hsqldb.version>2.3.3</hsqldb.version>
 		<liquibase.version>3.4.1</liquibase.version>
+		<springsecurity.version>4.0.1.RELEASE</springsecurity.version>
 	</properties>
 
 	<dependencies>
@@ -79,6 +80,7 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		
 		<!-- END JSF dependencies -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

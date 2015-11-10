@@ -1,13 +1,15 @@
 package com.github.teamcalendar.dao;
 
 import java.util.List;
-import com.github.teamcalendar.domain.Country;
 
-public interface CountryDAO {
-	
-	void addCountry(Country country);
+import com.github.teamcalendar.domain.CountryEntity;
+import com.github.teamcalendar.middleware.dto.Country;
 
-	List<Country> allCountries();
+public interface CountryDAO
+{
 
-	
+    void addCountry(CountryEntity country);
+
+    List<CountryEntity> getAllCountries();
+
 }
