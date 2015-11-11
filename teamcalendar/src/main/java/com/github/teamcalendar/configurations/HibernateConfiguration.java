@@ -45,7 +45,7 @@ public class HibernateConfiguration
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(createDataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.github.teamcalendar.backend.entities" });
+        sessionFactory.setPackagesToScan(new String[] { "com.github.teamcalendar.domain" });
         sessionFactory.setHibernateProperties(buildHibernateProperties());
 
         return sessionFactory;
