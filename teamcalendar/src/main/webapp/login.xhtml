@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Teamcalendar</title>
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed || !args.loggedIn) {
+				PF('dlg').jq.effect("shake", {
+					times : 5
+				}, 100);
+			} else {
+				PF('dlg').hide();
+				$('#loginLink').fadeOut();
+			}
+		}
+	</script>
+</h:head>
+<h:body>
+	<p:growl id="growl" showDetail="true" life="3000" />
+
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="username" value="Email" />
+			<p:inputText id="username" value="#{userLoginBean.username}"
+				required="true" label="email" />
+
+			<h:outputLabel for="password" value="Password:" />
+			<p:password id="password" value="#{userLoginBean.password}"
+				required="true" label="password" />
+			<h:commandLink action="restore" value="forgot?" />
+
+			<f:facet name="footer">
+				<p:commandButton value="Login" update="growl"
+					actionListener="#{userLoginBean.login}"
+					oncomplete="handleLoginRequest(xhr, status, args)" />
+
+
+			</f:facet>
+		</h:panelGrid>
+
+	</h:form>
+</h:body>
+</html>
