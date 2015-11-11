@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+	    <ui:composition>
+	
+			<h:dataTable value="#{main.msg}" var="user">
+   			
+    			<h:column>
+    				<f:facet name="header">User Name</f:facet>
+    				#{user.firstName}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">User SurName</f:facet>
+    				#{user.lastName}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">User Email</f:facet>
+    				#{user.email}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">User Mobile</f:facet>
+    				#{user.mobile}
+    			</h:column>
+    		
+    		</h:dataTable>
+				
+	    </ui:composition>
+    </body>
+</html>

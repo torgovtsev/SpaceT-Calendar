@@ -1,29 +1,33 @@
 package com.github.teamcalendar.frontend.component;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.UserService;
+import com.github.teamcalendar.middleware.services.UsersService;
 
 @Component(value = "main")
 @RequestScoped
 public class Main
 {
 
-    private String      msg;
+    private List<User>      msg;
 
     @Autowired
-    private UserService userService;
+    private UsersService userService;
 
-    public String getMsg()
+    public List<User> getMsg()
     {
         return msg;
     }
 
-    public void setMsg(String msg)
+    public void setMsg(List<User> msg)
     {
         this.msg = msg;
     }
@@ -31,6 +35,6 @@ public class Main
     @PostConstruct
     private void init()
     {
-        msg = userService.getName();
+        msg = userService.getAllUsers();
     }
 }

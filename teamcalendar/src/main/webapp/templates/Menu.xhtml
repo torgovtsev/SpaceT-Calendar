@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<h:form>
+			<p:growl id="menu" />
+
+			<p:menubar>
+				<p:submenu label="TeamCal">
+					<p:menuitem value="Login" url="/login.xhtml" />
+				</p:submenu>
+
+				<p:submenu label="View" icon="ui-icon-pencil">
+					<p:menuitem value="HomePage" url="#" />
+					<p:menuitem value="TeamCalendar" url="#" />
+				</p:submenu>
+
+				<p:submenu label="Help" icon="ui-icon-help">
+					<p:menuitem value="About" url="#" />
+					<p:menuitem value="UserManual" url="#" />
+				</p:submenu>
+
+			</p:menubar>
+
+			<!--  	<p:growl id="menu" />
+
+				<p:menubar>
+					<p:submenu label="TeamCal">
+						<p:submenu label="Logout" url="#" />
+						<p:submenu label="Register" url="#" />
+
+					</p:submenu>
+
+					<p:submenu label="View" icon="ui-icon-pencil">
+						<p:menuitem value="HomePage" url="#" />
+						<p:menuitem value="Calendar" url="#" />
+						<p:menuitem value="Year Calendar" url="#" />
+
+					</p:submenu>
+
+					<p:submenu label="Tool" icon="ui-icon-help">
+						<p:menuitem value="User Profile" url="#" />
+						<p:menuitem value="Message" url="#" />
+					</p:submenu>
+
+					<p:submenu label="Help" icon="ui-icon-help">
+						<p:menuitem value="About" url="#" />
+						<p:menuitem value="UserManual" url="#" />
+					</p:submenu>
+
+				</p:menubar>-->
+
+		</h:form>
+	</ui:composition>
+</body>
+</html>
+

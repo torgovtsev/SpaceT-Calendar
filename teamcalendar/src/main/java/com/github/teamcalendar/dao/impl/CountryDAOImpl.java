@@ -18,21 +18,24 @@ import com.github.teamcalendar.middleware.dto.Country;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("countryDAO")
-public class CountryDAOImpl extends AbstractDao<Integer, CountryEntity> implements CountryDAO
-{
+public class CountryDAOImpl extends AbstractDao<Integer, CountryEntity>
+		implements CountryDAO {
 
-    public void addCountry(CountryEntity country)
-    {
-        persist(country);
-    }
+	public void addCountry(CountryEntity country) {
+		persist(country);
+	}
 
-    @SuppressWarnings("unchecked")
-    public List<CountryEntity> getAllCountries()
-    {
-        Criteria criteria = createEntityCriteria();
-        List<CountryEntity> countries = (List<CountryEntity>)criteria.list();
+	@SuppressWarnings("unchecked")
+	public List<CountryEntity> getAllCountries() {
+		Criteria criteria = createEntityCriteria();
+		List<CountryEntity> countries = (List<CountryEntity>) criteria.list();
 
-        return countries;
-    }
+		return countries;
+	}
+
+	public CountryEntity getCountryById(Integer id) {
+		CountryEntity country = getByKey(id);
+		return country;
+	}
 
 }
