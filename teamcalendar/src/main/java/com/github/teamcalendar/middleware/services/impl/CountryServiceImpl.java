@@ -52,6 +52,27 @@ public class CountryServiceImpl implements CountryService
         }
         return result;
     }
+    
+    public Country getCountryById(Integer id)
+    {
+
+        Country result = null;
+
+        try
+        {
+            CountryEntity countryEntity = (CountryEntity)dao.getCountryById(id);
+            if (countryEntity != null)
+            {
+                result = convertEntityToCountry(countryEntity);
+            }
+        }
+        catch (Exception ex)
+        {
+            LOG.error(String.format("Error loading country by id=%s", id), ex);
+        }
+
+        return result;
+    }
 
     private Country convertEntityToCountry(CountryEntity entity)
     {
