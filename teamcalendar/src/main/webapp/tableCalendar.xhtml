@@ -10,60 +10,58 @@
 	</h:head>
 	<ui:define name="content">
 	<div id="masterPage">
-			<h:form>     
-			     <p:growl id="messages" showDetail="true" />
-				<p:megaMenu orientation="horizontal" >
-				    <p:submenu label="TeamCal" />
-				    <p:submenu label="View" />
-				    <p:submenu label="Tools"/>
-				    <p:submenu label="Help"/>  
-				</p:megaMenu>
-				<p:toolbar style="margin-top:3px">
-			    	<f:facet name="left">
-			    		<h:outputText value="User: " />
-			    		<p:inputText required="true" placeholder="#{tableCalendarBean.currentUser}" label="User: " size="10" />
-			    		<p:commandButton type="button" value="Search" style="margin-left:3px"/>
-			    		<h:outputText value="Group: " style="margin-left:7px"/>
-			    		<p:inputText required="true" placeholder="#{tableCalendarBean.group}" label="Group: " size = "9"/>
-			    		<h:outputText value="Region: " style="margin-left:7px"/>
-			    		<p:inputText required="true" placeholder="default" label="Region: " size = "9"/>
-			    		<h:outputText value="Today: "  style="margin-left:7px"/>
-			    		<p:inputText required="true" placeholder="All" label="Today: " size = "9"/>
-			    		<h:outputText value="Start: " style="margin-left:7px"/>
-			    		<p:inputText required="true" placeholder="August" size = "9"/>
-			    		<p:inputText required="true" placeholder="2015" style="margin-left:3px" size = "5"/>
-			    		<p:inputText required="true" placeholder="Show 1 month" size = "9"/>
-			    		<p:commandButton type="button" value="Help" style="margin-left:3px"/>
-			    		<p:commandButton type="button" value="Apply" style="margin-left:3px"/>
-			    		<p:commandButton type="button" value="Reset" style="margin-left:3px"/>
-			    	</f:facet>
-			    </p:toolbar>
-			    <p:dataTable var="August 2015" style="margin-top:10px">
-			    	<p:columnGroup type="header">
-		            <p:row>
-		            	<p:column rowspan="2" headerText="August" />
-		            	<p:column colspan="#{tableCalendarBean.daysCount}" headerText="Days" />
-		            </p:row>
-		            <p:row>
-		            	<ui:repeat value="#{tableCalendarBean.days}" var="day">
-                    		<p:column headerText="#{day}" />
-                		</ui:repeat>
-		            </p:row>
-		            <p:row>
-		            	<p:column rowspan="2" headerText="Weeks" />
-		            	<p:column colspan="#{tableCalendarBean.daysCount}" headerText="Week 1" />
-		            	 <!-- <ui:repeat value="#{masterPageBin.weeks}" var="week">
-                    		<p:column headerText="#{week}" />
-                		</ui:repeat>  -->
-		            </p:row>
-		        	</p:columnGroup>
-			        <p:subTable var="stats">
-			            <f:facet name="header">
-			                <h:outputText value="31" />
-			            </f:facet>
-			        </p:subTable>
-			    </p:dataTable>
-			</h:form>
+		<h:form>     
+		    <!-- <p:growl id="messages" showDetail="true" />
+			<p:megaMenu orientation="horizontal" >
+			    <p:submenu label="TeamCal" />
+			    <p:submenu label="View" />
+			    <p:submenu label="Tools"/>
+			    <p:submenu label="Help"/>  
+			</p:megaMenu>  -->
+			<ui:include src="/templates/Menu.xhtml" />
+			<p:toolbar style="margin-top:3px">
+		    	<f:facet name="left">
+		    		<h:outputText value="User: " />
+		    		<p:inputText required="true" placeholder="#{tableCalendarBean.currentUser}" label="User: " size="10" />
+		    		<p:commandButton type="button" value="Search" style="margin-left:3px"/>
+		    		<h:outputText value="Group: " style="margin-left:7px"/>
+		    		<p:inputText required="true" placeholder="#{tableCalendarBean.group}" label="Group: " size = "9"/>
+		    		<h:outputText value="Region: " style="margin-left:7px"/>
+		    		<p:inputText required="true" placeholder="default" label="Region: " size = "9"/>
+		    		<h:outputText value="Today: "  style="margin-left:7px"/>
+		    		<p:inputText required="true" placeholder="All" label="Today: " size = "9"/>
+		    		<h:outputText value="Start: " style="margin-left:7px"/>
+		    		<p:inputText required="true" placeholder="August" size = "9"/>
+		    		<p:inputText required="true" placeholder="2015" style="margin-left:3px" size = "5"/>
+		    		<p:inputText required="true" placeholder="Show 1 month" size = "9"/>
+		    		<p:commandButton type="button" value="Help" style="margin-left:3px"/>
+		    		<p:commandButton type="button" value="Apply" style="margin-left:3px"/>
+		    		<p:commandButton type="button" value="Reset" style="margin-left:3px"/>
+		    	</f:facet>
+		    </p:toolbar>
+		    <p:dataTable var="August 2015" style="margin-top:10px">
+		    	<p:columnGroup type="header">
+	            <p:row>
+	            	<p:column rowspan="2" headerText="August" />
+	            	<p:column colspan="#{tableCalendarBean.daysCount}" headerText="Days" />
+	            </p:row>
+	            <p:row>
+	            	<ui:repeat value="#{tableCalendarBean.days}" var="day">
+                   		<p:column headerText="#{day}" />
+               		</ui:repeat>
+	            </p:row>
+	            <p:row>
+	            	<p:column rowspan="2" headerText="Weeks" />
+	            	<p:column colspan="#{tableCalendarBean.daysCount}" headerText="Week 1" />
+	            </p:row>
+	        	</p:columnGroup>
+		        <p:subTable var="stats">
+		            <f:facet name="header">
+		                <h:outputText value="31" />
+		            </f:facet>
+		        </p:subTable>
+		    </p:dataTable>
+		</h:form>
     </div>
     </ui:define>
 </ui:composition>
