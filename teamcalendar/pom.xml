@@ -80,7 +80,7 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-		
+
 		<!-- END JSF dependencies -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -121,6 +121,21 @@
 			<artifactId>primefaces</artifactId>
 			<version>5.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+
+
+
 	</dependencies>
 	<build>
 		<finalName>teamcalendar</finalName>
