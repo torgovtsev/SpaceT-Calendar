@@ -8,18 +8,6 @@
 
 	<h:head>
 		<title>Teamcalendar</title>
-		<script type="text/javascript">
-		function handleLoginRequest(xhr, status, args) {
-			if (args.validationFailed || !args.loggedIn) {
-				PF('dlg').jq.effect("shake", {
-					times : 5
-				}, 100);
-			} else {
-				PF('dlg').hide();
-				$('#loginLink').fadeOut();
-			}
-		}
-	</script>
 	</h:head>
 
 	<ui:define name="content">
@@ -31,24 +19,19 @@
 					<h:outputLabel for="username" value="Email" />
 					<p:inputText id="username" value="#{userLoginBean.username}"
 						required="true" label="email" />
-
 					<h:outputLabel for="password" value="Password:" />
 					<p:password id="password" value="#{userLoginBean.password}"
 						required="true" label="password" />
-					<h:commandLink action="restore" value="forgot?" />
+					<h:link value="forgot?" outcome="restore"/>
 
 					<f:facet name="footer">
 						<p:commandButton value="Login" update="growl"
-							actionListener="#{userLoginBean.login}"
-							oncomplete="handleLoginRequest(xhr, status, args)" />
-
-
+							actionListener="#{userLoginBean.login}" />
 					</f:facet>
 				</h:panelGrid>
 
 			</h:form>
 		</div>
-
 	</ui:define>
 
 </ui:composition>

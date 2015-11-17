@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.UsersService;
 
-@ManagedBean
+@ManagedBean(name = "userLoginBean")
 @Component(value = "userLoginBean")
 @RequestScoped
 public class UserLoginBean
@@ -55,10 +55,10 @@ public class UserLoginBean
         {
             if (username.contains("@") && username.contains("."))
             {
-                User u = userService.getUserByEmail(username);
-                if (u != null)
+                User user = userService.getUserByEmail(username);
+                if (user != null)
                 {
-                    if (u.getPassword().equals(password))
+                    if (user.getPassword().equals(password))
                     {
                         loggedIn = true;
                         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
