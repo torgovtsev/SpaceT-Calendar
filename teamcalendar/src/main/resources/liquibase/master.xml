@@ -7,6 +7,7 @@
 
 <!--  	<include file="schema/Question.xml" relativeToChangelogFile="true" /> -->
 <!--	<include file="schema/User.xml" relativeToChangelogFile="true" /> -->
+	<include file="schema/UserResetPassword.xml" relativeToChangelogFile="true" />
 
 	<include file="data/Country.xml" relativeToChangelogFile="true" /> 
 	<include file="data/User.xml" relativeToChangelogFile="true" /> 
@@ -17,6 +18,5 @@
 	<include file="data/RolePermission.xml" relativeToChangelogFile="true" /> 
 	<include file="data/UserGroup.xml" relativeToChangelogFile="true" /> 
 	<include file="data/UserRole.xml" relativeToChangelogFile="true" /> 
-	<include file="data/Questions.xml" relativeToChangelogFile="true" /> 
-
+	<include file="data/Questions.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>
