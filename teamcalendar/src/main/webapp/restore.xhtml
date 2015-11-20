@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="templates/masterPage.xhtml">
+
+	<h:head>
+		<title>Teamcalendar22</title>
+	</h:head>
+
+	<ui:define name="content">
+		<div id="resore_password_form">
+			<p:growl id="growl" showDetail="true" life="3000" />
+			<h:form>
+				<p:captcha label="Captcha" />
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel value="email:" />
+					<p:inputText placeholder="email"
+						value="#{restorePasswordBean.username}" />
+										<p:commandButton id="resetPasswordBtn" value="reset!"
+					actionListener="#{restorePasswordBean.reset}" update="growl" />
+				</h:panelGrid>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+
+
+
+</ui:composition>
