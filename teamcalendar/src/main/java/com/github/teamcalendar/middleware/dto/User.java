@@ -1,25 +1,32 @@
 package com.github.teamcalendar.middleware.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User
 {
 
-    private Integer id;
-    private Country country;
-    private String  firstName;
-    private String  lastName;
-    private String  email;
-    private String  password;
-    private String  secretQuestion;
-    private String  secretAnswer;
-    private String  mobile;
-    private Boolean sex;
-    private int     age;
-    private Date    registrationDate;
-    private Boolean isBlocked;
-    private Boolean isDeleted;
-    private Boolean isVerified;
+    private Integer    id;
+    private Country    country;
+    private String     firstName;
+    private String     lastName;
+
+    private String     email;
+    private String     password;
+    private String     secretQuestion;
+    private String     secretAnswer;
+    private String     mobile;
+    private Boolean    sex;
+    private int        age;
+    private Date       registrationDate;
+    private Boolean    isBlocked;
+    private Boolean    isDeleted;
+    private Boolean    isVerified;
+
+    private Set<Group> groupUser = new HashSet<Group>();
+
+    private Set<Role>  roleUser  = new HashSet<Role>(0);
 
     public User()
     {
@@ -194,6 +201,36 @@ public class User
     public void setIsVerified(Boolean isVerified)
     {
         this.isVerified = isVerified;
+    }
+
+    public Country getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(Country country)
+    {
+        this.country = country;
+    }
+
+    public Set<Group> getGroupUser()
+    {
+        return groupUser;
+    }
+
+    public void setGroupUser(Set<Group> groupUser)
+    {
+        this.groupUser = groupUser;
+    }
+
+    public Set<Role> getRoleUser()
+    {
+        return roleUser;
+    }
+
+    public void setRoleUser(Set<Role> roleUser)
+    {
+        this.roleUser = roleUser;
     }
 
 }

@@ -6,9 +6,9 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
         
-    <changeSet id="user" author="Ivanov Artem">
+    <changeSet id="user_" author="Ivanov Artem">
     
-    	<insert tableName="user">
+    	<insert tableName="user_">
 			<column name="id">1</column>
 			<column name="first_name">Artem</column>
 			<column name="last_name">Ivanov</column>
@@ -26,7 +26,7 @@
 			<column name="is_verified">true</column>
 		</insert>
 		
-		<insert tableName="user">
+		<insert tableName="user_">
 			<column name="id">2</column>
 			<column name="first_name">Ivan</column>
 			<column name="last_name">Kopylov</column>
@@ -44,7 +44,7 @@
 			<column name="is_verified">true</column>
 		</insert>
 		
-		<insert tableName="user">
+		<insert tableName="user_">
 			<column name="id">3</column>
 			<column name="first_name">Ivan</column>
 			<column name="last_name">Aldushin</column>
@@ -62,7 +62,7 @@
 			<column name="is_verified">true</column>
 		</insert>
 		
-		<insert tableName="user">
+		<insert tableName="user_">
 			<column name="id">4</column>
 			<column name="first_name">Natalia</column>
 			<column name="last_name">Gavrilova</column>
@@ -80,7 +80,7 @@
 			<column name="is_verified">true</column>
 		</insert>
 		
-		<insert tableName="user">
+		<insert tableName="user_">
 			<column name="id">5</column>
 			<column name="first_name">Max</column>
 			<column name="last_name">Podlesnov</column>
@@ -98,7 +98,7 @@
 			<column name="is_verified">true</column>
 		</insert>
 		
-		<insert tableName="user">
+		<insert tableName="user_">
 			<column name="id">6</column>
 			<column name="first_name">Sergey</column>
 			<column name="last_name">Torgovtsev</column>

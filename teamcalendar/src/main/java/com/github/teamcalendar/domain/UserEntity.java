@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,73 +15,92 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.dozer.Mapping;
+
 @Entity
-@Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"), @UniqueConstraint(columnNames = "MOBILE") })
+@Table(name = "USER_", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"), @UniqueConstraint(columnNames = "MOBILE") })
 public class UserEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer          id;
+    @Mapping("id")
+    private Integer           id;
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID", nullable = false)
-    private CountryEntity    countryEntity;
+    @Mapping("country")
+    private CountryEntity     countryEntity;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 64)
-    private String           firstName;
+    @Mapping("firstName")
+    private String            firstName;
 
     @Column(name = "LAST_NAME", nullable = false, length = 128)
-    private String           lastName;
+    @Mapping("lastName")
+    private String            lastName;
 
     @Column(name = "EMAIL", unique = true, nullable = false, length = 128)
-    private String           email;
+    @Mapping("email")
+    private String            email;
 
     @Column(name = "PASSWORD", nullable = false, length = 1024)
-    private String           password;
+    @Mapping("password")
+    private String            password;
 
     @Column(name = "SECRET_QUESTION", nullable = false, length = 128)
-    private String           secretQuestion;
+    @Mapping("secretQuestion")
+    private String            secretQuestion;
 
     @Column(name = "SECRET_ANSWER", nullable = false, length = 1024)
-    private String           secretAnswer;
+    @Mapping("secretAnswer")
+    private String            secretAnswer;
 
     @Column(name = "MOBILE", unique = true, nullable = false, length = 48)
-    private String           mobile;
+    @Mapping("mobile")
+    private String            mobile;
 
     @Column(name = "SEX")
-    private Boolean          sex;
+    @Mapping("sex")
+    private Boolean           sex;
 
     @Column(name = "AGE", nullable = false)
-    private int              age;
+    @Mapping("age")
+    private int               age;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "REGISTRATION_DATE", length = 26)
-    private Date             registrationDate;
+    @Mapping("registrationDate")
+    private Date              registrationDate;
 
     @Column(name = "IS_BLOCKED", nullable = false)
-    private boolean          isBlocked;
+    @Mapping("isBlocked")
+    private boolean           isBlocked;
 
     @Column(name = "IS_DELETED", nullable = false)
-    private boolean          isDeleted;
+    @Mapping("isDeleted")
+    private boolean           isDeleted;
 
     @Column(name = "IS_VERIFIED", nullable = false)
-    private boolean          isVerified;
+    @Mapping("isVerified")
+    private boolean           isVerified;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
-    private Set<RoleEntity>  roleUserEntity  = new HashSet<RoleEntity>(0);
+    @Mapping("roleUser")
+    private Set<RoleEntity>   roleUserEntity   = new HashSet<RoleEntity>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USER_Group", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) })
-    private Set<GroupEntity> groupUserEntity = new HashSet<GroupEntity>(0);
+    @Mapping("groupUser")
+    private Set<GroupEntity>  groupUserEntity  = new HashSet<GroupEntity>(0);
 
     public UserEntity()
     {
@@ -279,24 +297,24 @@ public class UserEntity implements Serializable
         this.isVerified = isVerified;
     }
 
-    //    public Set<UserRoleEntity> getUserRoleEntity()
-    //    {
-    //        return this.userRoleEntity;
-    //    }
-    //
-    //    public void setUserRoleEntity(Set<UserRoleEntity> userRoleEntity)
-    //    {
-    //        this.userRoleEntity = userRoleEntity;
-    //    }
-    //
-    //    public Set<UserGroupEntity> getUserGroupEntity()
-    //    {
-    //        return this.userGroupEntity;
-    //    }
-    //
-    //    public void setUserGroupEntity(Set<UserGroupEntity> userGroupEntity)
-    //    {
-    //        this.userGroupEntity = userGroupEntity;
-    //    }
+    public Set<RoleEntity> getRoleUserEntity()
+    {
+        return this.roleUserEntity;
+    }
+
+    public void setRoleUserEntity(Set<RoleEntity> roleEntity)
+    {
+        this.roleUserEntity = roleEntity;
+    }
+
+    public Set<GroupEntity> getGroupUserEntity()
+    {
+        return this.groupUserEntity;
+    }
+
+    public void setGroupUserEntity(Set<GroupEntity> groupEntity)
+    {
+        this.groupUserEntity = groupEntity;
+    }
 
 }

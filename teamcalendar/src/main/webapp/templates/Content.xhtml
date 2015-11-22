@@ -5,30 +5,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
 	    <ui:composition>
-	
-			<h:dataTable value="#{main.msg}" var="user">
-   			
-    			<h:column>
-    				<f:facet name="header">User Name</f:facet>
-    				#{user.firstName}
-    			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">User SurName</f:facet>
-    				#{user.lastName}
-    			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">User Email</f:facet>
-    				#{user.email}
-    			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">User Mobile</f:facet>
-    				#{user.mobile}
-    			</h:column>
-    		
-    		</h:dataTable>
 				
 	    </ui:composition>
     </body>

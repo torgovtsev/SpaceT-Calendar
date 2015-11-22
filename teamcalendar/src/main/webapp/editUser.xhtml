@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="templates/masterPage.xhtml"
+	xmlns:fcore="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<title>Teamcalendar</title>
+	</h:head>
+
+	<ui:define name="content">
+		<br />
+		<h:outputLink value="UserList.xhtml">Show All User</h:outputLink>
+
+		<h:form id="userBeanForm">
+			<br />
+			<p:tabView>
+				<p:tab title="User data editor">
+					<p:dataTable var="user" value="#{userBean.user}">
+						<f:facet name="header">
+							<h:outputText value="Edit User"></h:outputText>
+						</f:facet>
+
+						<p:column>
+							<p:panelGrid>
+								<p:row>
+									<p:column>
+							First Name
+						</p:column>
+									<p:column>
+										<h:inputText value="#{user.firstName}" required="true" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+							Last Name
+						</p:column>
+									<p:column>
+										<h:inputText value="#{user.lastName}" required="true" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+							Email adress
+						</p:column>
+									<p:column>
+										<h:inputText value="#{user.email}" required="true" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+							Mobile Number
+						</p:column>
+									<p:column>
+										<h:inputText value="#{user.mobile}" required="true" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+							Age
+						</p:column>
+									<p:column>
+										<h:inputText value="#{user.age}" required="true" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton action="#{userBean.update}" type="submit"
+								value="Update"></p:commandButton>
+							<p:commandButton action="UserList.xhtml" value="Cancel"></p:commandButton>
+
+						</f:facet>
+
+					</p:dataTable>
+				</p:tab>
+
+				<p:tab title="User Blocked">
+					<p:dataTable var="user" value="#{userBean.user}">
+						<f:facet name="header">
+							<h:outputText value="Edit User Blocked"></h:outputText>
+						</f:facet>
+						<p:column>
+							<p:panelGrid>
+								<p:row>
+									<p:column>
+							Is Blocked
+						</p:column>
+									<p:column>
+										<p:selectOneButton value="#{user.isBlocked}" required="true">
+											<f:selectItem itemLabel="true" itemValue="true" />
+											<f:selectItem itemLabel="false" itemValue="false" />
+										</p:selectOneButton>
+									</p:column>
+								</p:row>
+
+							</p:panelGrid>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton action="#{userBean.updateBlocked}" type="submit"
+								value="Update"></p:commandButton>
+							<p:commandButton action="UserList.xhtml" value="Cancel"></p:commandButton>
+
+						</f:facet>
+
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="User Deleted">
+					<p:dataTable var="user" value="#{userBean.user}">
+						<f:facet name="header">
+							<h:outputText value="Edit User Deleted"></h:outputText>
+						</f:facet>
+						<p:column>
+							<p:panelGrid>
+								<p:row>
+									<p:column>
+							Is Deleted
+						</p:column>
+									<p:column>
+										<p:selectOneButton value="#{user.isDeleted}" required="true">
+											<f:selectItem itemLabel="true" itemValue="true" />
+											<f:selectItem itemLabel="false" itemValue="false" />
+										</p:selectOneButton>
+									</p:column>
+								</p:row>
+
+							</p:panelGrid>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton action="#{userBean.updateDeleted}" type="submit"
+								value="Update"></p:commandButton>
+							<p:commandButton action="UserList.xhtml" value="Cancel"></p:commandButton>
+
+						</f:facet>
+
+					</p:dataTable>
+				</p:tab>
+
+
+				<p:tab title="User roles editor">
+					<p:dataTable var="userRole" value="#{userBean.user.roleUser}">
+						<f:facet name="header">
+							<h:outputText value="Edit Roles for User"></h:outputText>
+						</f:facet>
+
+						<p:column>
+							<p:panelGrid>
+								<p:row>
+									<p:column>
+							Role Name
+						</p:column>
+									<p:column>
+										<h:outputText value="#{userRole.name}" required="true" />
+									</p:column>
+									<p:column>
+										<p:commandButton
+											actionListener="#{userBean.deleteRole(userRole)}"
+											type="submit" value="Delete" ajax="false">
+										</p:commandButton>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton action="UserList.xhtml" value="Cancel"></p:commandButton>
+							<p:commandButton value="Add role for User" type="button"
+								actionListener="userBean.getAllRole"
+								onclick="PF('dlg3').show();" />
+
+							<p:dialog header="Add Role" widgetVar="dlg3" minHeight="40" width="500">
+								<h:form>
+									<h:panelGrid columns="2" id="display" columnClasses="label,value" >
+										<p:outputLabel for="role" value="Editable: " />
+										<p:selectOneMenu id="role" value="#{userBean.select}"
+											effect="fold" editable="true">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems value="#{userBean.allRole}" />
+										</p:selectOneMenu>
+									</h:panelGrid>
+								</h:form>
+								<p:commandButton action="#{userBean.addRoleForUser}"
+									type="submit" value="Add"></p:commandButton>
+							</p:dialog>
+						</f:facet>
+					</p:dataTable>
+				</p:tab>
+
+			</p:tabView>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

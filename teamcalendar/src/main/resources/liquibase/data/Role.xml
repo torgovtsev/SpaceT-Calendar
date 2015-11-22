@@ -6,21 +6,21 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
         
-    <changeSet id="role" author="Ivanov Artem">
+    <changeSet id="role_" author="Ivanov Artem">
           
-    	<insert tableName="role">
+    	<insert tableName="role_">
 			<column name="id">1</column>
 			<column name="name">User</column>
 			<column name="description">User</column>
 		</insert>
     
-    	<insert tableName="role">
+    	<insert tableName="role_">
 			<column name="id">2</column>
 			<column name="name">Administrator</column>
 			<column name="description">Administrator</column>
 		</insert>
 		
-		<insert tableName="role">
+		<insert tableName="role_">
 			<column name="id">3</column>
 			<column name="name">SuperAdministrator</column>
 			<column name="description">SuperAdministrator</column>

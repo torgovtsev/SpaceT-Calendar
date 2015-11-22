@@ -14,14 +14,15 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "QUESTION", uniqueConstraints = @UniqueConstraint(columnNames = "TEXT"))
 public class QuestionEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer id;
+    private Integer           id;
 
     @Column(name = "Text", unique = true, nullable = false, length = 4024)
-    private String  text;
+    private String            text;
 
     public QuestionEntity()
     {

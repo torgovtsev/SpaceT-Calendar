@@ -4,39 +4,41 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.dozer.Mapping;
 
 @Entity
 @Table(name = "PERMISSION", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class PermissionEntity implements Serializable
 {
+    private static final long serialVersionUID     = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer         id;
+    @Mapping("id")
+    private Integer           id;
 
     @Column(name = "NAME", unique = true, nullable = false, length = 64)
-    private String          name;
+    @Mapping("name")
+    private String            name;
 
     @Column(name = "DESCRIPTION", length = 512)
-    private String          description;
+    @Mapping("description")
+    private String            description;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "ROLE_PERMISSION", joinColumns = { @JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
-    private Set<RoleEntity> rolePermissionEntity = new HashSet<RoleEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissionRoleEntity")
+    @Mapping("rolePermission")
+    private Set<RoleEntity>   rolePermissionEntity = new HashSet<RoleEntity>(0);
 
     public PermissionEntity()
     {
@@ -83,12 +85,12 @@ public class PermissionEntity implements Serializable
         this.description = description;
     }
 
-    public Set<RoleEntity> getRoleEntity()
+    public Set<RoleEntity> getRolePermissionEntity()
     {
         return this.rolePermissionEntity;
     }
 
-    public void setRoleEntity(Set<RoleEntity> roleEntity)
+    public void setRolePermissionEntity(Set<RoleEntity> roleEntity)
     {
         this.rolePermissionEntity = roleEntity;
     }

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="templates/masterPage.xhtml"
+	xmlns:fcore="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<title>Teamcalendar</title>
+	</h:head>
+
+	<ui:define name="content">
+		<br />
+		<h:outputLink value="UserList.xhtml">Show All User</h:outputLink>
+
+		<h:form id="userBeanForm">
+			<br />
+
+			<p:dataTable var="user" value="#{userBean.user}">
+				<f:facet name="header">
+					<h:outputText value="Add User"></h:outputText>
+				</f:facet>
+
+				<p:column>
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+							First Name
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.firstName}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Last Name
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.lastName}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Email adress
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.email}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Password
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.password}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Secret Question
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.secretQuestion}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Answer
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.secretAnswer}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Mobile Number
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.mobile}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Age
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.age}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Registration Date
+						</p:column>
+							<p:column>
+								<h:inputText value="#{user.registrationDate}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Country
+						</p:column>
+							<p:column>
+								<p:selectOneMenu id="country" value="#{user.country}"
+									effect="fold" editable="true">
+									<f:selectItem itemLabel="Select Country" itemValue="" />
+									<f:selectItems value="#{userBean.allCountry}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Sex
+						</p:column>
+							<p:column>
+								<p:selectOneButton value="#{user.isBlocked}" required="true">
+									<f:selectItem itemLabel="male" itemValue="true" />
+									<f:selectItem itemLabel="famale" itemValue="false" />
+								</p:selectOneButton>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Is Blocked
+						</p:column>
+							<p:column>
+								<p:selectOneButton value="#{user.isBlocked}" required="true">
+									<f:selectItem itemLabel="true" itemValue="true" />
+									<f:selectItem itemLabel="false" itemValue="false" />
+								</p:selectOneButton>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Is Deleted
+						</p:column>
+							<p:column>
+								<p:selectOneButton value="#{user.isDeleted}" required="true">
+									<f:selectItem itemLabel="true" itemValue="true" />
+									<f:selectItem itemLabel="false" itemValue="false" />
+								</p:selectOneButton>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Is Verified
+						</p:column>
+							<p:column>
+								<p:selectOneButton value="#{user.isVerified}" required="true">
+									<f:selectItem itemLabel="true" itemValue="true" />
+									<f:selectItem itemLabel="false" itemValue="false" />
+								</p:selectOneButton>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton action="#{userBean.create}" type="submit"
+						value="Save"></p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -6,21 +6,21 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
         
-    <changeSet id="groups" author="Ivanov Artem">
+    <changeSet id="group_" author="Ivanov Artem">
     
-    <insert tableName="groups">
+    <insert tableName="group_">
 			<column name="id">1</column>
 			<column name="name">Guest</column>
 			<column name="description">Guests group</column>
 		</insert>
 
-		<insert tableName="groups">
+		<insert tableName="group_">
 			<column name="id">2</column>
 			<column name="name">User</column>
 			<column name="description">Users group</column>
 		</insert>		
 
-		<insert tableName="groups">
+		<insert tableName="group_">
 			<column name="id">3</column>
 			<column name="name">Admin</column>
 			<column name="description">Administrator group</column>

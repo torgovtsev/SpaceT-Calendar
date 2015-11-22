@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,34 +13,44 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.dozer.Mapping;
+
 @Entity
-@Table(name = "ROLE", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "ROLE_", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class RoleEntity implements Serializable
 {
+    private static final long     serialVersionUID     = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
+    @Mapping("id")
     private Integer               id;
 
     @Column(name = "NAME", unique = true, nullable = false, length = 64)
+    @Mapping("name")
     private String                name;
 
     @Column(name = "DESCRIPTION", length = 512)
+    @Mapping("description")
     private String                description;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rolePermissionEntity")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ROLE_PERMISSION", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) })
+    @Mapping("permissionRole")
     private Set<PermissionEntity> permissionRoleEntity = new HashSet<PermissionEntity>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleUserEntity")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+    @Mapping("userRole")
     private Set<UserEntity>       userRoleEntity       = new HashSet<UserEntity>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "GROUP_ROLE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) })
+    @Mapping("groupRole")
     private Set<GroupEntity>      groupRoleEntity      = new HashSet<GroupEntity>(0);
 
     public RoleEntity()
@@ -92,32 +101,32 @@ public class RoleEntity implements Serializable
         this.description = description;
     }
 
-    public Set<PermissionEntity> getPermissionEntity()
+    public Set<PermissionEntity> getPermissionRoleEntity()
     {
         return this.permissionRoleEntity;
     }
 
-    public void setPermissionEntity(Set<PermissionEntity> permissionEntity)
+    public void setPermissionRoleEntity(Set<PermissionEntity> permissionEntity)
     {
         this.permissionRoleEntity = permissionEntity;
     }
 
-    public Set<UserEntity> getUserEntity()
+    public Set<UserEntity> getUserRoleEntity()
     {
         return this.userRoleEntity;
     }
 
-    public void setUserEntity(Set<UserEntity> userEntity)
+    public void setUserRoleEntity(Set<UserEntity> userEntity)
     {
         this.userRoleEntity = userEntity;
     }
 
-    public Set<GroupEntity> getGroupEntity()
+    public Set<GroupEntity> getGroupRoleEntity()
     {
         return this.groupRoleEntity;
     }
 
-    public void setGroupEntity(Set<GroupEntity> groupEntity)
+    public void setGroupRoleEntity(Set<GroupEntity> groupEntity)
     {
         this.groupRoleEntity = groupEntity;
     }

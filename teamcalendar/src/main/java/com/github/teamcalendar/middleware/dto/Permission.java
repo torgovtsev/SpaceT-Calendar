@@ -1,11 +1,16 @@
 package com.github.teamcalendar.middleware.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Permission
 {
 
-    private Integer id;
-    private String  name;
-    private String  description;
+    private Integer   id;
+    private String    name;
+    private String    description;
+
+    private Set<Role> rolePermission = new HashSet<Role>(0);
 
     public Permission()
     {
@@ -48,6 +53,16 @@ public class Permission
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public Set<Role> getRolePermission()
+    {
+        return rolePermission;
+    }
+
+    public void setRolePermission(Set<Role> rolePermission)
+    {
+        this.rolePermission = rolePermission;
     }
 
 }

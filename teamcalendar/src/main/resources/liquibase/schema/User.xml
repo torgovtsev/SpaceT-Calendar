@@ -12,9 +12,9 @@
 		<preConditions onFail="CONTINUE">
 			<not>
 				<tableExists schemaName="public" tableName="country"></tableExists>
-				<tableExists schemaName="public" tableName="user"></tableExists>
-				<tableExists schemaName="public" tableName="groups"></tableExists>
-				<tableExists schemaName="public" tableName="role"></tableExists>
+				<tableExists schemaName="public" tableName="user_"></tableExists>
+				<tableExists schemaName="public" tableName="group_"></tableExists>
+				<tableExists schemaName="public" tableName="role_"></tableExists>
 				<tableExists schemaName="public" tableName="permission"></tableExists>
 				<tableExists schemaName="public" tableName="user_group"></tableExists>
 				<tableExists schemaName="public" tableName="user_role"></tableExists>
@@ -25,7 +25,7 @@
 
 
 		<createTable tableName="country">
-			<column name="id" autoIncrement="true" type="int">
+			<column name="id" autoIncrement="true" type="java.lang.Integer">
 				<constraints primaryKey="true" primaryKeyName="PK_country" />
 			</column>
 			<column name="name" type="varchar(128)">
@@ -33,8 +33,8 @@
 			</column>
 		</createTable>
 
-		<createTable tableName="user">
-			<column name="id" autoIncrement="true" type="int">
+		<createTable tableName="user_">
+			<column name="id" autoIncrement="true" type="java.lang.Integer">
 				<constraints primaryKey="true" primaryKeyName="PK_user" />
 			</column>
 			<column name="first_name" type="varchar(64)">
@@ -62,7 +62,7 @@
 			<column name="age" type="int">
 				<constraints nullable="false" />
 			</column>
-			<column name="country_id" type="int">
+			<column name="country_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_user_country"
 					references="country(id)" />
 			</column>
@@ -79,8 +79,8 @@
 			</column>
 		</createTable>
 
-		<createTable tableName="groups">
-			<column name="id" autoIncrement="true" type="int">
+		<createTable tableName="group_">
+			<column name="id" autoIncrement="true" type="java.lang.Integer">
 				<constraints primaryKey="true" primaryKeyName="PK_group" />
 			</column>
 			<column name="name" type="varchar(64)">
@@ -89,8 +89,8 @@
 			<column name="description" type="varchar(512)"></column>
 		</createTable>
 
-		<createTable tableName="role">
-			<column name="id" autoIncrement="true" type="int">
+		<createTable tableName="role_">
+			<column name="id" autoIncrement="true" type="java.lang.Integer">
 				<constraints primaryKey="true" primaryKeyName="PK_role" />
 			</column>
 			<column name="name" type="varchar(64)">
@@ -100,7 +100,7 @@
 		</createTable>
 
 		<createTable tableName="permission">
-			<column name="id" autoIncrement="true" type="int">
+			<column name="id" autoIncrement="true" type="java.lang.Integer">
 				<constraints primaryKey="true" primaryKeyName="PK_permission" />
 			</column>
 			<column name="name" type="varchar(64)">
@@ -110,44 +110,44 @@
 		</createTable>
 
 		<createTable tableName="user_group">
-			<column name="user_id" type="int">
+			<column name="user_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_user_group_user"
-					references="user(id)" />
+					references="user_(id)" />
 			</column>
-			<column name="group_id" type="int">
+			<column name="group_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_user_group_group"
-					references="groups(id)" />
+					references="group_(id)" />
 			</column>
 		</createTable>
 
 		<createTable tableName="user_role">
-			<column name="user_id" type="int">
+			<column name="user_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_user_role_user"
-					references="user(id)" />
+					references="user_(id)" />
 			</column>
-			<column name="role_id" type="int">
+			<column name="role_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_user_role_role"
-					references="role(id)" />
+					references="role_(id)" />
 			</column>
 		</createTable>
 
 		<createTable tableName="group_role">
-			<column name="group_id" type="int">
+			<column name="group_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_group_role_group"
-					references="groups(id)" />
+					references="group_(id)" />
 			</column>
-			<column name="role_id" type="int">
+			<column name="role_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_group_role_role"
-					references="role(id)" />
+					references="role_(id)" />
 			</column>
 		</createTable>
 
 		<createTable tableName="role_permission">
-			<column name="role_id" type="int">
+			<column name="role_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_role_permission_role"
-					references="role(id)" />
+					references="role_(id)" />
 			</column>
-			<column name="permission_id" type="int">
+			<column name="permission_id" type="java.lang.Integer">
 				<constraints nullable="false" foreignKeyName="FK_role_permission_permission"
 					references="permission(id)" />
 			</column>
@@ -158,15 +158,15 @@
 	<changeSet id="alter_table" author="Ivanov Artem">
 		<addUniqueConstraint tableName="country"
 			columnNames="name" constraintName="UQ_country_name" />
-		<addUniqueConstraint tableName="groups"
+		<addUniqueConstraint tableName="group_"
 			columnNames="name" constraintName="UQ_group_name" />
-		<addUniqueConstraint tableName="role" columnNames="name"
+		<addUniqueConstraint tableName="role_" columnNames="name"
 			constraintName="UQ_role_name" />
 		<addUniqueConstraint tableName="permission"
 			columnNames="name" constraintName="UQ_permission_name" />
-		<addUniqueConstraint tableName="user" columnNames="email"
+		<addUniqueConstraint tableName="user_" columnNames="email"
 			constraintName="UQ_user_email" />
-		<addUniqueConstraint tableName="user" columnNames="mobile"
+		<addUniqueConstraint tableName="user_" columnNames="mobile"
 			constraintName="UQ_user_mobile" />
 		<addUniqueConstraint tableName="user_group"
 			columnNames="user_id,group_id" constraintName="UQ_user_group" />

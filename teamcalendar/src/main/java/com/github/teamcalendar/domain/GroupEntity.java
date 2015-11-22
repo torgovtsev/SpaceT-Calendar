@@ -10,32 +10,43 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.dozer.Mapping;
+
 @Entity
-@Table(name = "GROUPS", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "GROUP_", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class GroupEntity implements Serializable
 {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer         id;
+    @Mapping("id")
+    private Integer           id;
 
     @Column(name = "NAME", unique = true, nullable = false, length = 64)
-    private String          name;
+    @Mapping("name")
+    private String            name;
 
     @Column(name = "DESCRIPTION", length = 512)
-    private String          description;
+    @Mapping("description")
+    private String            description;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groupRoleEntity")
-    private Set<RoleEntity> roleGroupEntity = new HashSet<RoleEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "GROUP_ROLE", joinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+    @Mapping("roleGroup")
+    private Set<RoleEntity>   roleGroupEntity  = new HashSet<RoleEntity>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groupUserEntity")
-    private Set<UserEntity> userGroupEntity = new HashSet<UserEntity>(0);
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_Group", joinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+    @Mapping("userGroup")
+    private Set<UserEntity>   userGroupEntity  = new HashSet<UserEntity>(0);
 
     public GroupEntity()
     {
