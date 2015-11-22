@@ -11,8 +11,11 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.stereotype.Service;
+
 import com.sun.mail.smtp.SMTPTransport;
 
+@Service
 public class MailServiceImpl implements MailService
 {
 
@@ -23,11 +26,24 @@ public class MailServiceImpl implements MailService
     private Properties properties  = new Properties();
     private Properties credentials = new Properties();
 
-    public MailServiceImpl(String to, String body, String subject)
+    public MailServiceImpl()
     {
-        this.message_to = to;
-        this.message_body = body;
-        this.message_subject = subject;
+
+    }
+
+    public void setMessage_to(String message_to)
+    {
+        this.message_to = message_to;
+    }
+
+    public void setMessage_body(String message_body)
+    {
+        this.message_body = message_body;
+    }
+
+    public void setMessage_subject(String message_subject)
+    {
+        this.message_subject = message_subject;
     }
 
     @Override

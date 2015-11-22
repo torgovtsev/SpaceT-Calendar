@@ -34,6 +34,9 @@ public class RestorePassword2StepBean
     @Autowired
     private UsersService userService;
 
+    @Autowired
+    private MailService  mailService;
+
     private String       username;
     private String       generatedCode;
 
@@ -78,9 +81,11 @@ public class RestorePassword2StepBean
 
                         userService.updateUser(user);
 
-                        MailService mailer = new MailServiceImpl(username, String.format(STRING_PASSWORDRESET_MAILBODY, newPassword),
-                                STRING_PASSWORDRESET_MAILSUBJECT);
-                        mailer.send();
+                        ((MailServiceImpl)mailService).setMessage_body(String.format(STRING_PASSWORDRESET_MAILBODY, newPassword));
+                        ((MailServiceImpl)mailService).setMessage_subject(STRING_PASSWORDRESET_MAILSUBJECT);
+                        ((MailServiceImpl)mailService).setMessage_to(username);
+
+                        mailService.send();
 
                         message = new FacesMessage(FacesMessage.SEVERITY_INFO, STRING_USERMESSAGE_GENERAL_SUCCESS,
                                 STRING_USERMESSAGE_PASSWORDSENT);

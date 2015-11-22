@@ -33,6 +33,9 @@ public class RestorePasswordBean
     @Autowired
     private UsersService userService;
 
+    @Autowired
+    MailService          mailService;
+
     private String       username;
 
     public String getUsername()
@@ -48,7 +51,6 @@ public class RestorePasswordBean
     public void reset(ActionEvent event)
     {
         FacesMessage message = null;
-        MailService mailer;
 
         if (username.contains("@") && username.contains("."))
         {
@@ -60,9 +62,10 @@ public class RestorePasswordBean
                 user.setSecretAnswer(resetPasswordUuid);
                 userService.updateUser(user);
 
-                mailer = new MailServiceImpl(user.getEmail(), String.format(STRING_PASSWORDRESET_MAILBODY, resetPasswordUuid),
-                        STRING_PASSWORDRESET_MAILSUBJECT);
-                mailer.send();
+                ((MailServiceImpl)mailService).setMessage_body(String.format(STRING_PASSWORDRESET_MAILBODY, resetPasswordUuid));
+                ((MailServiceImpl)mailService).setMessage_subject(STRING_PASSWORDRESET_MAILSUBJECT);
+                ((MailServiceImpl)mailService).setMessage_to(user.getEmail());
+                mailService.send();
 
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, STRING_USERMESSAGE_GENERAL_SUCCESS, STRING_USERMESSAGE_CODE_SENT);
             }
