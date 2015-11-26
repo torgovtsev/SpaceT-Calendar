@@ -11,6 +11,8 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.sun.mail.smtp.SMTPTransport;
@@ -19,35 +21,18 @@ import com.sun.mail.smtp.SMTPTransport;
 public class MailServiceImpl implements MailService
 {
 
-    private String     message_to;
-    private String     message_body;
-    private String     message_subject;
+    private static final Logger LOG         = LoggerFactory.getLogger(MailServiceImpl.class);
 
-    private Properties properties  = new Properties();
-    private Properties credentials = new Properties();
+    private Properties          properties  = new Properties();
+    private Properties          credentials = new Properties();
 
     public MailServiceImpl()
     {
 
     }
 
-    public void setMessage_to(String message_to)
-    {
-        this.message_to = message_to;
-    }
-
-    public void setMessage_body(String message_body)
-    {
-        this.message_body = message_body;
-    }
-
-    public void setMessage_subject(String message_subject)
-    {
-        this.message_subject = message_subject;
-    }
-
     @Override
-    public void send()
+    public void send(String to, String subject, String body)
     {
         try
         {
@@ -59,9 +44,9 @@ public class MailServiceImpl implements MailService
             MimeMessage msg = new MimeMessage(session);
 
             msg.setFrom(new InternetAddress(credentials.getProperty("MESSAGE_FROM")));
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(message_to, false));
-            msg.setSubject(message_subject);
-            msg.setText(message_body);
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.setSubject(subject);
+            msg.setText(body);
             msg.setSentDate(new Date());
 
             SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
@@ -74,15 +59,17 @@ public class MailServiceImpl implements MailService
         catch (MessagingException e)
         {
             e.printStackTrace();
+            LOG.error(e.getMessage());
         }
         catch (FileNotFoundException e)
         {
             e.printStackTrace();
+            LOG.error(e.getMessage());
         }
         catch (IOException e)
         {
             e.printStackTrace();
+            LOG.error(e.getMessage());
         }
-
     }
 }
