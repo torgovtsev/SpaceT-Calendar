@@ -1,5 +1,7 @@
 package com.github.teamcalendar.frontend.component;
 
+import java.io.Serializable;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
@@ -15,69 +17,176 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.services.UsersService;
 
 @ManagedBean(name="tableCalendarBean")
 @Component(value="tableCalendarBean")
-@ViewScoped
-public class TableCalendarBean {
+@RequestScoped
+public class TableCalendarBean {	
+//
 	private String currentUser = "%";
 	private String group = "All";
 	private String region = "default";
 	private String today = "All";
-	private String month;
-	private String currentMonth;
-	private List<String> months;
-	private String startYear = "2015";
-	private List<Integer> days;
-	private List<Map.Entry<Integer, Integer>> weeks;
-	private List<Integer> weekEntries;
-
-
-	private Calendar calendar;
-	private Integer daysCount = 30;
+	private String month = "Show 1 month";
 	
+	
+	private String startYear = "2015";
+	private List<TableContent> tables;
+	private String onApply;
+	private List<String> countMonths;
+	public List<String> currentMonths;
+	
+	public List<String> getCountMonths() {
+		return countMonths;
+	}
+
+	public void setCountMonths(List<String> countMonths) {
+		this.countMonths = countMonths;
+	}
+
+	public List<String> getCurrentMonths() {
+		return currentMonths;
+	}
+
+	public void setCurrentMonths(List<String> currentMonths) {
+		this.currentMonths = currentMonths;
+	}
+
+
+	public String getOnApply() {
+		return onApply;
+	}
+
+	public void setOnApply(String onApply) {
+		this.onApply = onApply;
+	}
+
+	public List<TableContent> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<TableContent> tables) {
+		this.tables = tables;
+	}
+
+
+	
+	
+//
+//
+			
+	private Calendar calendar;
+	
+    @Autowired
+    private UsersService userService;
+	private List<User> users;
 
 
 	@PostConstruct
-    public void init() throws ParseException {
+     public void init() throws ParseException {
 		calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Moscow"));
+		tables = new ArrayList<TableContent>();
+	    tables.add(new TableContent());
+	    currentMonths = new ArrayList<String>();	    
+	    currentMonths.add("January");
+	    currentMonths.add("February");
+	    currentMonths.add("March");
+	    currentMonths.add("April");
+	    currentMonths.add("May");
+	    currentMonths.add("June");
+	    currentMonths.add("July");
+	    currentMonths.add("August");
+	    currentMonths.add("September");
+	    currentMonths.add("October");
+	    currentMonths.add("November");
+	    currentMonths.add("December");
+		tables.get(0).currentMonth = currentMonths.get(calendar.getTime().getMonth());
 		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		days = new ArrayList<Integer>();
-		int cnt = 1;
-		while (cnt < 31) {
-			days.add(cnt);
+		tables.get(0).days = new ArrayList<Integer>();
+		int iDay = 1;
+		Calendar c = new GregorianCalendar(Integer.parseInt(startYear), MonthToInt(tables.get(0).currentMonth)-1, iDay);
+		tables.get(0).daysCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int cnt = 1;				
+		while (cnt <= tables.get(0).daysCount) {
+			tables.get(0).days.add(cnt);
 			cnt++;
 		}
-	    //weeks = new ArrayList<String>();
-	   // weeks.add("Week 1");
-	    months = new ArrayList<String>();
-	    months.add("January");
-	    months.add("February");
-	    months.add("March");
-	    months.add("April");
-	    months.add("May");
-	    months.add("June");
-	    months.add("July");
-	    months.add("August");
-	    months.add("September");
-	    months.add("October");
-	    months.add("November");
-	    months.add("December");	 
-	    currentMonth = months.get(calendar.getTime().getMonth());
-	    weeks = new ArrayList<Map.Entry<Integer, Integer>>();
-	    weekEntries = new ArrayList<Integer>();
-	    setWeeksMethod();
+	 	    
+		tables.get(0).weeks = new ArrayList<Map.Entry<Integer, Integer>>();
+		CustomDate cd = new CustomDate(startYear, MonthToInt(tables.get(0).currentMonth));
+	    setWeeksMethod(tables.get(0).weeks, cd, tables.get(0).days);
+	    tables.get(0).weekDays = new ArrayList<String>();
+	    setWeekDaysMethod(tables.get(0).weekDays, cd, tables.get(0).days);
+	    users = userService.getAllUsers();
+	    
+	    countMonths = new ArrayList<String>();
+	    countMonths.add("Show 1 month"); 
+	    countMonths.add("Show 2 months"); 
+	    countMonths.add("Show 3 months"); 
 	}
 	
-	private void setWeeksMethod() throws ParseException {
+	private void setWeekDaysMethod(List<String> weeks, CustomDate cd, List<Integer> days) throws ParseException{
+		for (Integer day : days) {
+			String input = cd.year;
+			input += cd.month.toString().length() == 1 ? "0" : "";
+			input += cd.month.toString();
+			input += day.toString().length() == 1 ? "0" : "";
+			input += day.toString();
+			String format = "yyyyMMdd";
+			SimpleDateFormat df = new SimpleDateFormat(format);
+			Date date = df.parse(input);					
+			calendar.setTime(date);
+			int weekDay = calendar.get(Calendar.DAY_OF_WEEK);			
+			
+			switch (weekDay) {
+			case 1:
+				weeks.add("Su");
+				break;
+			case 2:
+				weeks.add("Mo");
+				break;
+			case 3:
+				weeks.add("Tu");
+				break;
+			case 4:
+				weeks.add("We");
+				break;
+			case 5:
+				weeks.add("Th");
+				break;
+			case 6:
+				weeks.add("Fr");
+				break;
+			case 7:
+				weeks.add("Sa");
+				break;
+			}
+		}
+	}
+
+	private void setWeeksMethod(List<Map.Entry<Integer, Integer>> weeks, CustomDate cd, List<Integer> days) throws ParseException {
 		int week = 0; Integer prevWeek = 0; Integer cnt = 1; int prevCnt = 0; int curWeek = 0; int u = 0;
 		for (Integer day : days) {
-			//temp plug
-			String input = "2015" + "11";
+			
+			String input = cd.year;
+			input += cd.month.toString().length() == 1 ? "0" : "";
+			input += cd.month.toString();
 			input += day.toString().length() == 1 ? "0" : "";
 			input += day.toString();
 			String format = "yyyyMMdd";
@@ -86,7 +195,7 @@ public class TableCalendarBean {
 			calendar.setTime(date);
 			prevWeek = week;
 			week = calendar.get(Calendar.WEEK_OF_YEAR);
-			u = calendar.get(Calendar.DAY_OF_WEEK);
+			//u = calendar.get(Calendar.DAY_OF_WEEK);
 			if (prevWeek != 0)
 				if (week == prevWeek) {
 					cnt++;
@@ -94,63 +203,63 @@ public class TableCalendarBean {
 					prevCnt = cnt;
 					cnt = 1;
 					weeks.add(new AbstractMap.SimpleEntry<Integer, Integer>(prevWeek, prevCnt));
-					//curWeek = prevWeek;
-					//weeks.add(prevWeek); weekEntries.add(prevCnt);
 				}
 		}
 		Map.Entry<Integer, Integer> entry = weeks.get(weeks.size()-1);
 		if (entry.getKey() == week)
 			entry.setValue(prevCnt + 1);
 		else
-			weeks.add(new AbstractMap.SimpleEntry<Integer, Integer>(week, 1));
+			weeks.add(new AbstractMap.SimpleEntry<Integer, Integer>(week, cnt));
 	}
-
-
-	/*private void setMonthName() {
-		int numMonth = calendar.getTime().getMonth();
-		switch (numMonth) {
-		   case 1:  month = "January";
-					break;
-		   case 2:  month = "February";
-		            break;
-		   case 3:  month = "March";
-		            break;
-		   case 4:  month = "April";
-		            break;
-		   case 5:  month = "May";
-		            break;
-		   case 6:  month = "June";
-		            break;
-		   case 7:  month = "July";
-		            break;
-		   case 8:  month = "August";
-		            break;
-		   case 9:  month = "September";
-		            break;
-		   case 10: month = "October";
-		            break;
-		   case 11: month = "November";
-		            break;
-		   case 12: month = "December";
-		            break;
+	
+	private Integer MonthToInt(String m) {
+		switch (m) {
+		case "January":
+			return 1;
+		case "February":
+			return 2;
+		case "March":
+			return 3;
+		case "April":
+			return 4;
+		case "May":
+			return 5;
+		case "June":
+			return 6;
+		case "July":
+			return 7;
+		case "August":
+			return 8;
+		case "September":
+			return 9;
+		case "October":
+			return 10;
+		case "November":
+			return 11;
+		case "December":
+			return 12;
+		default:
+			return 0;
 		}
-	}*/
-	
-	public List<Integer> getWeekEntries() {
-		return weekEntries;
-	}
-
-	public void setWeekEntries(List<Integer> weekEntries) {
-		this.weekEntries = weekEntries;
 	}
 	
-	public String getCurrentMonth() {
-		return currentMonth;
+	public String getStartYear() {
+		return startYear;
 	}
 
-	public void setCurrentMonth(String currentMonth) {
-		this.currentMonth = currentMonth;
+	public void setStartYear(String startYear) {
+		this.startYear = startYear;
 	}
+
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 
 	public String getMonth() {
 		return month;
@@ -160,39 +269,6 @@ public class TableCalendarBean {
 		this.month = month;
 	}
 
-	public List<Map.Entry<Integer, Integer>> getWeeks() {
-		return weeks;
-	}
-
-	public void setWeeks(List<Map.Entry<Integer, Integer>> weeks) {
-		this.weeks = weeks;
-	}
-
-	
-	public Integer getDaysCount() {
-		return daysCount;
-	}
-
-	public void setDaysCount(Integer daysCount) {
-		this.daysCount = daysCount;
-	}
-	
-	
-	public List<String> getMonths() {
-		return months;
-	}
-
-	public void setMonths(List<String> months) {
-		this.months = months;
-	}
-
-	public List<Integer> getDays() {
-		return days;
-	}
-
-	public void setDays(List<Integer> days) {
-		this.days = days;
-	}
 
 	public String getGroup() {
 		return group;
@@ -210,4 +286,64 @@ public class TableCalendarBean {
 		this.currentUser = currentUser;
 	}
 	
+	
+	
+	public void login(ActionEvent event) throws ParseException {
+		int tablesCount = 0;
+		switch (month) {
+		case ("Show 1 month"):
+			tablesCount = 1;
+			break;
+		case ("Show 2 months"):
+			tablesCount = 2;
+			break;
+		case ("Show 3 months"):
+			tablesCount = 3;
+			break;
+		}
+		List<CustomDate> dates = new ArrayList<CustomDate>();
+		int m = MonthToInt(tables.get(0).currentMonth);
+		dates.add(new CustomDate(startYear, m));
+		m+=1;
+		Integer y = Integer.parseInt(startYear);
+		if (m>12) {
+			m=1;
+			y+=1;
+		}
+		dates.add(new CustomDate(y.toString(), m));
+		m+=1;
+		if (m>12) {
+			m=1;
+			y+=1;
+		}
+
+		dates.add(new CustomDate(y.toString(), m));
+		
+		tables = null;
+		tables = new ArrayList<TableContent>();
+		DateFormatSymbols dfs = new DateFormatSymbols();
+		String[] mss = dfs.getMonths();
+		for (int i = 0; i < tablesCount; i++) {
+			tables.add(new TableContent());
+			tables.get(i).currentMonth = mss[dates.get(i).month-1];
+			tables.get(i).days = new ArrayList<Integer>();
+			int iDay = 1;
+			Calendar c = new GregorianCalendar(Integer.parseInt(dates.get(i).year), dates.get(i).month-1, iDay);
+			tables.get(i).daysCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+			int cnt = 1;				
+			while (cnt <= tables.get(i).daysCount) {
+				tables.get(i).days.add(cnt);
+				cnt++;
+			}
+			tables.get(i).weeks = new ArrayList<Map.Entry<Integer,Integer>>();
+			setWeeksMethod(tables.get(i).weeks, dates.get(i), tables.get(i).days);
+			tables.get(i).weekDays = new ArrayList<String>();
+			setWeekDaysMethod(tables.get(i).weekDays, dates.get(i), tables.get(i).days);
+		}
+		
+
+	}
+	
+	
+
 }
