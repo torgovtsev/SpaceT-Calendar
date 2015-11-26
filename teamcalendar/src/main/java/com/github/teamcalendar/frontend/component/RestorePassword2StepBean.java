@@ -1,7 +1,5 @@
 package com.github.teamcalendar.frontend.component;
 
-import java.util.UUID;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.teamcalendar.backend.services.MailService;
-import com.github.teamcalendar.backend.services.MailServiceImpl;
 import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.dto.UserResetPassword;
+import com.github.teamcalendar.middleware.services.UserResetPasswordService;
 import com.github.teamcalendar.middleware.services.UsersService;
 
 @ManagedBean(name = "restorePassword2StepBean")
@@ -22,23 +21,26 @@ import com.github.teamcalendar.middleware.services.UsersService;
 @RequestScoped
 public class RestorePassword2StepBean
 {
-    private final String STRING_USERMESSAGE_GENERAL_ERROR         = "Something went wrong";
-    private final String STRING_USERMESSAGE_GENERAL_SUCCESS       = "Success!";
+    private final String     STRING_USERMESSAGE_GENERAL_ERROR         = "Something went wrong";
+    private final String     STRING_USERMESSAGE_GENERAL_SUCCESS       = "Success!";
 
-    private final String STRING_USERMESSAGE_INVALID_USERNAME_CODE = "Invalid username or code";
-    private final String STRING_USERMESSAGE_PASSWORDSENT          = "New password sent to your email";
+    private final String     STRING_USERMESSAGE_INVALID_USERNAME_CODE = "Invalid username or code";
+    private final String     STRING_USERMESSAGE_PASSWORDSENT          = "New password sent to your email";
 
-    private final String STRING_PASSWORDRESET_MAILSUBJECT         = "[Space-T Calendar] New password";
-    private final String STRING_PASSWORDRESET_MAILBODY            = "Hi.\n\nThis is your new password: %s\n\nThanks for using Space-T Calendar.";
-
-    @Autowired
-    private UsersService userService;
+    private final String     STRING_PASSWORDRESET_MAILSUBJECT         = "[Space-T Calendar] New password";
+    private final String     STRING_PASSWORDRESET_MAILBODY            = "Hi.\n\nThis is your new password: %s\n\nThanks for using Space-T Calendar.";
 
     @Autowired
-    private MailService  mailService;
+    private UsersService     userService;
 
-    private String       username;
-    private String       generatedCode;
+    @Autowired
+    private MailService      mailService;
+
+    @Autowired
+    UserResetPasswordService userResetPasswordService;
+
+    private String           username;
+    private String           generatedCode;
 
     public String getGeneratedCode()
     {
@@ -71,21 +73,19 @@ public class RestorePassword2StepBean
                 User user = userService.getUserByEmail(username);
                 if (user != null && user.getIsVerified() && !user.getIsBlocked() && !user.getIsDeleted())
                 {
-                    if (user.getSecretAnswer().equals(generatedCode))
+                    UserResetPassword userResetPassword = userResetPasswordService.getUserResetPasswordByUserId(user.getId());
+
+                    if (userResetPassword.getResetUuid().equals(generatedCode))
                     {
                         String newPassword = RandomStringUtils.random(10, true, true);
                         user.setPassword(newPassword);
-
-                        //TODO change "getSecretAnswer" to "getResetPasswordUuid"
-                        user.setSecretAnswer(UUID.randomUUID().toString());//overwrite old confirmation code
-
                         userService.updateUser(user);
 
-                        ((MailServiceImpl)mailService).setMessage_body(String.format(STRING_PASSWORDRESET_MAILBODY, newPassword));
-                        ((MailServiceImpl)mailService).setMessage_subject(STRING_PASSWORDRESET_MAILSUBJECT);
-                        ((MailServiceImpl)mailService).setMessage_to(username);
+                        userResetPassword.setUser_id(user);
+                        userResetPasswordService.deleteUserResetPassword(userResetPassword);
 
-                        mailService.send();
+                        mailService.send(username, STRING_PASSWORDRESET_MAILSUBJECT,
+                                String.format(STRING_PASSWORDRESET_MAILBODY, newPassword));
 
                         message = new FacesMessage(FacesMessage.SEVERITY_INFO, STRING_USERMESSAGE_GENERAL_SUCCESS,
                                 STRING_USERMESSAGE_PASSWORDSENT);
