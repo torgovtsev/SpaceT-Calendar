@@ -92,20 +92,12 @@
 						</p:row>
 						<p:row>
 							<p:column>
-							Registration Date
-						</p:column>
-							<p:column>
-								<h:inputText value="#{user.registrationDate}" required="true" />
-							</p:column>
-						</p:row>
-						<p:row>
-							<p:column>
 							Country
 						</p:column>
 							<p:column>
-								<p:selectOneMenu id="country" value="#{user.country}"
+								<p:selectOneMenu id="country" value="#{userBean.select}"
 									effect="fold" editable="true">
-									<f:selectItem itemLabel="Select Country" itemValue="" />
+									<f:selectItem itemLabel="Select One" itemValue="" />
 									<f:selectItems value="#{userBean.allCountry}" />
 								</p:selectOneMenu>
 							</p:column>

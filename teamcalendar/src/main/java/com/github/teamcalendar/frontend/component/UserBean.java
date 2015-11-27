@@ -1,6 +1,5 @@
 package com.github.teamcalendar.frontend.component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class UserBean
 
     private Map<String, String> roles     = new HashMap<String, String>();
 
-    private List<Country>       countries = new ArrayList<Country>();
+    private Map<String, String> countries = new HashMap<String, String>();
 
     private String              select;
 
@@ -85,6 +84,9 @@ public class UserBean
 
     public String create()
     {
+        Country country = countryService.getCountryByName(select);
+        user.setCountryEntity(country);
+        user.setRegistrationDate(new java.util.Date());
         userService.addUser(user);
         return "UserList?faces-redirect=true";
     }
@@ -115,16 +117,6 @@ public class UserBean
         return "UserList?faces-redirect=true";
     }
 
-    public String getSelect()
-    {
-        return select;
-    }
-
-    public void setSelect(String select)
-    {
-        this.select = select;
-    }
-
     public Map<String, String> getAllRole()
     {
         List<Role> rol = roleService.getAllRoles();
@@ -149,11 +141,25 @@ public class UserBean
         userService.updateUser(user);
     }
 
-    public List<Country> getAllCountry()
+    public Map<String, String> getAllCountry()
     {
 
-        countries = countryService.getAllCountries();
+        List<Country> country = countryService.getAllCountries();
+        for (Country countryName : country)
+        {
+            countries.put(countryName.getName(), countryName.getName());
+        }
         return countries;
+    }
+
+    public String getSelect()
+    {
+        return select;
+    }
+
+    public void setSelect(String select)
+    {
+        this.select = select;
     }
 
 }
