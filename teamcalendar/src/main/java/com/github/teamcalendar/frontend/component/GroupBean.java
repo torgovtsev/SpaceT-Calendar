@@ -60,6 +60,14 @@ public class GroupBean
 
         return "editGroup?faces-redirect=true";
     }
+    
+    public String editGroupRole()
+    {
+        Integer editId = this.group.getId();
+        this.group = groupService.getGroupById(editId);
+        
+        return "editGroupRole?faces-redirect=true";
+    }
 
     public String deleteGroup()
     {

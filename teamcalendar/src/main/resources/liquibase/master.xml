@@ -4,9 +4,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-
-<!--  	<include file="schema/Question.xml" relativeToChangelogFile="true" /> -->
-<!--	<include file="schema/User.xml" relativeToChangelogFile="true" /> -->
+ 
+	<!-- <include file="schema/Question.xml" relativeToChangelogFile="true" /> 
+	<include file="schema/User.xml" relativeToChangelogFile="true" /> 
 	<include file="schema/UserResetPassword.xml" relativeToChangelogFile="true" />
 
 	<include file="data/Country.xml" relativeToChangelogFile="true" /> 
@@ -18,5 +18,5 @@
 	<include file="data/RolePermission.xml" relativeToChangelogFile="true" /> 
 	<include file="data/UserGroup.xml" relativeToChangelogFile="true" /> 
 	<include file="data/UserRole.xml" relativeToChangelogFile="true" /> 
-	<include file="data/Questions.xml" relativeToChangelogFile="true" />
+	<include file="data/Questions.xml" relativeToChangelogFile="true" /> -->
 </databaseChangeLog>
