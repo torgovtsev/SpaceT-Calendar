@@ -4,36 +4,38 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="templates/masterPage.xhtml"
+	template="../templates/masterPage.xhtml"
 	xmlns:fcore="http://java.sun.com/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 	<ui:define name="content">
-		<div id="listUser">
+		<div id="listRole">
 
 			<br />
-			<h:dataTable var="user" value="#{userBean.allUser}" id="tableUsers">
+			<h:dataTable var="role" value="#{roleBean.allRole}"
+				id="tableUsers">
 				<h:column>
-					<h:outputText 
-						value="#{user.firstName} #{user.lastName} (#{user.email})  "
+					<h:outputText value="#{role.name} - (#{role.description})  "
 						style="font-weight: bold;"></h:outputText>
 				</h:column>
+
 				<h:column>
 					<h:form>
-						<p:commandButton action="#{userBean.editUser}" value="Edit">
-							<f:setPropertyActionListener value="#{user.id}"
-								target="#{userBean.user.id}" />
+						<p:commandButton action="#{roleBean.editRole}" value="Edit">
+							<f:setPropertyActionListener value="#{role.id}"
+								target="#{roleBean.role.id}" />
 						</p:commandButton>
-						<p:commandButton action="#{userBean.deleteUser}" value="Delete">
-							<f:setPropertyActionListener value="#{user.id}"
-								target="#{userBean.user.id}" />
+						<p:commandButton action="#{roleBean.deleteRole}" value="Delete">
+							<f:setPropertyActionListener value="#{role.id}"
+								target="#{roleBean.role.id}" />
 						</p:commandButton>
 					</h:form>
 				</h:column>
 			</h:dataTable>
 			<br />
 			<h:form>
-				<p:commandButton action="#{userBean.newUser}" value="Add New User"></p:commandButton>
+				<p:commandButton action="#{roleBean.newRole}"
+					value="Add New Role"></p:commandButton>
 			</h:form>
 		</div>
 

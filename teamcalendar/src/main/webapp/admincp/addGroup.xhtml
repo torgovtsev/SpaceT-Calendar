@@ -4,7 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="templates/masterPage.xhtml"
+	template="../templates/masterPage.xhtml"
 	xmlns:fcore="http://java.sun.com/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
@@ -14,14 +14,14 @@
 
 	<ui:define name="content">
 		<br />
-		<h:outputLink value="RoleList.xhtml">Show All Roles</h:outputLink>
+		<h:outputLink value="GroupList.xhtml">Show All Groups</h:outputLink>
 
-		<h:form id="roleBeanForm">
+		<h:form id="groupBeanForm">
 			<br />
 
-			<p:dataTable var="role" value="#{roleBean.role}">
+			<p:dataTable var="group" value="#{groupBean.group}">
 				<f:facet name="header">
-					<h:outputText value="Add Role"></h:outputText>
+					<h:outputText value="Add Group"></h:outputText>
 				</f:facet>
 
 				<p:column>
@@ -31,7 +31,7 @@
 							Name
 						</p:column>
 							<p:column>
-								<h:inputText value="#{role.name}" required="true" />
+								<h:inputText value="#{group.name}" required="true" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -39,13 +39,13 @@
 							Description
 						</p:column>
 							<p:column>
-								<h:inputText value="#{role.description}" required="true" />
+								<h:inputText value="#{group.description}" required="true" />
 							</p:column>
 						</p:row>
 					</p:panelGrid>
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton action="#{roleBean.create}" type="submit"
+					<p:commandButton action="#{groupBean.create}" type="submit"
 						value="Save"></p:commandButton>
 				</f:facet>
 			</p:dataTable>

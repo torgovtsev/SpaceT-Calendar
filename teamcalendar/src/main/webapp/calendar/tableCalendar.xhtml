@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+    template="../templates/masterPage.xhtml">
+    
+    <h:head>
+		<title>Teamcalendar</title>
+	</h:head>
+	<ui:define name="content">
+	<div id="masterPage">
+		<h:form id="calendar">    
+<!-- 			<ui:include src="/templates/Menu.xhtml" /> -->
+			<style type="text/css">
+				.colored {
+					background-color: red;		
+					}
+			</style>
+			<p:menubar>
+				<p:submenu label="TeamCal">
+					<p:menuitem value="Login" url="/login.xhtml" />
+					
+				</p:submenu>
+
+				<p:submenu label="View" icon="ui-icon-pencil">
+					<p:menuitem value="HomePage" url="#" />
+					<p:menuitem value="Calendar" url="/tableCalendar.xhtml" />
+				</p:submenu>
+
+				<p:submenu label="Help" icon="ui-icon-help">
+					<p:menuitem value="About" url="#" />
+					<p:menuitem value="UserManual" url="#" />
+				</p:submenu>
+			</p:menubar>
+			
+			<p:toolbar style="margin-top:3px">
+		    	<f:facet name="left">
+		    		<h:outputText  value="User: " />
+		    		<p:inputText value="%" required="true" label="User: " size="10" />
+		    		<p:commandButton type="button" value="Search" style="margin-left:3px"/>
+		    		<h:outputText value="Group: " style="margin-left:7px"/>
+		    		<p:inputText required="true" value="All" label="Group: " size = "9"/>
+		    		<h:outputText value="Region: " style="margin-left:7px"/>
+		    		<p:inputText required="true" value="default" label="Region: " size = "9"/>
+		    		<h:outputText value="Today: "  style="margin-left:7px"/>
+		    		<p:inputText required="true" value="All" label="Today: " size = "9"/>
+		    		<h:outputText value="Start: " style="margin-left:7px"/>
+		    		<p:selectOneMenu value="#{tableCalendarBean.tables.get(0).currentMonth}" required="true" style="vertical-align:middle; width:80px;">		    			    			 		    							    			 	             
+		                <f:selectItems value="#{tableCalendarBean.currentMonths}" />
+		            </p:selectOneMenu>	
+		            <p:selectOneMenu value="#{tableCalendarBean.startYear}" required="true" style="vertical-align:middle; margin-left:5px; width:50px;">		    			    			 		    							    			 	             
+		                <f:selectItem itemLabel="2015" itemValue="2015" />
+		                <f:selectItem itemLabel="2014" itemValue="2014" />
+		                <f:selectItem itemLabel="2016" itemValue="2016" />
+		                <f:selectItem itemLabel="2017" itemValue="2017" />
+		            </p:selectOneMenu>	
+		            <p:selectOneMenu value="#{tableCalendarBean.month}" required="true" style="vertical-align:middle; margin-left:5px; width:110px;">		    			    			 		    							    			 	             
+		                <f:selectItems value="#{tableCalendarBean.countMonths}" />
+		            </p:selectOneMenu>	
+		    		<p:commandButton value="Help" style="margin-left:3px"/>		    		
+		    		<p:commandButton value="Reset" style="margin-left:3px"/>
+		    		
+		    		<p:commandButton value="Apply" update="calendar"
+							actionListener="#{tableCalendarBean.login}" style="margin-left:3px"/>
+		    	</f:facet>
+		    </p:toolbar>
+			<c:forEach items="#{tableCalendarBean.tables}" var="table">
+			    <p:dataTable var="user" value="#{tableCalendarBean.users}" style="margin-top:10px">
+			    	<p:columnGroup type="header">
+			            <p:row>
+			            	<p:column rowspan="2" headerText="#{table.currentMonth}" style="width:200px"/>
+			            	<p:column colspan="#{table.daysCount}"  headerText="Days"/>
+			            </p:row>
+			            <p:row>
+			            	<ui:repeat value="#{table.days}" var="day">
+		                   		<p:column headerText="#{day}" style="font-size:10px; width:20px;"/>
+		               		</ui:repeat>
+			            </p:row>
+			            <p:row>
+			            	<p:column rowspan="2" headerText="Weeks" />
+			            </p:row> 
+			            <p:row>
+			            	<ui:repeat value="#{table.weeks}" var="week">
+		            			<p:column colspan="#{week.value}" headerText="#{week.key}" style="font-size:10px; width:20px;"/>
+		               		</ui:repeat>
+			            </p:row> 
+			            <p:row>
+			            	<p:column rowspan="2" headerText="Name" />
+			            </p:row>
+			            <p:row>
+			            	<ui:repeat value="#{table.weekDays}" var="wDay">
+		                   		<p:column headerText="#{wDay}" styleClass="#{wDay.equals('Su') || wDay.equals('Sa') ? 'colored' : null}" style="font-size:10px; width:20px;"/>
+		               		</ui:repeat>
+			            </p:row>
+		        	</p:columnGroup>
+		        	
+	       	        <p:column>       	        	
+	           			<h:outputText value="#{user.firstName}" />           			
+	        		</p:column>
+	        		
+			        <p:columns value="#{table.days}" var="dayy" ><!-- styleClass="#{dayy le 12 ? 'colored' : null}" -->
+			        </p:columns>
+		        	
+			    </p:dataTable>
+			</c:forEach>
+	    </h:form>
+	    </div>
+	    </ui:define>
+	    
+    
+<!--     <h:head> -->
+<!-- 		<title>Teamcalendar</title> -->
+<!-- 	</h:head> -->
+<!-- 	<ui:define name="content"> -->
+<!-- 	<div id="masterPage"> -->
+<!-- 		<h:form>     -->
+<!-- 			<ui:include src="/templates/Menu.xhtml" /> -->
+<!-- 			<p:toolbar style="margin-top:3px"> -->
+<!-- 		    	<f:facet name="left"> -->
+<!-- 		    		<h:outputText  value="User: " /> -->
+<!-- 		    		<p:inputText id="userInput" value="#{tableCalendarBean.currentMonth}" required="true" label="User: " size="10" /> -->
+<!-- 		    		<p:commandButton type="button" value="Search" style="margin-left:3px"/> -->
+<!-- 		    		<h:outputText value="Group: " style="margin-left:7px"/> -->
+<!-- 		    		<p:inputText required="true" placeholder="#{tableCalendarBean.group}" label="Group: " size = "9"/> -->
+<!-- 		    		<h:outputText value="Region: " style="margin-left:7px"/> -->
+<!-- 		    		<p:inputText required="true" placeholder="default" label="Region: " size = "9"/> -->
+<!-- 		    		<h:outputText value="Today: "  style="margin-left:7px"/> -->
+<!-- 		    		<p:inputText id="input" required="true" placeholder="#{tableCalendarBean.currentMonth}" label="Today: " size = "9"/> -->
+<!-- 		    		<h:outputText value="Start: " style="margin-left:7px"/> -->
+<!-- 		    		<p:selectOneMenu value="#{tableCalendarBean.currentMonth}" required="true" style="vertical-align:middle; width:100px;">		    			    			 		    							    			 	              -->
+<!-- 		                <f:selectItems value="#{tableCalendarBean.currentMonths}" /> -->
+<!-- 		            </p:selectOneMenu>	 -->
+<!-- 		    		<p:inputText required="true" placeholder="2015" style="margin-left:3px" size = "5"/> -->
+<!-- 		    		<p:inputText required="true" placeholder="Show 1 month" size = "9"/> -->
+<!-- 		    		<p:commandButton type="button" value="Help" style="margin-left:3px"/> -->
+<!-- 		    		<p:commandButton value="Apply" update="input" actionListener="#{tableCalendarBean.onApply}" style="margin-left:3px"/> -->
+<!-- 		    		<p:commandButton type="button" value="Reset" style="margin-left:3px"/> -->
+<!-- 		    	</f:facet> -->
+<!-- 		    </p:toolbar> -->
+			    
+<!-- 		    <p:dataTable id="calendar" var="user" value="#{tableCalendarBean.users}" style="margin-top:10px"> -->
+<!-- 		    	<p:columnGroup type="header"> -->
+<!-- 		            <p:row> -->
+<!-- 		            	<p:column rowspan="2" headerText="#{tableCalendarBean.currentMonth}" style="width:200px"/> -->
+<!-- 		            	<p:column colspan="#{tableCalendarBean.daysCount}" headerText="Days"/> -->
+<!-- 		            </p:row> -->
+<!-- 		            <p:row> -->
+<!-- 		            	<ui:repeat value="#{tableCalendarBean.days}" var="day"> -->
+<!-- 	                   		<p:column headerText="#{day}" style="font-size:10px; width:20px;"/> -->
+<!-- 	               		</ui:repeat> -->
+<!-- 		            </p:row> -->
+<!-- 		            <p:row> -->
+<!-- 		            	<p:column rowspan="2" headerText="Weeks" /> -->
+<!-- 		            </p:row>  -->
+<!-- 		            <p:row> -->
+<!-- 		            	<ui:repeat value="#{tableCalendarBean.weeks}" var="week"> -->
+<!-- 	            			<p:column colspan="#{week.value}" headerText="#{week.key}" style="font-size:10px; width:20px;"/> -->
+<!-- 	               		</ui:repeat> -->
+<!-- 		            </p:row>  -->
+<!-- 		            <p:row> -->
+<!-- 		            	<p:column rowspan="2" headerText="Name" /> -->
+<!-- 		            </p:row> -->
+<!-- 		            <p:row> -->
+<!-- 		            	<ui:repeat value="#{tableCalendarBean.weekDays}" var="wDay"> -->
+<!-- 	                   		<p:column headerText="#{wDay}" style="font-size:10px; width:20px;"/> -->
+<!-- 	               		</ui:repeat> -->
+<!-- 		            </p:row> -->
+<!-- 	        	</p:columnGroup> -->
+	        	
+<!--        	        <p:column>       	        	 -->
+<!--            			<h:outputText value="#{user.firstName}" />           			 -->
+<!--         		</p:column> -->
+        		
+<!-- 		        <p:columns value="#{tableCalendarBean.days}" var="year"> -->
+<!-- 		        </p:columns> -->
+	        	
+<!-- 		    </p:dataTable> -->
+<!-- 		</h:form> -->
+<!--     </div> -->
+<!--     </ui:define> -->
+</ui:composition>
