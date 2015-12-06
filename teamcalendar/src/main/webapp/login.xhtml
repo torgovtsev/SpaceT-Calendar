@@ -16,10 +16,10 @@
 
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputLabel for="username" value="Email" />
+					<h:outputLabel for="username" value="Email*" style="font-weight:bold"  />
 					<p:inputText id="username" value="#{userLoginBean.username}"
 						required="true" label="email" />
-					<h:outputLabel for="password" value="Password:" />
+					<h:outputLabel for="password" value="Password*" style="font-weight:bold" />
 					<p:password id="password" value="#{userLoginBean.password}"
 						required="true" label="password" />
 					<h:link value="forgot?" outcome="restore"/>
