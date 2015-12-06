@@ -18,12 +18,12 @@ import com.github.teamcalendar.middleware.dto.Question;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("questionDAO")
-public class QuestionDAOImpl extends AbstractDao<Integer, QuestionEntity> implements QuestionDAO
+public class QuestionDAOImpl extends AbstractDaoImpl<Integer, QuestionEntity> implements QuestionDAO
 {
 
     public void addQuestion(QuestionEntity question)
     {
-        persist(question);
+        create(question);
     }
 
     public void updateQuestion(QuestionEntity question)
@@ -40,7 +40,7 @@ public class QuestionDAOImpl extends AbstractDao<Integer, QuestionEntity> implem
     public List<QuestionEntity> getAllQestions()
     {
 
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<QuestionEntity> questions = (List<QuestionEntity>)criteria.list();
 
         return questions;

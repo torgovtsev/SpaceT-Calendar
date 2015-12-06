@@ -6,7 +6,7 @@
 	<display-name>Teamcalendar</display-name>
 
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>homePage.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<servlet>

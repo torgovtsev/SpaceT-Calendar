@@ -24,12 +24,12 @@ import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("groupDAO")
-public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements GroupDAO
+public class GroupDAOImpl extends AbstractDaoImpl<Integer, GroupEntity> implements GroupDAO
 {
 
     public void addGroup(GroupEntity group)
     {
-        persist(group);
+        create(group);
     }
 
     public void updateGroup(GroupEntity group)
@@ -45,7 +45,7 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
     @SuppressWarnings("unchecked")
     public List<GroupEntity> getAllGroups()
     {
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<GroupEntity> groups = (List<GroupEntity>)criteria.list();
 
         return groups;
@@ -53,13 +53,13 @@ public class GroupDAOImpl extends AbstractDao<Integer, GroupEntity> implements G
 
     public GroupEntity getGroupById(Integer id)
     {
-        GroupEntity group = getByKey(id);
+        GroupEntity group = getById(id);
         return group;
     }
 
     public GroupEntity getGroupByName(String name)
     {
-        Criteria crit = createEntityCriteria();
+        Criteria crit = getCriteria();
         crit.add(Restrictions.eq("name", name));
         GroupEntity group = (GroupEntity)crit.uniqueResult();
 

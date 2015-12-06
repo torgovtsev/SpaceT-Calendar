@@ -11,13 +11,13 @@ import com.github.teamcalendar.domain.UserResetPasswordEntity;
 import com.github.teamcalendar.middleware.dto.User;
 
 @Repository("userResetPasswordDAO")
-public class UserResetPasswordDAOImpl extends AbstractDao<Integer, UserResetPasswordEntity> implements UserResetPasswordDAO
+public class UserResetPasswordDAOImpl extends AbstractDaoImpl<Integer, UserResetPasswordEntity> implements UserResetPasswordDAO
 {
 
     @Override
     public void addUserResetPassword(UserResetPasswordEntity userResetPasswordEntity)
     {
-        persist(userResetPasswordEntity);
+        create(userResetPasswordEntity);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserResetPasswordDAOImpl extends AbstractDao<Integer, UserResetPass
     @Override
     public UserResetPasswordEntity getUserResetPasswordByUserId(Integer id)
     {
-        Criteria crit = createEntityCriteria();
+        Criteria crit = getCriteria();
         User user = new User();
         user.setId(id);
         crit.add(Restrictions.eq("user_id.id", id));
@@ -49,7 +49,7 @@ public class UserResetPasswordDAOImpl extends AbstractDao<Integer, UserResetPass
     @Override
     public List<UserResetPasswordEntity> getAllUsersResetPassword()
     {
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<UserResetPasswordEntity> usersResetPasswordEntity = (List<UserResetPasswordEntity>)criteria.list();
 
         return usersResetPasswordEntity;

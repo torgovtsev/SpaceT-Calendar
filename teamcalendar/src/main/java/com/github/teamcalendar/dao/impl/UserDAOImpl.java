@@ -19,12 +19,12 @@ import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("userDAO")
-public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements UserDAO
+public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements UserDAO
 {
 
     public void addUser(UserEntity user)
     {
-        persist(user);
+        create(user);
     }
 
     public void updateUser(UserEntity user)
@@ -39,7 +39,7 @@ public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements Use
 
     public UserEntity getUserByEmail(String email)
     {
-        Criteria crit = createEntityCriteria();
+        Criteria crit = getCriteria();
         crit.add(Restrictions.eq("email", email));
         UserEntity user = (UserEntity)crit.uniqueResult();
 
@@ -48,14 +48,14 @@ public class UserDAOImpl extends AbstractDao<Integer, UserEntity> implements Use
 
     public UserEntity getUserByID(Integer id)
     {
-        UserEntity user = getByKey(id);
+        UserEntity user = getById(id);
         return user;
     }
 
     @SuppressWarnings("unchecked")
     public List<UserEntity> getAllUsers()
     {
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<UserEntity> users = (List<UserEntity>)criteria.list();
 
         return users;

@@ -73,23 +73,18 @@ public class RoleBean
         return "editRole?faces-redirect=true";
     }
 
-    public String deleteRole()
-    {
-        Integer editId = this.role.getId();
-        this.role = roleService.getRoleById(editId);
-
-        return "deleteRole?faces-redirect=true";
+    public String delete() {
+        roleService.deleteRole(role);
+        return "RoleList?faces-redirect=true";
+    }
+    
+    public String cancel() {
+        return "RoleList?faces-redirect=true";
     }
 
     public String update()
     {
         roleService.updateRole(role);
-        return "RoleList?faces-redirect=true";
-    }
-
-    public String delete()
-    {
-        roleService.deleteRole(role);
         return "RoleList?faces-redirect=true";
     }
 
@@ -118,7 +113,7 @@ public class RoleBean
         Permission perm = permissionService.getPermissionByName(select);
         role.getPermissionRole().add(perm);
         roleService.updateRole(role);
-        return "RoleList?faces-redirect=true";
+        return "editRole?faces-redirect=true";
     }
 
     public void deletePermission(Permission permission)

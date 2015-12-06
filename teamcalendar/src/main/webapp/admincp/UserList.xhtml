@@ -14,7 +14,7 @@
 			<br />
 			<h:dataTable var="user" value="#{userBean.allUser}" id="tableUsers">
 				<h:column>
-					<h:outputText 
+					<h:outputText
 						value="#{user.firstName} #{user.lastName} (#{user.email})  "
 						style="font-weight: bold;"></h:outputText>
 				</h:column>
@@ -24,13 +24,26 @@
 							<f:setPropertyActionListener value="#{user.id}"
 								target="#{userBean.user.id}" />
 						</p:commandButton>
-						<p:commandButton action="#{userBean.deleteUser}" value="Delete">
-							<f:setPropertyActionListener value="#{user.id}"
-								target="#{userBean.user.id}" />
+						<p:commandButton onclick="PF('deleteDlg').show();" value="Delete">
+							<f:setPropertyActionListener value="#{user}"
+								target="#{userBean.user}" />
 						</p:commandButton>
+
+
 					</h:form>
 				</h:column>
 			</h:dataTable>
+			<p:confirmDialog widgetVar="deleteDlg" id="deleteDialog"
+				header="Delete" message="Delete this user?" width="400"
+				showEffect="bounce" modal="true" closable="false" severity="alert">
+				<h:panelGroup layout="block" style="text-align: right">
+
+					<p:commandButton value="Yes" action="#{userBean.delete}"
+						oncomplete="deleteDlg.hide();" />
+					<p:commandButton onclick="PF('deleteDlg').hide();" value="No"
+						 />
+				</h:panelGroup>
+			</p:confirmDialog>
 			<br />
 			<h:form>
 				<p:commandButton action="#{userBean.newUser}" value="Add New User"></p:commandButton>

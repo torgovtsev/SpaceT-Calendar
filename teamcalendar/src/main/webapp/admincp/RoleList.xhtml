@@ -25,13 +25,24 @@
 							<f:setPropertyActionListener value="#{role.id}"
 								target="#{roleBean.role.id}" />
 						</p:commandButton>
-						<p:commandButton action="#{roleBean.deleteRole}" value="Delete">
-							<f:setPropertyActionListener value="#{role.id}"
-								target="#{roleBean.role.id}" />
+						<p:commandButton onclick="PF('deleteDlg').show();" value="Delete">
+							<f:setPropertyActionListener value="#{role}"
+								target="#{roleBean.role}" />
 						</p:commandButton>
 					</h:form>
 				</h:column>
 			</h:dataTable>
+			<p:confirmDialog widgetVar="deleteDlg" id="deleteDialog"
+				header="Delete" message="Delete this role?" width="400"
+				showEffect="bounce" modal="true" closable="false" severity="alert">
+				<h:panelGroup layout="block" style="text-align: right">
+
+					<p:commandButton value="Yes" action="#{roleBean.delete}"
+						oncomplete="deleteDlg.hide();" />
+					<p:commandButton onclick="PF('deleteDlg').hide();" value="No"
+						 />
+				</h:panelGroup>
+			</p:confirmDialog>
 			<br />
 			<h:form>
 				<p:commandButton action="#{roleBean.newRole}"

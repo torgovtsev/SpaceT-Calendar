@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,18 @@ public class UserBean
     private Map<String, String> countries = new HashMap<String, String>();
 
     private String              select;
+    
+    Integer s;
+
+    public Integer getS()
+    {
+        return s;
+    }
+
+    public void setS(Integer s)
+    {
+        this.s = s;
+    }
 
     public User getUser()
     {
@@ -60,13 +73,14 @@ public class UserBean
 
         return "editUser?faces-redirect=true";
     }
-
-    public String deleteUser()
-    {
-        Integer editId = this.user.getId();
-        this.user = userService.getUserByID(editId);
-
-        return "deleteUser?faces-redirect=true";
+ 
+    public String delete() {
+        userService.deleteUser(user);
+        return "UserList?faces-redirect=true";
+    }
+    
+    public String cancel() {
+        return "UserList?faces-redirect=true";
     }
 
     public List<User> getAllUser()
@@ -111,12 +125,6 @@ public class UserBean
         return "UserList?faces-redirect=true";
     }
 
-    public String delete()
-    {
-        userService.deleteUser(user);
-        return "UserList?faces-redirect=true";
-    }
-
     public Map<String, String> getAllRole()
     {
         List<Role> rol = roleService.getAllRoles();
@@ -132,7 +140,7 @@ public class UserBean
         Role role = roleService.getRoleByName(select);//select
         user.getRoleUser().add(role);
         userService.updateUser(user);
-        return "UserList?faces-redirect=true";
+        return "editUser?faces-redirect=true";
     }
 
     public void deleteRole(Role role)

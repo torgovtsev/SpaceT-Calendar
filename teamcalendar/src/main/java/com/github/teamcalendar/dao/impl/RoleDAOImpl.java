@@ -25,12 +25,12 @@ import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("roleDAO")
-public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements RoleDAO
+public class RoleDAOImpl extends AbstractDaoImpl<Integer, RoleEntity> implements RoleDAO
 {
 
     public void addRole(RoleEntity role)
     {
-        persist(role);
+        create(role);
     }
 
     public void updateRole(RoleEntity role)
@@ -46,7 +46,7 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
     @SuppressWarnings("unchecked")
     public List<RoleEntity> getAllRoles()
     {
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<RoleEntity> roles = (List<RoleEntity>)criteria.list();
 
         return roles;
@@ -54,13 +54,13 @@ public class RoleDAOImpl extends AbstractDao<Integer, RoleEntity> implements Rol
 
     public RoleEntity getRoleById(Integer id)
     {
-        RoleEntity role = getByKey(id);
+        RoleEntity role = getById(id);
         return role;
     }
 
     public RoleEntity getRoleByName(String name)
     {
-        Criteria crit = createEntityCriteria();
+        Criteria crit = getCriteria();
         crit.add(Restrictions.eq("name", name));
         RoleEntity role = (RoleEntity)crit.uniqueResult();
 

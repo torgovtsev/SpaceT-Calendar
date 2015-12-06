@@ -25,12 +25,12 @@ import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("permissionDAO")
-public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> implements PermissionDAO
+public class PermissionDAOImpl extends AbstractDaoImpl<Integer, PermissionEntity> implements PermissionDAO
 {
 
     public void addPermission(PermissionEntity permission)
     {
-        persist(permission);
+        create(permission);
     }
 
     public void updatePermission(PermissionEntity permission)
@@ -46,7 +46,7 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
     @SuppressWarnings("unchecked")
     public List<PermissionEntity> getAllPermissions()
     {
-        Criteria criteria = createEntityCriteria();
+        Criteria criteria = getCriteria();
         List<PermissionEntity> permissions = (List<PermissionEntity>)criteria.list();
 
         return permissions;
@@ -55,14 +55,14 @@ public class PermissionDAOImpl extends AbstractDao<Integer, PermissionEntity> im
     public PermissionEntity getPermissionById(Integer id)
     {
 
-        PermissionEntity permission = getByKey(id);
+        PermissionEntity permission = getById(id);
         return permission;
     }
 
     public PermissionEntity getPermissionByName(String name)
     {
 
-        Criteria crit = createEntityCriteria();
+        Criteria crit = getCriteria();
         crit.add(Restrictions.eq("name", name));
         PermissionEntity permission = (PermissionEntity)crit.uniqueResult();
 

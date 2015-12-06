@@ -69,12 +69,13 @@ public class GroupBean
         return "editGroupRole?faces-redirect=true";
     }
 
-    public String deleteGroup()
-    {
-        Integer editId = this.group.getId();
-        this.group = groupService.getGroupById(editId);
-
-        return "deleteGroup?faces-redirect=true";
+    public String delete() {
+        groupService.deleteGroup(group);
+        return "GroupList?faces-redirect=true";
+    }
+    
+    public String cancel() {
+        return "GroupList?faces-redirect=true";
     }
 
     public List<Group> getAllGroup()
@@ -102,11 +103,6 @@ public class GroupBean
         return "GroupList?faces-redirect=true";
     }
 
-    public String delete()
-    {
-        groupService.deleteGroup(group);
-        return "GroupList?faces-redirect=true";
-    }
 
     public String getSelect()
     {
@@ -133,7 +129,7 @@ public class GroupBean
         User user = userService.getUserByEmail(select);
         group.getUserGroup().add(user);
         groupService.updateGroup(group);
-        return "GroupList?faces-redirect=true";
+        return "editRole?faces-redirect=true";
     }
 
     public Map<String, String> getAllRole()
@@ -151,7 +147,7 @@ public class GroupBean
         Role role = roleService.getRoleByName(select);
         group.getRoleGroup().add(role);
         groupService.updateGroup(group);
-        return "GroupList?faces-redirect=true";
+        return "editRole?faces-redirect=true";
     }
 
     public void deleteUser(User user)
