@@ -2,7 +2,6 @@ package com.github.teamcalendar.middleware.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.github.teamcalendar.dao.GroupDAO;
-import com.github.teamcalendar.dao.RoleDAO;
 import com.github.teamcalendar.domain.GroupEntity;
-import com.github.teamcalendar.domain.RoleEntity;
 import com.github.teamcalendar.middleware.dto.Group;
-import com.github.teamcalendar.middleware.dto.Role;
-import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.GroupService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
@@ -33,18 +28,30 @@ public class GroupServiceImpl implements GroupService
 
     public void addGroup(Group group)
     {
+        if (group == null)
+        {
+            return;
+        }
         GroupEntity groupEntity = convertGroupToEntity(group);
         dao.addGroup(groupEntity);
     }
 
     public void updateGroup(Group group)
     {
+        if (group == null)
+        {
+            return;
+        }
         GroupEntity groupEntity = convertGroupToEntity(group);
         dao.updateGroup(groupEntity);
     }
 
     public void deleteGroup(Group group)
     {
+        if (group == null)
+        {
+            return;
+        }
         GroupEntity groupEntity = convertGroupToEntity(group);
         dao.deleteGroup(groupEntity);
     }

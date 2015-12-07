@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.github.teamcalendar.dao.UserDAO;
-import com.github.teamcalendar.domain.GroupEntity;
 import com.github.teamcalendar.domain.UserEntity;
-import com.github.teamcalendar.middleware.dto.Group;
 import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.UsersService;
 import com.github.teamcalendar.middleware.utils.MapperService;
@@ -30,18 +28,30 @@ public class UsersServiceImpl implements UsersService
 
     public void addUser(User user)
     {
+        if (user == null)
+        {
+            return;
+        }
         UserEntity userEntity = convertUserToEntity(user);
         dao.addUser(userEntity);
     }
 
     public void updateUser(User user)
     {
+        if (user == null)
+        {
+            return;
+        }
         UserEntity userEntity = convertUserToEntity(user);
         dao.updateUser(userEntity);
     }
 
     public void deleteUser(User user)
     {
+        if (user == null)
+        {
+            return;
+        }
         UserEntity userEntity = convertUserToEntity(user);
         dao.deleteUser(userEntity);
     }

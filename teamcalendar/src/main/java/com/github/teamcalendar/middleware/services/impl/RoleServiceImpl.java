@@ -2,7 +2,6 @@ package com.github.teamcalendar.middleware.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.github.teamcalendar.dao.RoleDAO;
-import com.github.teamcalendar.domain.PermissionEntity;
 import com.github.teamcalendar.domain.RoleEntity;
-import com.github.teamcalendar.middleware.dto.Permission;
 import com.github.teamcalendar.middleware.dto.Role;
-import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.RoleService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
@@ -32,18 +28,30 @@ public class RoleServiceImpl implements RoleService
 
     public void addRole(Role role)
     {
+        if (role == null)
+        {
+            return;
+        }
         RoleEntity roleEntity = convertRoleToEntity(role);
         dao.addRole(roleEntity);
     }
 
     public void updateRole(Role role)
     {
+        if (role == null)
+        {
+            return;
+        }
         RoleEntity roleEntity = convertRoleToEntity(role);
         dao.updateRole(roleEntity);
     }
 
     public void deleteRole(Role role)
     {
+        if (role == null)
+        {
+            return;
+        }
         RoleEntity roleEntity = convertRoleToEntity(role);
         dao.deleteRole(roleEntity);
     }

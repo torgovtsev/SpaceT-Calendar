@@ -28,6 +28,11 @@ public class CountryServiceImpl implements CountryService
 
     public void addCountry(Country country)
     {
+        if (country == null)
+        {
+            return;
+        }
+
         CountryEntity countryEntity = convertCountryToEntity(country);
         dao.addCountry(countryEntity);
     }
@@ -54,7 +59,6 @@ public class CountryServiceImpl implements CountryService
 
     public Country getCountryById(Integer id)
     {
-
         Country result = null;
 
         try

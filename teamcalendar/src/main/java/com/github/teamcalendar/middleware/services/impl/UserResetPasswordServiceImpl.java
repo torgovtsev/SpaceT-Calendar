@@ -35,6 +35,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
     @Override
     public void addUserResetPassword(UserResetPassword userResetPassword)
     {
+        if (userResetPassword == null)
+        {
+            return;
+        }
         UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
         dao.addUserResetPassword(userResetPasswordEntity);
 
@@ -43,6 +47,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
     @Override
     public void updateUserResetPassword(UserResetPassword userResetPassword)
     {
+        if (userResetPassword == null)
+        {
+            return;
+        }
         User user = userResetPassword.getUser_id();
         Integer id = user.getId();
         UserEntity userEntity = userdao.getUserByID(id);
@@ -56,6 +64,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
     @Override
     public void deleteUserResetPassword(UserResetPassword userResetPassword)
     {
+        if (userResetPassword == null)
+        {
+            return;
+        }
         UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
         dao.deleteUserResetPassword(userResetPasswordEntity);
     }

@@ -2,7 +2,6 @@ package com.github.teamcalendar.middleware.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.github.teamcalendar.dao.PermissionDAO;
 import com.github.teamcalendar.domain.PermissionEntity;
-import com.github.teamcalendar.domain.QuestionEntity;
 import com.github.teamcalendar.middleware.dto.Permission;
-import com.github.teamcalendar.middleware.dto.Question;
-import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.services.PermissionService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
@@ -32,18 +28,30 @@ public class PermissionServiceImpl implements PermissionService
 
     public void addPermission(Permission permission)
     {
+        if (permission == null)
+        {
+            return;
+        }
         PermissionEntity permissionEntity = convertPermissionToEntity(permission);
         dao.addPermission(permissionEntity);
     }
 
     public void updatePermission(Permission permission)
     {
+        if (permission == null)
+        {
+            return;
+        }
         PermissionEntity permissionEntity = convertPermissionToEntity(permission);
         dao.updatePermission(permissionEntity);
     }
 
     public void deletePermission(Permission permission)
     {
+        if (permission == null)
+        {
+            return;
+        }
         PermissionEntity permissionEntity = convertPermissionToEntity(permission);
         dao.deletePermission(permissionEntity);
     }

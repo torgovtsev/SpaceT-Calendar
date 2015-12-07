@@ -28,18 +28,30 @@ public class QuestionServiceImpl implements QuestionService
 
     public void addQuestion(Question question)
     {
+        if (question == null)
+        {
+            return;
+        }
         QuestionEntity questionEntity = convertQuestionToEntity(question);
         dao.addQuestion(questionEntity);
     }
 
     public void updateQuestion(Question question)
     {
+        if (question == null)
+        {
+            return;
+        }
         QuestionEntity questionEntity = convertQuestionToEntity(question);
         dao.updateQuestion(questionEntity);
     }
 
     public void deleteQuestion(Question question)
     {
+        if (question == null)
+        {
+            return;
+        }
         QuestionEntity questionEntity = convertQuestionToEntity(question);
         dao.deleteQuestion(questionEntity);
     }
