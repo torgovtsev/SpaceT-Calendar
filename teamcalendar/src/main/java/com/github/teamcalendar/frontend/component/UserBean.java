@@ -5,15 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.teamcalendar.middleware.dto.Country;
+import com.github.teamcalendar.middleware.dto.Question;
 import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.CountryService;
+import com.github.teamcalendar.middleware.services.QuestionService;
 import com.github.teamcalendar.middleware.services.RoleService;
 import com.github.teamcalendar.middleware.services.UsersService;
 
@@ -30,15 +31,22 @@ public class UserBean
     @Autowired
     private CountryService      countryService;
 
+    @Autowired
+    private QuestionService     questionService;
+
     private User                user      = new User();
 
     private Map<String, String> roles     = new HashMap<String, String>();
 
     private Map<String, String> countries = new HashMap<String, String>();
 
+    private Map<String, String> questions = new HashMap<String, String>();
+
     private String              select;
-    
-    Integer s;
+
+    private String              selectQuestion;
+
+    Integer                     s;
 
     public Integer getS()
     {
@@ -73,13 +81,15 @@ public class UserBean
 
         return "editUser?faces-redirect=true";
     }
- 
-    public String delete() {
+
+    public String delete()
+    {
         userService.deleteUser(user);
         return "UserList?faces-redirect=true";
     }
-    
-    public String cancel() {
+
+    public String cancel()
+    {
         return "UserList?faces-redirect=true";
     }
 
@@ -101,6 +111,10 @@ public class UserBean
         Country country = countryService.getCountryByName(select);
         user.setCountryEntity(country);
         user.setRegistrationDate(new java.util.Date());
+        user.setSecretQuestion(selectQuestion);
+        user.setIsBlocked(false);
+        user.setIsDeleted(false);
+        user.setIsVerified(true);
         userService.addUser(user);
         return "UserList?faces-redirect=true";
     }
@@ -160,6 +174,17 @@ public class UserBean
         return countries;
     }
 
+    public Map<String, String> getAllQuestion()
+    {
+
+        List<Question> question = questionService.getAllQestions();
+        for (Question questionText : question)
+        {
+            questions.put(questionText.getQuestiontext(), questionText.getQuestiontext());
+        }
+        return questions;
+    }
+
     public String getSelect()
     {
         return select;
@@ -168,6 +193,16 @@ public class UserBean
     public void setSelect(String select)
     {
         this.select = select;
+    }
+
+    public String getSelectQuestion()
+    {
+        return selectQuestion;
+    }
+
+    public void setSelectQuestion(String selectQuestion)
+    {
+        this.selectQuestion = selectQuestion;
     }
 
 }
