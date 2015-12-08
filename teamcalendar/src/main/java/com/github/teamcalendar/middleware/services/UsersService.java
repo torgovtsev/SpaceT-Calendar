@@ -3,7 +3,12 @@ package com.github.teamcalendar.middleware.services;
 import java.util.List;
 
 import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.services.impl.UsersServiceImpl;
 
+/**
+ * @author Artem Ivanov
+ * @see {@link UsersServiceImpl}
+ */
 public interface UsersService
 {
 

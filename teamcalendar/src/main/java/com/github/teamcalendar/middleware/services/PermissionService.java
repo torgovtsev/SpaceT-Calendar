@@ -1,11 +1,14 @@
 package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
-import java.util.Set;
 
 import com.github.teamcalendar.middleware.dto.Permission;
-import com.github.teamcalendar.middleware.dto.Role;
+import com.github.teamcalendar.middleware.services.impl.PermissionServiceImpl;
 
+/**
+ * @author Artem Ivanov
+ * @see {@link PermissionServiceImpl}
+ */
 public interface PermissionService
 {
 

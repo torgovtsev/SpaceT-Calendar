@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.Group;
 import com.github.teamcalendar.middleware.services.GroupService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("groupService")
 @Transactional
 public class GroupServiceImpl implements GroupService
@@ -26,6 +30,10 @@ public class GroupServiceImpl implements GroupService
     @Autowired
     GroupDAO                    dao;
 
+    /**
+     * @param group
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addGroup(Group group)
     {
         if (group == null)
@@ -36,6 +44,10 @@ public class GroupServiceImpl implements GroupService
         dao.addGroup(groupEntity);
     }
 
+    /**
+     * @param group
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void updateGroup(Group group)
     {
         if (group == null)
@@ -46,6 +58,10 @@ public class GroupServiceImpl implements GroupService
         dao.updateGroup(groupEntity);
     }
 
+    /**
+     * @param group
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void deleteGroup(Group group)
     {
         if (group == null)
@@ -56,6 +72,9 @@ public class GroupServiceImpl implements GroupService
         dao.deleteGroup(groupEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no groups in table
+     */
     public List<Group> getAllGroups()
     {
         List<Group> result = new ArrayList<Group>();
@@ -76,6 +95,9 @@ public class GroupServiceImpl implements GroupService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no entry for such id
+     */
     public Group getGroupById(Integer id)
     {
         Group result = null;
@@ -96,6 +118,11 @@ public class GroupServiceImpl implements GroupService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no role with name
+     * @param name
+     *            group name (admin, user, etc)
+     */
     public Group getGroupByName(String name)
     {
         Group result = null;

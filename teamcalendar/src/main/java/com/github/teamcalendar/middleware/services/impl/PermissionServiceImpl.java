@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.Permission;
 import com.github.teamcalendar.middleware.services.PermissionService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("permissionService")
 @Transactional
 public class PermissionServiceImpl implements PermissionService
@@ -26,6 +30,10 @@ public class PermissionServiceImpl implements PermissionService
     @Autowired
     PermissionDAO               dao;
 
+    /**
+     * @param permission
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addPermission(Permission permission)
     {
         if (permission == null)
@@ -36,6 +44,10 @@ public class PermissionServiceImpl implements PermissionService
         dao.addPermission(permissionEntity);
     }
 
+    /**
+     * @param permission
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void updatePermission(Permission permission)
     {
         if (permission == null)
@@ -46,6 +58,10 @@ public class PermissionServiceImpl implements PermissionService
         dao.updatePermission(permissionEntity);
     }
 
+    /**
+     * @param permission
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void deletePermission(Permission permission)
     {
         if (permission == null)
@@ -56,6 +72,9 @@ public class PermissionServiceImpl implements PermissionService
         dao.deletePermission(permissionEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no entries in table
+     */
     public List<Permission> getAllPermissions()
     {
 
@@ -79,6 +98,9 @@ public class PermissionServiceImpl implements PermissionService
 
     }
 
+    /**
+     * @return <code>null</code> if there is no entry for such id
+     */
     public Permission getPermissionById(Integer id)
     {
 
@@ -101,6 +123,11 @@ public class PermissionServiceImpl implements PermissionService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no permission with name
+     * @param name
+     *            permission name (view, edit, add, remove, etc)
+     */
     public Permission getPermissionByName(String name)
     {
 

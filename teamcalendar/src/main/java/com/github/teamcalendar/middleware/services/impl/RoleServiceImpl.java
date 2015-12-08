@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.services.RoleService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("roleService")
 @Transactional
 public class RoleServiceImpl implements RoleService
@@ -26,6 +30,10 @@ public class RoleServiceImpl implements RoleService
     @Autowired
     RoleDAO                     dao;
 
+    /**
+     * @param role
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addRole(Role role)
     {
         if (role == null)
@@ -36,6 +44,10 @@ public class RoleServiceImpl implements RoleService
         dao.addRole(roleEntity);
     }
 
+    /**
+     * @param role
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void updateRole(Role role)
     {
         if (role == null)
@@ -46,6 +58,10 @@ public class RoleServiceImpl implements RoleService
         dao.updateRole(roleEntity);
     }
 
+    /**
+     * @param role
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void deleteRole(Role role)
     {
         if (role == null)
@@ -56,6 +72,9 @@ public class RoleServiceImpl implements RoleService
         dao.deleteRole(roleEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no roles in table
+     */
     public List<Role> getAllRoles()
     {
 
@@ -78,6 +97,9 @@ public class RoleServiceImpl implements RoleService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no entry for id
+     */
     public Role getRoleById(Integer id)
     {
 
@@ -99,6 +121,11 @@ public class RoleServiceImpl implements RoleService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no role with name
+     * @param name
+     *            permission name (view, edit, add, remove, etc)
+     */
     public Role getRoleByName(String name)
     {
 

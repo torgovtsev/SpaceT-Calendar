@@ -1,11 +1,14 @@
 package com.github.teamcalendar.middleware.services;
 
 import java.util.List;
-import java.util.Set;
 
 import com.github.teamcalendar.middleware.dto.Role;
-import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.services.impl.RoleServiceImpl;
 
+/**
+ * @author Artem Ivanov
+ * @see {@link RoleServiceImpl}
+ */
 public interface RoleService
 {
 

@@ -12,6 +12,10 @@ import com.github.teamcalendar.middleware.dto.Question;
 import com.github.teamcalendar.middleware.dto.Role;
 import com.github.teamcalendar.middleware.dto.User;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("userService")
 public class UserServiceImpl implements UserService
 {

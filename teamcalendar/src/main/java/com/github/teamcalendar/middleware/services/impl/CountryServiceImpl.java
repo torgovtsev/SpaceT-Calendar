@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.Country;
 import com.github.teamcalendar.middleware.services.CountryService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("countryService")
 @Transactional
 public class CountryServiceImpl implements CountryService
@@ -26,6 +30,10 @@ public class CountryServiceImpl implements CountryService
     @Autowired
     private CountryDAO          dao;
 
+    /**
+     * @param country
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addCountry(Country country)
     {
         if (country == null)
@@ -37,6 +45,9 @@ public class CountryServiceImpl implements CountryService
         dao.addCountry(countryEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no countries in table
+     */
     public List<Country> getAllCountries()
     {
         List<Country> result = new ArrayList<Country>();
@@ -57,6 +68,9 @@ public class CountryServiceImpl implements CountryService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no entry for such id
+     */
     public Country getCountryById(Integer id)
     {
         Country result = null;
@@ -77,6 +91,9 @@ public class CountryServiceImpl implements CountryService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no such country
+     */
     public Country getCountryByName(String name)
     {
         Country result = null;

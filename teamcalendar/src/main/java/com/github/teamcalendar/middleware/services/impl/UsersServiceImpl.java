@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.UsersService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("usersService")
 @Transactional
 public class UsersServiceImpl implements UsersService
@@ -26,6 +30,10 @@ public class UsersServiceImpl implements UsersService
     @Autowired
     private UserDAO             dao;
 
+    /**
+     * @param User
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addUser(User user)
     {
         if (user == null)
@@ -36,6 +44,10 @@ public class UsersServiceImpl implements UsersService
         dao.addUser(userEntity);
     }
 
+    /**
+     * @param User
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void updateUser(User user)
     {
         if (user == null)
@@ -46,6 +58,10 @@ public class UsersServiceImpl implements UsersService
         dao.updateUser(userEntity);
     }
 
+    /**
+     * @param User
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void deleteUser(User user)
     {
         if (user == null)
@@ -56,6 +72,9 @@ public class UsersServiceImpl implements UsersService
         dao.deleteUser(userEntity);
     }
 
+    /**
+     * @return <code>null</code> if user does not exist
+     */
     public User getUserByEmail(String email)
     {
 
@@ -77,6 +96,9 @@ public class UsersServiceImpl implements UsersService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if user does not exist
+     */
     public User getUserByID(Integer id)
     {
 
@@ -97,6 +119,9 @@ public class UsersServiceImpl implements UsersService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no users in table
+     */
     public List<User> getAllUsers()
     {
 

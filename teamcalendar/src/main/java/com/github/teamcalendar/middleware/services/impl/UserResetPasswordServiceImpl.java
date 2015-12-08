@@ -19,6 +19,10 @@ import com.github.teamcalendar.middleware.dto.UserResetPassword;
 import com.github.teamcalendar.middleware.services.UserResetPasswordService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Ivan Kopylov
+ *         This service operates table which contains temporary codes for reset passwords
+ */
 @Service("userResetPasswordService")
 @Transactional
 public class UserResetPasswordServiceImpl implements UserResetPasswordService
@@ -32,6 +36,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
     @Autowired
     private UserDAO              userdao;
 
+    /**
+     * @param userResetPassword
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     @Override
     public void addUserResetPassword(UserResetPassword userResetPassword)
     {
@@ -44,6 +52,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
 
     }
 
+    /**
+     * @param userResetPassword
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     @Override
     public void updateUserResetPassword(UserResetPassword userResetPassword)
     {
@@ -61,6 +73,10 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         dao.updateUserResetPassword(userResetPasswordEntity);
     }
 
+    /**
+     * @param userResetPassword
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     @Override
     public void deleteUserResetPassword(UserResetPassword userResetPassword)
     {
@@ -72,6 +88,9 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         dao.deleteUserResetPassword(userResetPasswordEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no entry for user_id (PK of User table)
+     */
     @Override
     public UserResetPassword getUserResetPasswordByUserId(Integer id)
     {
@@ -95,6 +114,9 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         return result;
     }
 
+    /**
+     * @return <code>null</code> if there is no entires in table
+     */
     @Override
     public List<UserResetPassword> getAllUsersResetPassword()
     {

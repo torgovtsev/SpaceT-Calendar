@@ -16,6 +16,10 @@ import com.github.teamcalendar.middleware.dto.Question;
 import com.github.teamcalendar.middleware.services.QuestionService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
+/**
+ * @author Artem Ivanov
+ *
+ */
 @Service("questionService")
 @Transactional
 public class QuestionServiceImpl implements QuestionService
@@ -26,6 +30,10 @@ public class QuestionServiceImpl implements QuestionService
     @Autowired
     QuestionDAO                 dao;
 
+    /**
+     * @param question
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void addQuestion(Question question)
     {
         if (question == null)
@@ -36,6 +44,10 @@ public class QuestionServiceImpl implements QuestionService
         dao.addQuestion(questionEntity);
     }
 
+    /**
+     * @param question
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void updateQuestion(Question question)
     {
         if (question == null)
@@ -46,6 +58,10 @@ public class QuestionServiceImpl implements QuestionService
         dao.updateQuestion(questionEntity);
     }
 
+    /**
+     * @param question
+     *            if a null object parameter is passed to method, nothing will happen
+     */
     public void deleteQuestion(Question question)
     {
         if (question == null)
@@ -56,6 +72,9 @@ public class QuestionServiceImpl implements QuestionService
         dao.deleteQuestion(questionEntity);
     }
 
+    /**
+     * @return <code>null</code> if there is no questions in table
+     */
     public List<Question> getAllQestions()
     {
 
