@@ -12,11 +12,11 @@ import com.github.teamcalendar.middleware.services.impl.UsersServiceImpl;
 public interface UsersService
 {
 
-    void addUser(User user);
+    boolean addUser(User user);
 
-    void updateUser(User user);
+    boolean updateUser(User user);
 
-    void deleteUser(User user);
+    boolean deleteUser(User user);
 
     User getUserByEmail(String email);
 

@@ -12,11 +12,11 @@ import com.github.teamcalendar.middleware.services.impl.RoleServiceImpl;
 public interface RoleService
 {
 
-    void addRole(Role role);
+    boolean addRole(Role role);
 
-    void updateRole(Role role);
+    boolean updateRole(Role role);
 
-    void deleteRole(Role role);
+    boolean deleteRole(Role role);
 
     List<Role> getAllRoles();
 

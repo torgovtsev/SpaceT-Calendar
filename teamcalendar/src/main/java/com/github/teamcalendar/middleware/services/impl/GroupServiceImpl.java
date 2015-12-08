@@ -33,43 +33,79 @@ public class GroupServiceImpl implements GroupService
     /**
      * @param group
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addGroup(Group group)
+    public boolean addGroup(Group group)
     {
         if (group == null)
         {
-            return;
+            return false;
         }
-        GroupEntity groupEntity = convertGroupToEntity(group);
-        dao.addGroup(groupEntity);
+        try
+        {
+            GroupEntity groupEntity = convertGroupToEntity(group);
+            dao.addGroup(groupEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add group");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param group
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void updateGroup(Group group)
+    public boolean updateGroup(Group group)
     {
         if (group == null)
         {
-            return;
+            return false;
         }
-        GroupEntity groupEntity = convertGroupToEntity(group);
-        dao.updateGroup(groupEntity);
+        try
+        {
+            GroupEntity groupEntity = convertGroupToEntity(group);
+            dao.updateGroup(groupEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update group");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param group
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void deleteGroup(Group group)
+    public boolean deleteGroup(Group group)
     {
         if (group == null)
         {
-            return;
+            return false;
         }
-        GroupEntity groupEntity = convertGroupToEntity(group);
-        dao.deleteGroup(groupEntity);
+
+        try
+        {
+            GroupEntity groupEntity = convertGroupToEntity(group);
+            dao.deleteGroup(groupEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete group");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

@@ -12,7 +12,7 @@ import com.github.teamcalendar.middleware.services.impl.CountryServiceImpl;
 public interface CountryService
 {
 
-    void addCountry(Country country);
+    boolean addCountry(Country country);
 
     List<Country> getAllCountries();
 

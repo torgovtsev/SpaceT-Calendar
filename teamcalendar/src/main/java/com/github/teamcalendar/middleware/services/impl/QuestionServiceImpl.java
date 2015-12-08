@@ -33,43 +33,77 @@ public class QuestionServiceImpl implements QuestionService
     /**
      * @param question
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addQuestion(Question question)
+    public boolean addQuestion(Question question)
     {
         if (question == null)
         {
-            return;
+            return false;
         }
-        QuestionEntity questionEntity = convertQuestionToEntity(question);
-        dao.addQuestion(questionEntity);
+
+        try
+        {
+            QuestionEntity questionEntity = convertQuestionToEntity(question);
+            dao.addQuestion(questionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add question");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
      * @param question
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void updateQuestion(Question question)
+    public boolean updateQuestion(Question question)
     {
         if (question == null)
         {
-            return;
+            return false;
         }
-        QuestionEntity questionEntity = convertQuestionToEntity(question);
-        dao.updateQuestion(questionEntity);
+        try
+        {
+            QuestionEntity questionEntity = convertQuestionToEntity(question);
+            dao.updateQuestion(questionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update question");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
      * @param question
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void deleteQuestion(Question question)
+    public boolean deleteQuestion(Question question)
     {
         if (question == null)
         {
-            return;
+            return false;
         }
-        QuestionEntity questionEntity = convertQuestionToEntity(question);
-        dao.deleteQuestion(questionEntity);
+        try
+        {
+            QuestionEntity questionEntity = convertQuestionToEntity(question);
+            dao.deleteQuestion(questionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete question");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

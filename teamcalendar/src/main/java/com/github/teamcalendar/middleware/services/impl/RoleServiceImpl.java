@@ -33,43 +33,79 @@ public class RoleServiceImpl implements RoleService
     /**
      * @param role
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addRole(Role role)
+    public boolean addRole(Role role)
     {
         if (role == null)
         {
-            return;
+            return false;
         }
-        RoleEntity roleEntity = convertRoleToEntity(role);
-        dao.addRole(roleEntity);
+        try
+        {
+            RoleEntity roleEntity = convertRoleToEntity(role);
+            dao.addRole(roleEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add role");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param role
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void updateRole(Role role)
+    public boolean updateRole(Role role)
     {
         if (role == null)
         {
-            return;
+            return false;
         }
-        RoleEntity roleEntity = convertRoleToEntity(role);
-        dao.updateRole(roleEntity);
+        try
+        {
+            RoleEntity roleEntity = convertRoleToEntity(role);
+            dao.updateRole(roleEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update role");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param role
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void deleteRole(Role role)
+    public boolean deleteRole(Role role)
     {
         if (role == null)
         {
-            return;
+            return false;
         }
-        RoleEntity roleEntity = convertRoleToEntity(role);
-        dao.deleteRole(roleEntity);
+        try
+        {
+            RoleEntity roleEntity = convertRoleToEntity(role);
+            dao.deleteRole(roleEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete role");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**

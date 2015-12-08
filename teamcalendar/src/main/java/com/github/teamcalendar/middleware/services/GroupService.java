@@ -12,11 +12,11 @@ import com.github.teamcalendar.middleware.services.impl.GroupServiceImpl;
 public interface GroupService
 {
 
-    void addGroup(Group group);
+    boolean addGroup(Group group);
 
-    void updateGroup(Group group);
+    boolean updateGroup(Group group);
 
-    void deleteGroup(Group group);
+    boolean deleteGroup(Group group);
 
     List<Group> getAllGroups();
 

@@ -17,19 +17,19 @@ public interface UserResetPasswordService
      * @param user
      *            if a null object parameter is passed to method, nothing will happen
      */
-    void addUserResetPassword(UserResetPassword user);
+    boolean addUserResetPassword(UserResetPassword user);
 
     /**
      * @param user
      *            if a null object parameter is passed to method, nothing will happen
      */
-    void updateUserResetPassword(UserResetPassword user);
+    boolean updateUserResetPassword(UserResetPassword user);
 
     /**
      * @param user
      *            if a null object parameter is passed to method, nothing will happen
      */
-    void deleteUserResetPassword(UserResetPassword user);
+    boolean deleteUserResetPassword(UserResetPassword user);
 
     /**
      * @param id

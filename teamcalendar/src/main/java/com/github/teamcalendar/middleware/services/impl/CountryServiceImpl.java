@@ -33,16 +33,27 @@ public class CountryServiceImpl implements CountryService
     /**
      * @param country
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addCountry(Country country)
+    public boolean addCountry(Country country)
     {
         if (country == null)
         {
-            return;
+            return false;
         }
 
-        CountryEntity countryEntity = convertCountryToEntity(country);
-        dao.addCountry(countryEntity);
+        try
+        {
+            CountryEntity countryEntity = convertCountryToEntity(country);
+            dao.addCountry(countryEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add country");
+        }
+
+        return false;
     }
 
     /**

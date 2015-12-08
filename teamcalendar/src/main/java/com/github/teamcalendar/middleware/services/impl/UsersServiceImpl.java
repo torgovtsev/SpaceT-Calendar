@@ -33,43 +33,80 @@ public class UsersServiceImpl implements UsersService
     /**
      * @param User
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addUser(User user)
+    public boolean addUser(User user)
     {
         if (user == null)
         {
-            return;
+            return false;
         }
-        UserEntity userEntity = convertUserToEntity(user);
-        dao.addUser(userEntity);
+
+        try
+        {
+            UserEntity userEntity = convertUserToEntity(user);
+            dao.addUser(userEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add user");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param User
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void updateUser(User user)
+    public boolean updateUser(User user)
     {
         if (user == null)
         {
-            return;
+            return false;
         }
-        UserEntity userEntity = convertUserToEntity(user);
-        dao.updateUser(userEntity);
+
+        try
+        {
+            UserEntity userEntity = convertUserToEntity(user);
+            dao.updateUser(userEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update user");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param User
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void deleteUser(User user)
+    public boolean deleteUser(User user)
     {
         if (user == null)
         {
-            return;
+            return false;
         }
-        UserEntity userEntity = convertUserToEntity(user);
-        dao.deleteUser(userEntity);
+        try
+        {
+            UserEntity userEntity = convertUserToEntity(user);
+            dao.deleteUser(userEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete user");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

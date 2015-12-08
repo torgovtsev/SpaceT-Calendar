@@ -33,43 +33,76 @@ public class PermissionServiceImpl implements PermissionService
     /**
      * @param permission
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void addPermission(Permission permission)
+    public boolean addPermission(Permission permission)
     {
         if (permission == null)
         {
-            return;
+            return false;
         }
-        PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-        dao.addPermission(permissionEntity);
+        try
+        {
+            PermissionEntity permissionEntity = convertPermissionToEntity(permission);
+            dao.addPermission(permissionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add permission");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
      * @param permission
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void updatePermission(Permission permission)
+    public boolean updatePermission(Permission permission)
     {
         if (permission == null)
         {
-            return;
+            return false;
         }
-        PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-        dao.updatePermission(permissionEntity);
+        try
+        {
+            PermissionEntity permissionEntity = convertPermissionToEntity(permission);
+            dao.updatePermission(permissionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update permission");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
      * @param permission
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
-    public void deletePermission(Permission permission)
+    public boolean deletePermission(Permission permission)
     {
         if (permission == null)
         {
-            return;
+            return false;
         }
-        PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-        dao.deletePermission(permissionEntity);
+        try
+        {
+            PermissionEntity permissionEntity = convertPermissionToEntity(permission);
+            dao.deletePermission(permissionEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete permission");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

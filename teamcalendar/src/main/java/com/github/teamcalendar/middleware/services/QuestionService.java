@@ -12,11 +12,11 @@ import com.github.teamcalendar.middleware.services.impl.QuestionServiceImpl;
 public interface QuestionService
 {
 
-    void addQuestion(Question question);
+    boolean addQuestion(Question question);
 
-    void updateQuestion(Question question);
+    boolean updateQuestion(Question question);
 
-    void deleteQuestion(Question question);
+    boolean deleteQuestion(Question question);
 
     List<Question> getAllQestions();
 }

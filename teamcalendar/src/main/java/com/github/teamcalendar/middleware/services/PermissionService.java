@@ -12,11 +12,11 @@ import com.github.teamcalendar.middleware.services.impl.PermissionServiceImpl;
 public interface PermissionService
 {
 
-    void addPermission(Permission permission);
+    boolean addPermission(Permission permission);
 
-    void updatePermission(Permission permission);
+    boolean updatePermission(Permission permission);
 
-    void deletePermission(Permission permission);
+    boolean deletePermission(Permission permission);
 
     List<Permission> getAllPermissions();
 

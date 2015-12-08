@@ -39,53 +39,88 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
     /**
      * @param userResetPassword
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
     @Override
-    public void addUserResetPassword(UserResetPassword userResetPassword)
+    public boolean addUserResetPassword(UserResetPassword userResetPassword)
     {
         if (userResetPassword == null)
         {
-            return;
+            return false;
         }
-        UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
-        dao.addUserResetPassword(userResetPasswordEntity);
+        try
+        {
+            UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
+            dao.addUserResetPassword(userResetPasswordEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to add userResetPassword");
+            e.printStackTrace();
+        }
 
+        return false;
     }
 
     /**
      * @param userResetPassword
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
     @Override
-    public void updateUserResetPassword(UserResetPassword userResetPassword)
+    public boolean updateUserResetPassword(UserResetPassword userResetPassword)
     {
         if (userResetPassword == null)
         {
-            return;
+            return false;
         }
-        User user = userResetPassword.getUser_id();
-        Integer id = user.getId();
-        UserEntity userEntity = userdao.getUserByID(id);
+        try
+        {
+            User user = userResetPassword.getUser_id();
+            Integer id = user.getId();
+            UserEntity userEntity = userdao.getUserByID(id);
 
-        UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
-        userResetPasswordEntity.setUser_id(userEntity);
+            UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
+            userResetPasswordEntity.setUser_id(userEntity);
 
-        dao.updateUserResetPassword(userResetPasswordEntity);
+            dao.updateUserResetPassword(userResetPasswordEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to update userResetPassword");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
      * @param userResetPassword
      *            if a null object parameter is passed to method, nothing will happen
+     * @return true in case of operation success
      */
     @Override
-    public void deleteUserResetPassword(UserResetPassword userResetPassword)
+    public boolean deleteUserResetPassword(UserResetPassword userResetPassword)
     {
         if (userResetPassword == null)
         {
-            return;
+            return false;
         }
-        UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
-        dao.deleteUserResetPassword(userResetPasswordEntity);
+        try
+        {
+            UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
+            dao.deleteUserResetPassword(userResetPasswordEntity);
+            return true;
+        }
+        catch (Exception e)
+        {
+            LOG.error("Failed to delete userResetPassword");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**
