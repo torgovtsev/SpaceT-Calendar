@@ -18,6 +18,14 @@ import com.github.teamcalendar.middleware.services.UsersService;
 @RequestScoped
 public class UserLoginBean
 {
+    private final String STRING_FEEDBACK_GENERAL_ERROR      = "Something went wrong";
+    private final String STRING_FEEDBACK_LOGGED_IN          = "Logged in";
+
+    private final String STRING_FEEDBACK_LOGIN_MUSTBE_EMAIL = "Username should be email address!";
+    private final String STRING_FEEDBACK_NO_SUCH_USER       = "No such user";
+
+    private final String STRING_FEEDBACK_INCORRECT_USERNAME = "Incorrect email or password";
+
     @Autowired
     private UsersService userService;
 
@@ -46,40 +54,36 @@ public class UserLoginBean
 
     public void login(ActionEvent event)
     {
-
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
-        boolean loggedIn = false;
 
-        if (username != null && password != null)
+        if (username.contains("@") && username.contains("."))
         {
-            if (username.contains("@") && username.contains("."))
+            User user = userService.getUserByEmail(username);
+            if (user != null)
             {
-                User user = userService.getUserByEmail(username);
-                if (user != null)
+                if (user.getPassword().equals(password))
                 {
-                    if (user.getPassword().equals(password))
-                    {
-                        loggedIn = true;
-                        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-                        FacesContext.getCurrentInstance().addMessage(null, message);
-                        context.addCallbackParam("loggedIn", loggedIn);
-                    }
-                    else
-                    {
-                        loggedIn = false;
-                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Loggin Error", "Incorrect email or password");
-                        FacesContext.getCurrentInstance().addMessage(null, message);
-                    }
+                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, STRING_FEEDBACK_LOGGED_IN, username);
+                    context.addCallbackParam("loggedIn", true);
                 }
                 else
                 {
-                    loggedIn = false;
-                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Loggin Error", "No such user");
-                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, STRING_FEEDBACK_GENERAL_ERROR,
+                            STRING_FEEDBACK_INCORRECT_USERNAME);
                 }
             }
+            else
+            {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, STRING_FEEDBACK_GENERAL_ERROR, STRING_FEEDBACK_NO_SUCH_USER);
+            }
         }
+        else
+        {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, STRING_FEEDBACK_GENERAL_ERROR, STRING_FEEDBACK_LOGIN_MUSTBE_EMAIL);
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
 }
