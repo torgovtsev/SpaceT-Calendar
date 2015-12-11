@@ -17,6 +17,7 @@
 		<h:outputLink value="UserList.xhtml">Show All User</h:outputLink>
 
 		<h:form id="userBeanForm">
+
 			<br />
 			<p:messages autoUpdate="true" />
 			<p:dataTable var="user" value="#{userBean.user}">
@@ -56,12 +57,13 @@
 						</p:column>
 							<p:column>
 								<h:inputText value="#{user.email}" required="true" id="email"
-									requiredMessage="Please enter your password."
+									requiredMessage="Please enter your email."
 									validatorMessage="Email must containt @ and '.'  Example: aa@aa.ru">
+									<p:ajax update="msgEmail" event="keyup" />
 									<f:validateRegex
 										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 								</h:inputText>
-								<p:message for="email" />
+								<p:message for="email" id="msgEmail" display="text" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -70,7 +72,12 @@
 						</p:column>
 							<p:column>
 								<h:inputText value="#{user.password}" required="true"
-									requiredMessage="Please choose question." />
+									id="password" requiredMessage="Please enter password."
+									validatorMessage="Password can have 6-18 symbols {6,18}">
+									<p:ajax update="msgPass" event="keyup" />
+									<f:validateRegex pattern="^[a-z0-9_-]{6,18}$" />
+								</h:inputText>
+								<p:message for="password" id="msgPass" display="text" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -102,10 +109,10 @@
 							<p:column>
 								<h:inputText value="#{user.mobile}" required="false" id="mobile"
 									validatorMessage="Mobile number must containt 11 digits">
+									<p:ajax update="msgMobile" event="keyup" />
 									<f:validateRegex pattern="^[0-9]{11}$" />
 								</h:inputText>
-								<p:message for="mobile" />
-
+								<p:message for="mobile" id="msgMobile" display="text" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -118,7 +125,6 @@
 									requiredMessage="Please enter your age.">
 									<f:validateDoubleRange minimum="18" maximum="100" />
 								</h:inputText>
-								<p:message for="age" />
 							</p:column>
 						</p:row>
 						<p:row>
@@ -147,7 +153,7 @@
 					</p:panelGrid>
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton action="#{userBean.create}" type="submit"
+					<p:commandButton actionListener="#{userBean.create}" type="submit"
 						value="Save" ajax="false" icon="ui-icon-check"
 						validateClient="true"></p:commandButton>
 				</f:facet>

@@ -23,4 +23,10 @@ public interface UsersService
     User getUserByID(Integer id);
 
     List<User> getAllUsers();
+
+    boolean checkExistEmail(String email);
+
+    boolean checkExistMobile(String email);
+
+    public boolean validateUser(User user);
 }

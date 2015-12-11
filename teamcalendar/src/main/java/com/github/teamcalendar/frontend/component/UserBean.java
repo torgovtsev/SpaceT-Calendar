@@ -1,10 +1,12 @@
 package com.github.teamcalendar.frontend.component;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,17 +48,7 @@ public class UserBean
 
     private String              selectQuestion;
 
-    Integer                     s;
-
-    public Integer getS()
-    {
-        return s;
-    }
-
-    public void setS(Integer s)
-    {
-        this.s = s;
-    }
+    private String              selectRole;
 
     public User getUser()
     {
@@ -74,6 +66,11 @@ public class UserBean
         return "addUser.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Prepare User for edit
+     * 
+     * @return redirect to editUser page
+     */
     public String editUser()
     {
         Integer editId = this.user.getId();
@@ -106,17 +103,36 @@ public class UserBean
         }
     }
 
-    public String create()
+    /**
+     * Add new User
+     * 
+     * @return if success validate redirect to userList
+     */
+    public void create()
     {
-        Country country = countryService.getCountryByName(select);
-        user.setCountryEntity(country);
-        user.setRegistrationDate(new java.util.Date());
-        user.setSecretQuestion(selectQuestion);
-        user.setIsBlocked(false);
-        user.setIsDeleted(false);
-        user.setIsVerified(true);
-        userService.addUser(user);
-        return "UserList?faces-redirect=true";
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (userService.validateUser(user))
+        {
+            Country country = countryService.getCountryByName(select);
+            user.setCountryEntity(country);
+            user.setRegistrationDate(new java.util.Date());
+            user.setSecretQuestion(selectQuestion);
+            user.setIsBlocked(false);
+            user.setIsDeleted(false);
+            user.setIsVerified(true);
+            userService.addUser(user);
+            try
+            {
+                context.getExternalContext().redirect("UserList.xhtml");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     public String update()
@@ -151,7 +167,7 @@ public class UserBean
 
     public String addRoleForUser()
     {
-        Role role = roleService.getRoleByName(select);//select
+        Role role = roleService.getRoleByName(selectRole);
         user.getRoleUser().add(role);
         userService.updateUser(user);
         return "editUser?faces-redirect=true";
@@ -203,6 +219,16 @@ public class UserBean
     public void setSelectQuestion(String selectQuestion)
     {
         this.selectQuestion = selectQuestion;
+    }
+
+    public String getSelectRole()
+    {
+        return selectRole;
+    }
+
+    public void setSelectRole(String selectRole)
+    {
+        this.selectRole = selectRole;
     }
 
 }

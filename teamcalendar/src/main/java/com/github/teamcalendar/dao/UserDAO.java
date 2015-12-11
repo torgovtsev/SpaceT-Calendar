@@ -3,7 +3,6 @@ package com.github.teamcalendar.dao;
 import java.util.List;
 
 import com.github.teamcalendar.domain.UserEntity;
-import com.github.teamcalendar.middleware.dto.User;
 
 public interface UserDAO
 {
@@ -20,4 +19,7 @@ public interface UserDAO
 
     List<UserEntity> getAllUsers();
 
+    Long getCountUserByEmail(String email);
+
+    Long getCountUserByMobile(String mobile);
 }

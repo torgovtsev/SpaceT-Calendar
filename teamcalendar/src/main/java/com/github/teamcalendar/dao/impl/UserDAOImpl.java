@@ -1,22 +1,14 @@
 package com.github.teamcalendar.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import com.github.teamcalendar.dao.UserDAO;
-import com.github.teamcalendar.domain.GroupEntity;
-import com.github.teamcalendar.domain.RoleEntity;
 import com.github.teamcalendar.domain.UserEntity;
-import com.github.teamcalendar.middleware.dto.Role;
-import com.github.teamcalendar.middleware.dto.User;
-import com.github.teamcalendar.middleware.utils.MapperService;
 
 @Repository("userDAO")
 public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements UserDAO
@@ -59,6 +51,25 @@ public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements
         List<UserEntity> users = (List<UserEntity>)criteria.list();
 
         return users;
+    }
+
+    public Long getCountUserByEmail(String email)
+    {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("email", email));
+        criteria.setProjection(Projections.rowCount());
+        Long count = (Long)criteria.uniqueResult();
+        return count;
+    }
+
+    @Override
+    public Long getCountUserByMobile(String mobile)
+    {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("mobile", mobile));
+        criteria.setProjection(Projections.rowCount());
+        Long count = (Long)criteria.uniqueResult();
+        return count;
     }
 
 }
