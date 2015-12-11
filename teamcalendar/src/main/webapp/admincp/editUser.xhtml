@@ -20,6 +20,7 @@
 			<br />
 			<p:tabView>
 				<p:tab title="User data editor">
+					<p:messages autoUpdate="true" />
 					<p:dataTable var="user" value="#{userBean.user}">
 						<f:facet name="header">
 							<h:outputText value="Edit User"></h:outputText>
@@ -32,7 +33,11 @@
 							First Name
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.firstName}" required="true" />
+										<h:inputText value="#{user.firstName}" required="true"
+											requiredMessage="Please enter your first name."
+											validatorMessage="Name must have length between 1 and 30">
+											<f:validateLength minimum="1" maximum="30" />
+										</h:inputText>
 									</p:column>
 								</p:row>
 								<p:row>
@@ -40,7 +45,11 @@
 							Last Name
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.lastName}" required="true" />
+										<h:inputText value="#{user.lastName}" required="true"
+											requiredMessage="Please enter your last name."
+											validatorMessage="Last name must have length between 1 and 60">
+											<f:validateLength minimum="1" maximum="60" />
+										</h:inputText>
 									</p:column>
 								</p:row>
 								<p:row>
@@ -48,7 +57,14 @@
 							Email adress
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.email}" required="true" />
+										<h:inputText value="#{user.email}" required="true" id="email"
+											requiredMessage="Please enter your email."
+											validatorMessage="Email must containt @ and '.'  Example: aa@aa.ru">
+											<p:ajax update="msgEmail" event="keyup" />
+											<f:validateRegex
+												pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+										</h:inputText>
+										<p:message for="email" id="msgEmail" display="text" />
 									</p:column>
 								</p:row>
 								<p:row>
@@ -56,7 +72,13 @@
 							Mobile Number
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.mobile}" required="true" />
+										<h:inputText value="#{user.mobile}" required="false"
+											id="mobile"
+											validatorMessage="Mobile number must containt 11 digits">
+											<p:ajax update="msgMobile" event="keyup" />
+											<f:validateRegex pattern="^[0-9]{11}$" />
+										</h:inputText>
+										<p:message for="mobile" id="msgMobile" display="text" />
 									</p:column>
 								</p:row>
 								<p:row>
@@ -64,7 +86,11 @@
 							Age
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.age}" required="true" />
+										<h:inputText value="#{user.age}" required="true" id="age"
+											validatorMessage="age can be between 18 and 100"
+											requiredMessage="Please enter your age.">
+											<f:validateDoubleRange minimum="18" maximum="100" />
+										</h:inputText>
 									</p:column>
 								</p:row>
 							</p:panelGrid>
@@ -171,11 +197,13 @@
 								actionListener="userBean.getAllRole"
 								onclick="PF('dlg3').show();" />
 
-							<p:dialog header="Add Role" widgetVar="dlg3" minHeight="40" width="500">
+							<p:dialog header="Add Role" widgetVar="dlg3" minHeight="40"
+								width="500">
 								<h:form>
-									<h:panelGrid columns="2" id="display" columnClasses="label,value" >
+									<h:panelGrid columns="2" id="display"
+										columnClasses="label,value">
 										<p:outputLabel for="role" value="Editable: " />
-										<p:selectOneMenu id="role" value="#{userBean.select}"
+										<p:selectOneMenu id="role" value="#{userBean.selectRole}"
 											effect="fold" editable="true">
 											<f:selectItem itemLabel="Select One" itemValue="" />
 											<f:selectItems value="#{userBean.allRole}" />

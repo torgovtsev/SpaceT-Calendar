@@ -28,7 +28,7 @@ public class RoleBean
 
     private Map<String, String> permission = new HashMap<String, String>();
 
-    private String              select;
+    private String              selectPermission;
 
     public Role getRole()
     {
@@ -73,12 +73,14 @@ public class RoleBean
         return "editRole?faces-redirect=true";
     }
 
-    public String delete() {
+    public String delete()
+    {
         roleService.deleteRole(role);
         return "RoleList?faces-redirect=true";
     }
-    
-    public String cancel() {
+
+    public String cancel()
+    {
         return "RoleList?faces-redirect=true";
     }
 
@@ -88,14 +90,14 @@ public class RoleBean
         return "RoleList?faces-redirect=true";
     }
 
-    public String getSelect()
+    public String getSelectPermission()
     {
-        return select;
+        return selectPermission;
     }
 
-    public void setSelect(String select)
+    public void setSelectPermission(String selectPermission)
     {
-        this.select = select;
+        this.selectPermission = selectPermission;
     }
 
     public Map<String, String> getAllPermission()
@@ -110,7 +112,7 @@ public class RoleBean
 
     public String addPermissionForRole()
     {
-        Permission perm = permissionService.getPermissionByName(select);
+        Permission perm = permissionService.getPermissionByName(selectPermission);
         role.getPermissionRole().add(perm);
         roleService.updateRole(role);
         return "editRole?faces-redirect=true";

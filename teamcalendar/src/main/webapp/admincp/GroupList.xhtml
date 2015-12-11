@@ -28,11 +28,7 @@
 						<p:commandButton onclick="PF('deleteDlg').show();" value="Delete">
 							<f:setPropertyActionListener value="#{group}"
 								target="#{groupBean.group}" />
-						</p:commandButton>
-						<p:commandButton action="#{groupBean.editGroupRole}" value="Edit Role for group">
-							<f:setPropertyActionListener value="#{group.id}"
-								target="#{groupBean.group.id}" />
-						</p:commandButton>			
+						</p:commandButton>		
 					</h:form>
 				</h:column>
 			</h:dataTable>

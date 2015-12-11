@@ -44,7 +44,7 @@ public class UserBean
 
     private Map<String, String> questions = new HashMap<String, String>();
 
-    private String              select;
+    private String              selectCountry;
 
     private String              selectQuestion;
 
@@ -58,6 +58,19 @@ public class UserBean
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public List<User> getAllUser()
+    {
+        try
+        {
+            List<User> user = userService.getAllUsers();
+            return user;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     public String newUser()
@@ -90,19 +103,6 @@ public class UserBean
         return "UserList?faces-redirect=true";
     }
 
-    public List<User> getAllUser()
-    {
-        try
-        {
-            List<User> user = userService.getAllUsers();
-            return user;
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-    }
-
     /**
      * Add new User
      * 
@@ -114,7 +114,7 @@ public class UserBean
 
         if (userService.validateUser(user))
         {
-            Country country = countryService.getCountryByName(select);
+            Country country = countryService.getCountryByName(selectCountry);
             user.setCountryEntity(country);
             user.setRegistrationDate(new java.util.Date());
             user.setSecretQuestion(selectQuestion);
@@ -201,14 +201,14 @@ public class UserBean
         return questions;
     }
 
-    public String getSelect()
+    public String getSelectCountry()
     {
-        return select;
+        return selectCountry;
     }
 
-    public void setSelect(String select)
+    public void setSelectCountry(String selectCountry)
     {
-        this.select = select;
+        this.selectCountry = selectCountry;
     }
 
     public String getSelectQuestion()

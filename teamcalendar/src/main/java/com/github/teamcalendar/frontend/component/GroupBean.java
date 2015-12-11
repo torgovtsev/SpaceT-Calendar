@@ -35,7 +35,11 @@ public class GroupBean
 
     private Map<String, String> role  = new HashMap<String, String>();
 
-    private String              select;
+    @Autowired
+    AddUserForGroupBean         selectUser;
+
+    @Autowired
+    AddRoleForGroupBean         selectRole;
 
     public Group getGroup()
     {
@@ -60,21 +64,15 @@ public class GroupBean
 
         return "editGroup?faces-redirect=true";
     }
-    
-    public String editGroupRole()
-    {
-        Integer editId = this.group.getId();
-        this.group = groupService.getGroupById(editId);
-        
-        return "editGroupRole?faces-redirect=true";
-    }
 
-    public String delete() {
+    public String delete()
+    {
         groupService.deleteGroup(group);
         return "GroupList?faces-redirect=true";
     }
-    
-    public String cancel() {
+
+    public String cancel()
+    {
         return "GroupList?faces-redirect=true";
     }
 
@@ -103,17 +101,6 @@ public class GroupBean
         return "GroupList?faces-redirect=true";
     }
 
-
-    public String getSelect()
-    {
-        return select;
-    }
-
-    public void setSelect(String select)
-    {
-        this.select = select;
-    }
-
     public Map<String, String> getAllUser()
     {
         List<User> us = userService.getAllUsers();
@@ -126,10 +113,10 @@ public class GroupBean
 
     public String addUserInGroup()
     {
-        User user = userService.getUserByEmail(select);
+        User user = userService.getUserByEmail(selectUser.getSelect());
         group.getUserGroup().add(user);
         groupService.updateGroup(group);
-        return "editRole?faces-redirect=true";
+        return "editGroup?faces-redirect=true";
     }
 
     public Map<String, String> getAllRole()
@@ -144,10 +131,10 @@ public class GroupBean
 
     public String addRoleForGroup()
     {
-        Role role = roleService.getRoleByName(select);
+        Role role = roleService.getRoleByName(selectRole.getSelect());
         group.getRoleGroup().add(role);
         groupService.updateGroup(group);
-        return "editRole?faces-redirect=true";
+        return "editGroup?faces-redirect=true";
     }
 
     public void deleteUser(User user)
