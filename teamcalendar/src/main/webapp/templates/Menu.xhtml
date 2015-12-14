@@ -11,7 +11,11 @@
 
 			<p:menubar>
 				<p:submenu label="TeamCal">
-					<p:menuitem value="Login" url="/login.xhtml" />
+					<p:menuitem rendered="#{not empty request.remoteUser}"
+						value="Hello, #{request.remoteUser}" />
+					<p:menuitem rendered="#{empty request.remoteUser}" value="Sign In"
+						url="/login" />
+					<p:menuitem value="Exit" url="/logout" />
 				</p:submenu>
 
 				<p:submenu label="View" icon="ui-icon-pencil">
@@ -24,7 +28,8 @@
 					<p:menuitem value="UserManual" url="#" />
 				</p:submenu>
 
-				<p:submenu label="Administrator" icon="ui-icon-help">
+				<p:submenu rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR')}"
+					label="Administrator" icon="ui-icon-help">
 					<p:menuitem value="Users" url="/admincp/UserList.xhtml" />
 					<p:menuitem value="Groups" url="/admincp/GroupList.xhtml" />
 					<p:menuitem value="Roles" url="/admincp/RoleList.xhtml" />
