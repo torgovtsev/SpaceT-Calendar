@@ -51,7 +51,7 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         try
         {
             UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
-            dao.addUserResetPassword(userResetPasswordEntity);
+            dao.create(userResetPasswordEntity);
             return true;
         }
         catch (Exception e)
@@ -79,12 +79,12 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         {
             User user = userResetPassword.getUser_id();
             Integer id = user.getId();
-            UserEntity userEntity = userdao.getUserByID(id);
+            UserEntity userEntity = userdao.getById(id);
 
             UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
             userResetPasswordEntity.setUser_id(userEntity);
 
-            dao.updateUserResetPassword(userResetPasswordEntity);
+            dao.update(userResetPasswordEntity);
             return true;
         }
         catch (Exception e)
@@ -111,7 +111,7 @@ public class UserResetPasswordServiceImpl implements UserResetPasswordService
         try
         {
             UserResetPasswordEntity userResetPasswordEntity = convertUserResetPasswordToEntity(userResetPassword);
-            dao.deleteUserResetPassword(userResetPasswordEntity);
+            dao.delete(userResetPasswordEntity);
             return true;
         }
         catch (Exception e)

@@ -45,7 +45,7 @@ public class CountryServiceImpl implements CountryService
         try
         {
             CountryEntity countryEntity = convertCountryToEntity(country);
-            dao.addCountry(countryEntity);
+            dao.create(countryEntity);
             return true;
         }
         catch (Exception e)
@@ -88,7 +88,7 @@ public class CountryServiceImpl implements CountryService
 
         try
         {
-            CountryEntity countryEntity = (CountryEntity)dao.getCountryById(id);
+            CountryEntity countryEntity = (CountryEntity)dao.getById(id);
             if (countryEntity != null)
             {
                 result = convertEntityToCountry(countryEntity);

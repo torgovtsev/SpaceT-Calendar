@@ -44,7 +44,7 @@ public class PermissionServiceImpl implements PermissionService
         try
         {
             PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-            dao.addPermission(permissionEntity);
+            dao.create(permissionEntity);
             return true;
         }
         catch (Exception e)
@@ -69,7 +69,7 @@ public class PermissionServiceImpl implements PermissionService
         try
         {
             PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-            dao.updatePermission(permissionEntity);
+            dao.update(permissionEntity);
             return true;
         }
         catch (Exception e)
@@ -94,7 +94,7 @@ public class PermissionServiceImpl implements PermissionService
         try
         {
             PermissionEntity permissionEntity = convertPermissionToEntity(permission);
-            dao.deletePermission(permissionEntity);
+            dao.delete(permissionEntity);
             return true;
         }
         catch (Exception e)
@@ -141,7 +141,7 @@ public class PermissionServiceImpl implements PermissionService
 
         try
         {
-            PermissionEntity permissionEntity = (PermissionEntity)dao.getPermissionById(id);
+            PermissionEntity permissionEntity = (PermissionEntity)dao.getById(id);
 
             if (permissionEntity != null)
             {

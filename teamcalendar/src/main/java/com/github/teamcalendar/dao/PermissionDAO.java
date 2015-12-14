@@ -1,24 +1,21 @@
 package com.github.teamcalendar.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.github.teamcalendar.domain.PermissionEntity;
-import com.github.teamcalendar.middleware.dto.Permission;
-import com.github.teamcalendar.middleware.dto.Role;
 
-public interface PermissionDAO
+public interface PermissionDAO extends AbstractDao<Integer, PermissionEntity>
 {
 
-    void addPermission(PermissionEntity permission);
+    void create(PermissionEntity permission);
 
-    void updatePermission(PermissionEntity permission);
+    void update(PermissionEntity permission);
 
-    void deletePermission(PermissionEntity permission);
+    void delete(PermissionEntity permission);
 
     List<PermissionEntity> getAllPermissions();
 
-    PermissionEntity getPermissionById(Integer id);
+    PermissionEntity getById(Integer id);
 
     PermissionEntity getPermissionByName(String name);
 

@@ -4,18 +4,18 @@ import java.util.List;
 
 import com.github.teamcalendar.domain.UserEntity;
 
-public interface UserDAO
+public interface UserDAO extends AbstractDao<Integer, UserEntity>
 {
 
-    void addUser(UserEntity user);
+    void create(UserEntity user);
 
-    void updateUser(UserEntity user);
+    void update(UserEntity user);
 
-    void deleteUser(UserEntity user);
+    void delete(UserEntity user);
 
     UserEntity getUserByEmail(String email);
 
-    UserEntity getUserByID(Integer id);
+    UserEntity getById(Integer id);
 
     List<UserEntity> getAllUsers();
 

@@ -50,7 +50,7 @@ public class UsersServiceImpl implements UsersService
         try
         {
             UserEntity userEntity = convertUserToEntity(user);
-            dao.addUser(userEntity);
+            dao.create(userEntity);
             return true;
         }
         catch (Exception e)
@@ -77,7 +77,7 @@ public class UsersServiceImpl implements UsersService
         try
         {
             UserEntity userEntity = convertUserToEntity(user);
-            dao.updateUser(userEntity);
+            dao.update(userEntity);
             return true;
         }
         catch (Exception e)
@@ -103,7 +103,7 @@ public class UsersServiceImpl implements UsersService
         try
         {
             UserEntity userEntity = convertUserToEntity(user);
-            dao.deleteUser(userEntity);
+            dao.delete(userEntity);
             return true;
         }
         catch (Exception e)
@@ -147,7 +147,7 @@ public class UsersServiceImpl implements UsersService
         User result = null;
         try
         {
-            UserEntity userEntity = (UserEntity)dao.getUserByID(id);
+            UserEntity userEntity = (UserEntity)dao.getById(id);
             if (userEntity != null)
             {
                 result = convertEntityToUser(userEntity);

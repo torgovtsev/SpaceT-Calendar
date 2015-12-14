@@ -44,7 +44,7 @@ public class GroupServiceImpl implements GroupService
         try
         {
             GroupEntity groupEntity = convertGroupToEntity(group);
-            dao.addGroup(groupEntity);
+            dao.create(groupEntity);
             return true;
         }
         catch (Exception e)
@@ -70,7 +70,7 @@ public class GroupServiceImpl implements GroupService
         try
         {
             GroupEntity groupEntity = convertGroupToEntity(group);
-            dao.updateGroup(groupEntity);
+            dao.update(groupEntity);
             return true;
         }
         catch (Exception e)
@@ -97,7 +97,7 @@ public class GroupServiceImpl implements GroupService
         try
         {
             GroupEntity groupEntity = convertGroupToEntity(group);
-            dao.deleteGroup(groupEntity);
+            dao.delete(groupEntity);
             return true;
         }
         catch (Exception e)
@@ -140,7 +140,7 @@ public class GroupServiceImpl implements GroupService
 
         try
         {
-            GroupEntity groupEntity = (GroupEntity)dao.getGroupById(id);
+            GroupEntity groupEntity = (GroupEntity)dao.getById(id);
             if (groupEntity != null)
             {
                 result = convertEntityToGroup(groupEntity);

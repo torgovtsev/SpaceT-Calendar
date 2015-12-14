@@ -15,26 +15,6 @@ public class UserResetPasswordDAOImpl extends AbstractDaoImpl<Integer, UserReset
 {
 
     @Override
-    public void addUserResetPassword(UserResetPasswordEntity userResetPasswordEntity)
-    {
-        create(userResetPasswordEntity);
-    }
-
-    @Override
-    public void updateUserResetPassword(UserResetPasswordEntity userResetPasswordEntity)
-    {
-        update(userResetPasswordEntity);
-
-    }
-
-    @Override
-    public void deleteUserResetPassword(UserResetPasswordEntity userResetPasswordEntity)
-    {
-        delete(userResetPasswordEntity);
-
-    }
-
-    @Override
     public UserResetPasswordEntity getUserResetPasswordByUserId(Integer id)
     {
         Criteria crit = getCriteria();

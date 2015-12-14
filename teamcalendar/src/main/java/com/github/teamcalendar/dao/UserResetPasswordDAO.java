@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.github.teamcalendar.domain.UserResetPasswordEntity;
 
-public interface UserResetPasswordDAO
+public interface UserResetPasswordDAO extends AbstractDao<Integer, UserResetPasswordEntity>
 {
-    void addUserResetPassword(UserResetPasswordEntity user);
+    void create(UserResetPasswordEntity user);
 
-    void updateUserResetPassword(UserResetPasswordEntity user);
+    void update(UserResetPasswordEntity user);
 
-    void deleteUserResetPassword(UserResetPasswordEntity user);
+    void delete(UserResetPasswordEntity user);
 
     UserResetPasswordEntity getUserResetPasswordByUserId(Integer id);
 

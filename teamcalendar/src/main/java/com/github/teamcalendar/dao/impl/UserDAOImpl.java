@@ -14,33 +14,12 @@ import com.github.teamcalendar.domain.UserEntity;
 public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements UserDAO
 {
 
-    public void addUser(UserEntity user)
-    {
-        create(user);
-    }
-
-    public void updateUser(UserEntity user)
-    {
-        update(user);
-    }
-
-    public void deleteUser(UserEntity user)
-    {
-        delete(user);
-    }
-
     public UserEntity getUserByEmail(String email)
     {
         Criteria crit = getCriteria();
         crit.add(Restrictions.eq("email", email));
         UserEntity user = (UserEntity)crit.uniqueResult();
 
-        return user;
-    }
-
-    public UserEntity getUserByID(Integer id)
-    {
-        UserEntity user = getById(id);
         return user;
     }
 

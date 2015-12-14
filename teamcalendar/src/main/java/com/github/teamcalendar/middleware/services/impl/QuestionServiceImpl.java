@@ -45,7 +45,7 @@ public class QuestionServiceImpl implements QuestionService
         try
         {
             QuestionEntity questionEntity = convertQuestionToEntity(question);
-            dao.addQuestion(questionEntity);
+            dao.create(questionEntity);
             return true;
         }
         catch (Exception e)
@@ -70,7 +70,7 @@ public class QuestionServiceImpl implements QuestionService
         try
         {
             QuestionEntity questionEntity = convertQuestionToEntity(question);
-            dao.updateQuestion(questionEntity);
+            dao.update(questionEntity);
             return true;
         }
         catch (Exception e)
@@ -95,7 +95,7 @@ public class QuestionServiceImpl implements QuestionService
         try
         {
             QuestionEntity questionEntity = convertQuestionToEntity(question);
-            dao.deleteQuestion(questionEntity);
+            dao.delete(questionEntity);
             return true;
         }
         catch (Exception e)

@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService
         try
         {
             RoleEntity roleEntity = convertRoleToEntity(role);
-            dao.addRole(roleEntity);
+            dao.create(roleEntity);
             return true;
         }
         catch (Exception e)
@@ -70,7 +70,7 @@ public class RoleServiceImpl implements RoleService
         try
         {
             RoleEntity roleEntity = convertRoleToEntity(role);
-            dao.updateRole(roleEntity);
+            dao.update(roleEntity);
             return true;
         }
         catch (Exception e)
@@ -96,7 +96,7 @@ public class RoleServiceImpl implements RoleService
         try
         {
             RoleEntity roleEntity = convertRoleToEntity(role);
-            dao.deleteRole(roleEntity);
+            dao.delete(roleEntity);
             return true;
         }
         catch (Exception e)
@@ -143,7 +143,7 @@ public class RoleServiceImpl implements RoleService
 
         try
         {
-            RoleEntity roleEntity = (RoleEntity)dao.getRoleById(id);
+            RoleEntity roleEntity = (RoleEntity)dao.getById(id);
             if (roleEntity != null)
             {
                 result = convertEntityToRole(roleEntity);

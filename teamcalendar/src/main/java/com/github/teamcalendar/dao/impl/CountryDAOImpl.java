@@ -1,6 +1,5 @@
 package com.github.teamcalendar.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,11 +13,6 @@ import com.github.teamcalendar.domain.CountryEntity;
 public class CountryDAOImpl extends AbstractDaoImpl<Integer, CountryEntity> implements CountryDAO
 {
 
-    public void addCountry(CountryEntity country)
-    {
-        create(country);
-    }
-
     @SuppressWarnings("unchecked")
     public List<CountryEntity> getAllCountries()
     {
@@ -26,12 +20,6 @@ public class CountryDAOImpl extends AbstractDaoImpl<Integer, CountryEntity> impl
         List<CountryEntity> countries = (List<CountryEntity>)criteria.list();
 
         return countries;
-    }
-
-    public CountryEntity getCountryById(Integer id)
-    {
-        CountryEntity country = getById(id);
-        return country;
     }
 
     @Override

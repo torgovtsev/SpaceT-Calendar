@@ -3,16 +3,15 @@ package com.github.teamcalendar.dao;
 import java.util.List;
 
 import com.github.teamcalendar.domain.QuestionEntity;
-import com.github.teamcalendar.middleware.dto.Question;
 
-public interface QuestionDAO
+public interface QuestionDAO extends AbstractDao<Integer, QuestionEntity>
 {
 
-    void addQuestion(QuestionEntity question);
+    void create(QuestionEntity question);
 
-    void updateQuestion(QuestionEntity question);
+    void update(QuestionEntity question);
 
-    void deleteQuestion(QuestionEntity question);
+    void delete(QuestionEntity question);
 
     List<QuestionEntity> getAllQestions();
 

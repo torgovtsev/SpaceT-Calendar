@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.github.teamcalendar.domain.CountryEntity;
 
-public interface CountryDAO
+public interface CountryDAO extends AbstractDao<Integer, CountryEntity>
 {
 
-    void addCountry(CountryEntity country);
+    void create(CountryEntity country);
 
     List<CountryEntity> getAllCountries();
 
-    CountryEntity getCountryById(Integer id);
+    CountryEntity getById(Integer id);
 
     CountryEntity getCountryByName(String name);
 
