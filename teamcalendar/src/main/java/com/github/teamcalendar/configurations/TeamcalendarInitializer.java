@@ -29,6 +29,10 @@ public class TeamcalendarInitializer implements WebApplicationInitializer
         Dynamic dynamic = servletContext.addServlet("dispatcher", new DispatcherServlet(annotationConfigWebApplicationContext));
         dynamic.addMapping("/");
         dynamic.setLoadOnStartup(NumberUtils.INTEGER_ONE);
+        
+        servletContext.setInitParameter("primefaces.PUBLIC_CAPTCHA_KEY", "6LdEkxATAAAAAJwjS11BKInvAvGIkF10GHCH7VeK");
+
+        servletContext.setInitParameter("primefaces.PRIVATE_CAPTCHA_KEY", "6LdEkxATAAAAAAf7vhsOyGnFBTwbL2W27ZpPmyoi");
     }
 
 }
