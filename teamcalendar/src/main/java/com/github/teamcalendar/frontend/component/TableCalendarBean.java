@@ -31,7 +31,9 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.teamcalendar.middleware.dto.Event;
 import com.github.teamcalendar.middleware.dto.User;
+import com.github.teamcalendar.middleware.services.CalendarEventService;
 import com.github.teamcalendar.middleware.services.UsersService;
 
 @ManagedBean(name="tableCalendarBean")
@@ -85,13 +87,14 @@ public class TableCalendarBean {
 		this.tables = tables;
 	}
 
-
-	
-	
-//
-//
 			
 	private Calendar calendar;
+	
+	@Autowired
+	private CalendarEventService eventService;
+	
+	//temp
+	private List<Event> events;
 	
     @Autowired
     private UsersService userService;
@@ -117,6 +120,7 @@ public class TableCalendarBean {
 	    currentMonths.add("November");
 	    currentMonths.add("December");
 		tables.get(0).currentMonth = currentMonths.get(calendar.getTime().getMonth());
+		tables.get(0).curMonthInt = MonthToInt(tables.get(0).currentMonth);
 		calendar.setFirstDayOfWeek(Calendar.MONDAY);
 		tables.get(0).days = new ArrayList<Integer>();
 		int iDay = 1;
@@ -132,6 +136,7 @@ public class TableCalendarBean {
 		CustomDate cd = new CustomDate(startYear, MonthToInt(tables.get(0).currentMonth));
 	    setWeeksMethod(tables.get(0).weeks, cd, tables.get(0).days);
 	    tables.get(0).weekDays = new ArrayList<String>();
+	    tables.get(0).currentYear = startYear;
 	    setWeekDaysMethod(tables.get(0).weekDays, cd, tables.get(0).days);
 	    users = userService.getAllUsers();
 	    
@@ -139,6 +144,8 @@ public class TableCalendarBean {
 	    countMonths.add("Show 1 month"); 
 	    countMonths.add("Show 2 months"); 
 	    countMonths.add("Show 3 months"); 
+	    
+	    events = eventService.getEventsByUserId(1); //temp
 	}
 	
 	private void setWeekDaysMethod(List<String> weeks, CustomDate cd, List<Integer> days) throws ParseException{
@@ -286,7 +293,9 @@ public class TableCalendarBean {
 		this.currentUser = currentUser;
 	}
 	
-	
+//	public String getEvents(User user) {
+//		return "res";
+//	}
 	
 	public void login(ActionEvent event) throws ParseException {
 		int tablesCount = 0;
@@ -326,7 +335,9 @@ public class TableCalendarBean {
 		for (int i = 0; i < tablesCount; i++) {
 			tables.add(new TableContent());
 			tables.get(i).currentMonth = mss[dates.get(i).month-1];
+			tables.get(i).curMonthInt = MonthToInt(tables.get(i).currentMonth);
 			tables.get(i).days = new ArrayList<Integer>();
+			tables.get(i).currentYear = dates.get(i).year;
 			int iDay = 1;
 			Calendar c = new GregorianCalendar(Integer.parseInt(dates.get(i).year), dates.get(i).month-1, iDay);
 			tables.get(i).daysCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);

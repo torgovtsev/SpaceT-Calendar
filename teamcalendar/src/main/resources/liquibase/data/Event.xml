@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog   
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+        
+        <changeSet id="events" author="Gavrilova Natalia">
+<!-- 			<insert tableName="information_type"> -->
+<!-- 				<column name="id">1</column> -->
+<!-- 				<column name="name">type1</column> -->
+<!-- 				<column name="description">information of type1</column> -->
+<!-- 			</insert> -->
+			
+<!-- 			<insert tableName="information_type"> -->
+<!-- 				<column name="id">2</column> -->
+<!-- 				<column name="name">type2</column> -->
+<!-- 				<column name="description">information of type2</column> -->
+<!-- 			</insert> -->
+			
+<!-- 			<insert tableName="information_type"> -->
+<!-- 				<column name="id">3</column> -->
+<!-- 				<column name="name">type2</column> -->
+<!-- 				<column name="description">information of type2</column> -->
+<!-- 			</insert> -->
+			
+			<insert tableName="information">
+				<column name="id">1</column>
+				<column name="message">information1</column>
+<!-- 				<column name="information_type_id">1</column> -->
+			</insert>
+			
+			<insert tableName="information">
+				<column name="id">2</column>
+				<column name="message">information2</column>
+<!-- 				<column name="information_type_id">2</column> -->
+			</insert>
+			
+			<insert tableName="information">
+				<column name="id">3</column>
+				<column name="message">information2</column>
+<!-- 				<column name="information_type_id">3</column> -->
+			</insert>
+			
+			<insert tableName="event_type">
+				<column name="id">1</column>
+				<column name="name">name1</column>
+				<column name="description">event type with name 1</column>
+			</insert>
+			
+			<insert tableName="event_type">
+				<column name="id">2</column>
+				<column name="name">name2</column>
+				<column name="description">event type with name 2</column>
+			</insert>
+			
+			<insert tableName="event_type">
+				<column name="id">3</column>
+				<column name="name">param</column>
+				<column name="description">event type with name 2</column>
+			</insert>
+			
+			<insert tableName="event">
+				<column name="id">1</column>
+				<column name="event_type">1</column>
+				<column name="user_id">1</column>
+				<column name="info_id">1</column>
+				<column name="date">2015-12-14 00:00:00</column>
+				<column name="textColor">black</column>
+				<column name="backColor">yellow</column>
+			</insert>
+			
+			<insert tableName="event">
+				<column name="id">2</column>
+				<column name="event_type">2</column>
+				<column name="user_id">1</column>
+				<column name="info_id">2</column>
+				<column name="date">2015-12-15 00:00:00</column>
+				<column name="textColor">black</column>
+				<column name="backColor">green</column>
+			</insert>
+			
+			<insert tableName="event">
+				<column name="id">3</column>
+				<column name="event_type">3</column>
+				<column name="user_id">3</column>
+				<column name="info_id">3</column>
+				<column name="date">2015-12-12 00:00:00</column>
+				<column name="textColor">black</column>
+				<column name="backColor">red</column>
+			</insert>
+        </changeSet>
+        
+</databaseChangeLog>

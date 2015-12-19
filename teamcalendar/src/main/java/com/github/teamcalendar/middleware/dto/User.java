@@ -1,7 +1,9 @@
 package com.github.teamcalendar.middleware.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class User
@@ -27,8 +29,18 @@ public class User
     private Set<Group> groupUser = new HashSet<Group>();
 
     private Set<Role>  roleUser  = new HashSet<Role>(0);
+    
+    private List<Event> userEvent = new ArrayList<Event>(0);
 
-    public User()
+    public List<Event> getUserEvent() {
+		return userEvent;
+	}
+
+	public void setUserEvent(List<Event> userEvent) {
+		this.userEvent = userEvent;
+	}
+
+	public User()
     {
 
     }

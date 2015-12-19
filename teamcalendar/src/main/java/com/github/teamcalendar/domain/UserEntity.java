@@ -1,8 +1,10 @@
 package com.github.teamcalendar.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +38,7 @@ public class UserEntity implements Serializable
     private Integer           id;
 
     @ManyToOne
-    @JoinColumn(name = "COUNTRY_ID", nullable = false)
+    @JoinColumn(name = "COUNTRY_ID")
     @Mapping("country")
     private CountryEntity     countryEntity;
 
@@ -101,10 +104,25 @@ public class UserEntity implements Serializable
     @JoinTable(name = "USER_Group", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) })
     @Mapping("groupUser")
     private Set<GroupEntity>  groupUserEntity  = new HashSet<GroupEntity>(0);
+    
+    @OneToMany(mappedBy="user")
+    @Mapping("userEvent")
+    private List<EventEntity> eventEntities = new ArrayList<EventEntity>(0);
 
-    public UserEntity()
+	public List<EventEntity> getEventEntities() {
+		return eventEntities;
+	}
+
+
+	public void setEventEntities(List<EventEntity> eventEntities) {
+		this.eventEntities = eventEntities;
+	}
+
+
+	public UserEntity()
     {
     }
+	
 
     public UserEntity(CountryEntity countryEntity, String firstName, String lastName, String email, String password, String secretQuestion,
             String secretAnswer, String mobile, Boolean sex, int age, boolean isBlocked, boolean isDeleted, boolean isVerified,
