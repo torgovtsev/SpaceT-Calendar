@@ -47,18 +47,24 @@
 				<column name="id">1</column>
 				<column name="name">name1</column>
 				<column name="description">event type with name 1</column>
+				<column name="textColor">black</column>
+				<column name="backColor">yellow</column>
 			</insert>
 			
 			<insert tableName="event_type">
 				<column name="id">2</column>
 				<column name="name">name2</column>
 				<column name="description">event type with name 2</column>
+				<column name="textColor">black</column>
+				<column name="backColor">green</column>
 			</insert>
 			
 			<insert tableName="event_type">
 				<column name="id">3</column>
 				<column name="name">param</column>
 				<column name="description">event type with name 2</column>
+				<column name="textColor">black</column>
+				<column name="backColor">red</column>
 			</insert>
 			
 			<insert tableName="event">
@@ -67,8 +73,7 @@
 				<column name="user_id">1</column>
 				<column name="info_id">1</column>
 				<column name="date">2015-12-14 00:00:00</column>
-				<column name="textColor">black</column>
-				<column name="backColor">yellow</column>
+				
 			</insert>
 			
 			<insert tableName="event">
@@ -77,8 +82,7 @@
 				<column name="user_id">1</column>
 				<column name="info_id">2</column>
 				<column name="date">2015-12-15 00:00:00</column>
-				<column name="textColor">black</column>
-				<column name="backColor">green</column>
+				
 			</insert>
 			
 			<insert tableName="event">
@@ -87,8 +91,7 @@
 				<column name="user_id">3</column>
 				<column name="info_id">3</column>
 				<column name="date">2015-12-12 00:00:00</column>
-				<column name="textColor">black</column>
-				<column name="backColor">red</column>
+				
 			</insert>
         </changeSet>
         

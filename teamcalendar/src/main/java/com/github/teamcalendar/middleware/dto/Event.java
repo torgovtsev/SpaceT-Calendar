@@ -8,11 +8,8 @@ public class Event {
 	private User user;
 	private Date date;
 	private Information info;
-	private String textColor;
-	private String backColor;
-	
-	
 
+	
 	public Event() {
 		
 	}
@@ -39,21 +36,6 @@ public class Event {
 		this.date = date;
 	}
 
-	public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-	}
-
-	public String getBackColor() {
-		return backColor;
-	}
-
-	public void setBackColor(String backColor) {
-		this.backColor = backColor;
-	}
 
 	public User getUser() {
 		return user;

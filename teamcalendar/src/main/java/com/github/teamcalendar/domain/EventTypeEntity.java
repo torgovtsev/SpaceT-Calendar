@@ -31,15 +31,42 @@ public class EventTypeEntity implements Serializable {
     @Mapping("description")
     private String description;
     
+    @Column(name = "TEXTCOLOR")
+    @Mapping("textColor")
+    private String textColor;
+ 
+
+	@Column(name = "BACKCOLOR")
+    @Mapping("backColor")
+    private String backColor;
+    
     public EventTypeEntity() {
     	
     }
     
-    public EventTypeEntity(String name, String descr) {
+    public EventTypeEntity(String name, String descr, String text, String back) {
     	this.name = name;
     	this.description = descr;
+    	this.backColor = back;
+    	this.textColor = text;
     }
     
+    public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+	}
+
+	public String getBackColor() {
+		return backColor;
+	}
+
+	public void setBackColor(String backColor) {
+		this.backColor = backColor;
+	}
+	
     public Integer getId() {
 		return id;
 	}

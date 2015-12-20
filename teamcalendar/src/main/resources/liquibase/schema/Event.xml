@@ -50,6 +50,8 @@
 				<column name="description" type="varchar2(400)">
 					<constraints nullable="false"/>
 				</column>
+				<column name="textColor" type="varchar2(32)"/>					
+				<column name="backColor" type="varchar2(32)"/>
 			</createTable>
         	
         	<createTable tableName="event">
@@ -71,8 +73,7 @@
 				<column name="date" type="java.util.Date">
 					<constraints nullable="false"/>
 				</column>
-				<column name="textColor" type="varchar2(32)"/>					
-				<column name="backColor" type="varchar2(32)"/>
+
 			</createTable>
         </changeSet>
 </databaseChangeLog>

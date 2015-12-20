@@ -47,15 +47,6 @@ public class EventEntity implements Serializable {
     @Mapping("date")
     private Date date;
     
-    @Column(name = "TEXTCOLOR")
-    @Mapping("textColor")
-    private String textColor;
-
-    
-
-	@Column(name = "BACKCOLOR")
-    @Mapping("backColor")
-    private String backColor;
 
 	public EventEntity() {
     	
@@ -67,22 +58,6 @@ public class EventEntity implements Serializable {
     	this.information = ient;
     	this.date = date;
     }
-
-    public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
-	}
-
-	public String getBackColor() {
-		return backColor;
-	}
-
-	public void setBackColor(String backColor) {
-		this.backColor = backColor;
-	}
     
     public Integer getId() {
 		return id;
