@@ -41,7 +41,7 @@
 			</createTable>
 			
 			<createTable tableName="event_type">
-				<column name="id" type="java.lang.Integer">
+				<column name="id" autoIncrement="true" type="java.lang.Integer">
 					<constraints primaryKey="true" primaryKeyName="PK_event_type" />
 				</column>
 				<column name="name" type="varchar2(100)">
@@ -55,7 +55,7 @@
 			</createTable>
         	
         	<createTable tableName="event">
-				<column name="id" type="java.lang.Integer">
+				<column name="id" autoIncrement="true" type="java.lang.Integer">
 					<constraints primaryKey="true" primaryKeyName="PK_event" />
 				</column>
 				<column name="event_type" type="java.lang.Integer">

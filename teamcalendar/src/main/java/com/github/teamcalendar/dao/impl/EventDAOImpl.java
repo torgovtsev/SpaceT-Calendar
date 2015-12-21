@@ -10,8 +10,9 @@ import com.github.teamcalendar.dao.EventDAO;
 import com.github.teamcalendar.domain.EventEntity;
 
 @Repository("eventDAO")
-public class EventDAOImpl extends AbstractDaoImpl<String, EventEntity> implements EventDAO {
-	
+public class EventDAOImpl extends AbstractDaoImpl<Integer, EventEntity> implements EventDAO
+{
+
     @SuppressWarnings("unchecked")
     public List<EventEntity> getAllEvents()
     {
@@ -21,14 +22,14 @@ public class EventDAOImpl extends AbstractDaoImpl<String, EventEntity> implement
         return events;
     }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<EventEntity> getEventsByUser(Integer user_id) {
-		Criteria crit = getCriteria();
-		crit.add(Restrictions.eq("user.id", user_id));
-		//crit.add(Restrictions.eq("created_on", "18.12.2015"));
-		return (List<EventEntity>)crit.list();
-	}
-    
-    
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<EventEntity> getEventsByUser(Integer user_id)
+    {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("user.id", user_id));
+        //crit.add(Restrictions.eq("created_on", "18.12.2015"));
+        return (List<EventEntity>)crit.list();
+    }
+
 }

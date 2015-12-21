@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Event {
 	private Integer id;
-	private Event_Type eventType;
+	private EventType eventType;
 	private User user;
 	private Date date;
 	private Information info;
@@ -14,7 +14,7 @@ public class Event {
 		
 	}
 	
-	public Event(Event_Type etype, User u, Date d, Information info) {
+	public Event(EventType etype, User u, Date d, Information info) {
 		this.eventType = etype;
 		this.user = u;
 		this.date = d;
@@ -44,10 +44,10 @@ public class Event {
 		this.user = user;
 	}
 
-	public Event_Type getEventType() {
+	public EventType getEventType() {
 		return eventType;
 	}
-	public void setEventType(Event_Type eventType) {
+	public void setEventType(EventType eventType) {
 		this.eventType = eventType;
 	}
 	public Information getInfo() {

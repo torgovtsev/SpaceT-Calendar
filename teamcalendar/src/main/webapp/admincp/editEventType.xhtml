@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/masterPage.xhtml"
+	xmlns:fcore="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<title>Teamcalendar</title>
+	</h:head>
+
+	<ui:define name="content">
+		<br />
+		<h:outputLink value="EventTypeList.xhtml">Show All Event Types</h:outputLink>
+
+		<h:form id="eventTypeBeanForm">
+			<br />
+			<p:dataTable var="eventType" value="#{eventTypeBean.eventType}">
+				<f:facet name="header">
+					<h:outputText value="Edit Event Type"></h:outputText>
+				</f:facet>
+
+				<p:column>
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+							Sample Display
+						</p:column>
+							<p:column>
+								<h:panelGroup layout="block" id="out1"
+									style="color: ##{eventType.textColor};
+									background-color: ##{eventType.backColor};
+									font-size:25px;
+									border: 1px solid #000000;
+									width: 40px;
+									height: 35px;
+									text-align: center; padding: 4px 0px 0px 0px;
+									"> #{eventType.name} </h:panelGroup>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Name
+						</p:column>
+							<p:column>
+								<h:inputText value="#{eventType.name}" required="true"
+									maxlength="2">
+									<p:ajax event="blur" update="out1" />
+								</h:inputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Description
+						</p:column>
+							<p:column>
+								<h:inputText value="#{eventType.description}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Text Color
+						</p:column>
+							<p:column>
+								<p:colorPicker value="#{eventType.textColor}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							Background Color
+						</p:column>
+							<p:column>
+								<p:colorPicker value="#{eventType.backColor}" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+							</p:column>
+							<p:column>
+								<p:commandButton value="Refresh Sample"
+									update="eventTypeBeanForm" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>					
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton action="#{eventTypeBean.update}" type="submit"
+						value="Update"></p:commandButton>
+					<p:commandButton action="EventTypeList.xhtml" value="Cancel"></p:commandButton>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
