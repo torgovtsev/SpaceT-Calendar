@@ -9,6 +9,7 @@
 <!-- 	<include file="schema/User.xml" relativeToChangelogFile="true" />  -->
 <!-- 	<include file="schema/UserResetPassword.xml" relativeToChangelogFile="true" /> -->
 <!-- 	<include file="schema/Event.xml" relativeToChangelogFile="true" /> -->
+	
 
 <!-- 	<include file="data/Country.xml" relativeToChangelogFile="true" />  -->
 <!-- 	<include file="data/User.xml" relativeToChangelogFile="true" />  -->
@@ -21,4 +22,5 @@
 <!-- 	<include file="data/UserRole.xml" relativeToChangelogFile="true" />  -->
 <!-- 	<include file="data/Questions.xml" relativeToChangelogFile="true" /> -->
 <!-- 	<include file="data/Event.xml" relativeToChangelogFile="true" /> -->
+<!-- 	<include file="data/SHA512-UserPasswords.xml" relativeToChangelogFile="true" /> -->
 </databaseChangeLog>
