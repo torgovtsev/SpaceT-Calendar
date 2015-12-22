@@ -1,6 +1,7 @@
 package com.github.teamcalendar.configurations.auth;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,30 @@ public class CustomUserDetailsService implements UserDetailsService
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
+            //TODO: remove it
+            //        username = username.toLowerCase();
+            User user = usersService.getUserByEmail(username);
+            if (user == null)
+            {
+                throw new UsernameNotFoundException("Username not found");
+            }
 
-        //TODO: remove it
-        //        username = username.toLowerCase();
-        User user = usersService.getUserByEmail(username);
-        if (user == null)
-        {
-            throw new UsernameNotFoundException("Username not found");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getIsVerified(), true, true,
-                true, getGrantedAuthorities(user));
+            username = user.getEmail();
+            String password = user.getPassword();
+            boolean enabled = user.getIsVerified();
+            boolean accountNonExpired = true;
+            boolean credentialsNonExpired = true;
+            boolean accountNonLocked = true;
+            Collection<? extends GrantedAuthority> authorities = getGrantedAuthorities(user);
+
+            return new org.springframework.security.core.userdetails.User(
+                    username, 
+                    password, 
+                    enabled, 
+                    accountNonExpired,
+                    credentialsNonExpired, 
+                    accountNonLocked, 
+                    authorities);
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user)
