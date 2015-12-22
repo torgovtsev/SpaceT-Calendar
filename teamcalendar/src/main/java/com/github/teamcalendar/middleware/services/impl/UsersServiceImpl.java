@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -49,6 +50,8 @@ public class UsersServiceImpl implements UsersService
 
         try
         {
+            ShaPasswordEncoder encoder = new ShaPasswordEncoder(512);
+            user.setPassword(encoder.encodePassword(user.getPassword(), null));
             UserEntity userEntity = convertUserToEntity(user);
             dao.create(userEntity);
             return true;
@@ -76,6 +79,9 @@ public class UsersServiceImpl implements UsersService
 
         try
         {
+            ShaPasswordEncoder encoder = new ShaPasswordEncoder(512);
+            user.setPassword(encoder.encodePassword(user.getPassword(), null));
+
             UserEntity userEntity = convertUserToEntity(user);
             dao.update(userEntity);
             return true;
@@ -276,8 +282,8 @@ public class UsersServiceImpl implements UsersService
         {
             if (!matcherEmail.matches())
             {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email can have @ and '.'",
-                        "Email can have @ and '.'"));
+                context.addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email can have @ and '.'", "Email can have @ and '.'"));
                 valid = false;
             }
         }
