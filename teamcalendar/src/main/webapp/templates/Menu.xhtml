@@ -28,7 +28,7 @@
 					<p:menuitem value="UserManual" url="#" />
 				</p:submenu>
 
-				<p:submenu rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR')}"
+				<p:submenu rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR')}"
 					label="Administrator" icon="ui-icon-help">
 					<p:menuitem value="Users" url="/admincp/UserList.xhtml" />
 					<p:menuitem value="Groups" url="/admincp/GroupList.xhtml" />

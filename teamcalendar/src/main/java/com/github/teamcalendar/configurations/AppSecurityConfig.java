@@ -48,9 +48,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter
 
                 .authorizeRequests()
 
-                .antMatchers("/admincp/**").hasAnyRole("ADMINISTRATOR")
+                .antMatchers("/admincp/**").hasAnyRole("ADMINISTRATOR", "SUPERADMINISTRATOR")
 
-                .antMatchers("/calendar/**").hasAnyRole("ADMINISTRATOR", "USER")
+                .antMatchers("/calendar/**").hasAnyRole("SUPERADMINISTRATOR", "ADMINISTRATOR", "USER")
 
                 .antMatchers("/login**").permitAll()
 
