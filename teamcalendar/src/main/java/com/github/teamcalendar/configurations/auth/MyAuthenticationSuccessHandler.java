@@ -57,7 +57,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
                 isUser = true;
                 break;
             }
-            else if (grantedAuthority.getAuthority().equals("ROLE_ADMINISTRATOR"))
+            else if (grantedAuthority.getAuthority().equals("ROLE_ADMINISTRATOR") || grantedAuthority.getAuthority().equals("ROLE_SUPERADMINISTRATOR"))
             {
                 isAdmin = true;
                 break;

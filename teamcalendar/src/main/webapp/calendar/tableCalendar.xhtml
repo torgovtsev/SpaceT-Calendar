@@ -9,6 +9,7 @@
     
     <h:head>
 		<title>Teamcalendar</title>
+		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 	<ui:define name="content">
 	<div id="masterPage">
@@ -85,8 +86,11 @@
 			            </p:row>
 		        	</p:columnGroup>
 		        	
-	       	        <p:column>       	        	
-	           			<h:outputText value="#{user.firstName}" />           			
+	       	        <p:column>
+	       	        		<p:panelGrid columns="2" layout="grid">
+			           			<h:outputText value="#{user.firstName}" />
+			           			<h:graphicImage rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR') or request.remoteUser == user.email}" width="16" height="16" name="images/button_edit_user_events.png" styleClass="button-edit-user-events" />
+			           		</p:panelGrid>
 	        		</p:column>
 	        		
 			        <p:columns value="#{table.days}" var="dayy" style="background-color: ##{table.getBackColor(user,dayy)};
