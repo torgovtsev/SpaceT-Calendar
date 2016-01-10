@@ -1,15 +1,22 @@
 package com.github.teamcalendar.middleware.services.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.teamcalendar.dao.EventDAO;
+import com.github.teamcalendar.dao.InformationDAO;
 import com.github.teamcalendar.domain.EventEntity;
+import com.github.teamcalendar.domain.InformationEntity;
+import com.github.teamcalendar.domain.UserEntity;
 import com.github.teamcalendar.middleware.dto.Event;
+import com.github.teamcalendar.middleware.dto.Information;
 import com.github.teamcalendar.middleware.services.CalendarEventService;
 import com.github.teamcalendar.middleware.utils.MapperService;
 
@@ -20,19 +27,42 @@ public class CalendarEventServiceImpl implements CalendarEventService
 
     @Autowired
     private EventDAO dao;
+    
+    @Autowired
+    private InformationDAO infDao;
 
     @Override
     public void addEvent(Event event)
     {
+//    	InformationEntity ient = convertInformationToEntity(event.getInfo());
+//    	infDao.create(ient);
+//    	InformationEntity ie = infDao.getById(ient.getId());
         EventEntity eventEntity = convertEventToEntity(event);
         dao.create(eventEntity);
+    }
+    
+    @Override
+    public List<Event> getEventByUserDate(Integer uid, List<Date> d) {
+    	List<EventEntity> e = dao.getEventByUserDate(uid, d);
+//    	if (e != null)
+//    		return convertEntityToEvent(e);
+//    	else
+//    		return null;
+    	if (e != null) {
+    		List<Event> es = new ArrayList<Event>(0);
+    		for (EventEntity ent : e) {
+    			es.add(convertEntityToEvent(ent));
+    		}
+    		return es;
+    	}
+    	return null;
     }
 
     @Override
     public void deleteEvent(Event event)
     {
-        // TODO Auto-generated method stub
-
+    	EventEntity eventEntity = convertEventToEntity(event);
+    	dao.delete(eventEntity);
     }
 
     @Override
@@ -73,10 +103,36 @@ public class CalendarEventServiceImpl implements CalendarEventService
     {
         return MapperService.getInstance().map(entity, Event.class);
     }
+    
+    private Information convertEntityToInformation(InformationEntity entity)
+    {
+        return MapperService.getInstance().map(entity, Information.class);
+    }
 
     private EventEntity convertEventToEntity(Event event)
     {
         return MapperService.getInstance().map(event, EventEntity.class);
     }
+    
+    private InformationEntity convertInformationToEntity(Information info)
+    {
+        return MapperService.getInstance().map(info, InformationEntity.class);
+    }
+
+
+
+	public Information getInfoById(Integer id) {
+		InformationEntity ie = infDao.getById(id);
+        return convertEntityToInformation(ie);
+	}
+
+
+
+	@Override
+	public Integer AddInfo(Information info) {
+		InformationEntity ient = convertInformationToEntity(info);
+    	infDao.create(ient);
+    	return ient.getId();
+	}
 
 }

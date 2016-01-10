@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition id="compos" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -13,11 +13,15 @@
 	<ui:define name="content">
 	<div id="masterPage">
 		<h:form id="calendar">    
+			
 			<style type="text/css">
 				.colored {
 					background-color: red;		
-					}
-					
+				}
+				.bold {
+				    font-weight: bold;
+				    font-size: 14pt; 
+				}
 			</style>
 			<p:toolbar style="margin-top:3px">
 		    	<f:facet name="left">
@@ -48,6 +52,7 @@
 		    		
 		    		<p:commandButton value="Apply" update="calendar"
 							actionListener="#{tableCalendarBean.login}" style="margin-left:3px"/>
+<!-- 					<p:commandButton value="Edit events" action="editEvent.xhtml?faces-redirect=true" style="margin-left:3px"/> -->
 		    	</f:facet>
 		    </p:toolbar>
 			<c:forEach items="#{tableCalendarBean.tables}" var="table">
@@ -84,12 +89,18 @@
 	           			<h:outputText value="#{user.firstName}" />           			
 	        		</p:column>
 	        		
-			        <p:columns value="#{table.days}" var="dayy" >
-			        	<h:outputText value="#{table.getEvent(user,dayy)}" />
+			        <p:columns value="#{table.days}" var="dayy" style="background-color: ##{table.getBackColor(user,dayy)};
+			        color:##{table.getForeColor(user,dayy)};">
+			        	<c:set var="event" value="#{table.getEvent(user,dayy)}" />
+						<h:outputText id="output" styleClass="#{event.getInfo().getMessage().length() gt 0 ? 'bold' : null}" value="#{table.getSymbol(event, dayy)}"/>
+						<p:tooltip id="toolTip" for="output" value="#{event.getInfo().getMessage()}" />
 			        </p:columns>
-		        	
 			    </p:dataTable>
 			</c:forEach>
+			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+			    <h:outputText value="Resistance to PrimeFaces is futile!" />
+			</p:dialog>
+			
 	    </h:form>
 	    </div>
 	    </ui:define>

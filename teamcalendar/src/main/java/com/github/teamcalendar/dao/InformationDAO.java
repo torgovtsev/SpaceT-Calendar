@@ -14,4 +14,6 @@ public interface InformationDAO extends AbstractDao<Integer, InformationEntity>
 
     //get events by criteria
     List<InformationEntity> getAllInformations();
+    
+    
 }

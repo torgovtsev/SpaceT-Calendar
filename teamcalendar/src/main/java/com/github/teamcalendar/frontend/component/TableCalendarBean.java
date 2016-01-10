@@ -48,12 +48,13 @@ public class TableCalendarBean {
 	private String month = "Show 1 month";
 	
 	
-	private String startYear = "2015";
+	private String startYear = "2016";
 	private List<TableContent> tables;
 	private String onApply;
 	private List<String> countMonths;
 	public List<String> currentMonths;
 	
+
 	public List<String> getCountMonths() {
 		return countMonths;
 	}
@@ -119,6 +120,7 @@ public class TableCalendarBean {
 	    currentMonths.add("October");
 	    currentMonths.add("November");
 	    currentMonths.add("December");
+	    tables.get(0).eventService = eventService;
 		tables.get(0).currentMonth = currentMonths.get(calendar.getTime().getMonth());
 		tables.get(0).curMonthInt = MonthToInt(tables.get(0).currentMonth);
 		calendar.setFirstDayOfWeek(Calendar.MONDAY);
@@ -145,8 +147,8 @@ public class TableCalendarBean {
 	    countMonths.add("Show 2 months"); 
 	    countMonths.add("Show 3 months"); 
 	    
-	    events = eventService.getEventsByUserId(1); //temp
 	}
+	
 	
 	private void setWeekDaysMethod(List<String> weeks, CustomDate cd, List<Integer> days) throws ParseException{
 		for (Integer day : days) {
@@ -334,6 +336,7 @@ public class TableCalendarBean {
 		String[] mss = dfs.getMonths();
 		for (int i = 0; i < tablesCount; i++) {
 			tables.add(new TableContent());
+			tables.get(i).eventService = eventService;
 			tables.get(i).currentMonth = mss[dates.get(i).month-1];
 			tables.get(i).curMonthInt = MonthToInt(tables.get(i).currentMonth);
 			tables.get(i).days = new ArrayList<Integer>();

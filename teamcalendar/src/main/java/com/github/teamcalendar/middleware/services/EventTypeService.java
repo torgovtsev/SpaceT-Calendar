@@ -21,5 +21,6 @@ public interface EventTypeService
     List<EventType> getAllEventTypes();
 
     EventType getEventTypeById(Integer id);
-
+    
+    EventType getEventTypeByName(String name);
 }

@@ -9,4 +9,6 @@ public interface EventTypeDAO extends AbstractDao<Integer, EventTypeEntity>
 
     //get events by criteria
     List<EventTypeEntity> getAllEventTypes();
+    
+    EventTypeEntity getByName(String name);
 }

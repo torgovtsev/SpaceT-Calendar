@@ -153,6 +153,25 @@ public class EventTypeServiceImpl implements EventTypeService
 
         return result;
     }
+    
+    public EventType getEventTypeByName(String name) {
+    	EventType result = null;
+
+        try
+        {
+            EventTypeEntity eventTypeEntity = (EventTypeEntity)dao.getByName(name);
+            if (eventTypeEntity != null)
+            {
+                result = convertEntityToEvent_Type(eventTypeEntity);
+            }
+        }
+        catch (Exception ex)
+        {
+            LOG.error(String.format("Error loading eventType by name=%s", name), ex);
+        }
+
+        return result;
+    }
 
     private EventType convertEntityToEvent_Type(EventTypeEntity entity)
     {
