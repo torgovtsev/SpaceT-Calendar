@@ -16,6 +16,7 @@ import com.github.teamcalendar.domain.EventEntity;
 import com.github.teamcalendar.domain.InformationEntity;
 import com.github.teamcalendar.domain.UserEntity;
 import com.github.teamcalendar.middleware.dto.Event;
+import com.github.teamcalendar.middleware.dto.EventType;
 import com.github.teamcalendar.middleware.dto.Information;
 import com.github.teamcalendar.middleware.services.CalendarEventService;
 import com.github.teamcalendar.middleware.utils.MapperService;
@@ -34,9 +35,7 @@ public class CalendarEventServiceImpl implements CalendarEventService
     @Override
     public void addEvent(Event event)
     {
-//    	InformationEntity ient = convertInformationToEntity(event.getInfo());
-//    	infDao.create(ient);
-//    	InformationEntity ie = infDao.getById(ient.getId());
+
         EventEntity eventEntity = convertEventToEntity(event);
         dao.create(eventEntity);
     }
@@ -133,6 +132,19 @@ public class CalendarEventServiceImpl implements CalendarEventService
 		InformationEntity ient = convertInformationToEntity(info);
     	infDao.create(ient);
     	return ient.getId();
+	}
+
+	@Override
+	public List<Event> getEventsByTypeDate(EventType etype, Integer year,
+			Integer month) {
+		List<Event> result = new ArrayList<Event>();
+        List<EventEntity> eventEntities = dao.getEventsByTypeDate(etype, year, month);
+        for (EventEntity entity : eventEntities)
+        {
+            Event event = convertEntityToEvent(entity);
+            result.add(event);
+        }
+        return result;
 	}
 
 }

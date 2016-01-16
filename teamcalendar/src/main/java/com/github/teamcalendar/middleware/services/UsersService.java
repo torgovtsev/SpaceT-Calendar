@@ -21,6 +21,8 @@ public interface UsersService
     User getUserByEmail(String email);
 
     User getUserByID(Integer id);
+    
+    User getUserByName(String first, String last);
 
     List<User> getAllUsers();
 

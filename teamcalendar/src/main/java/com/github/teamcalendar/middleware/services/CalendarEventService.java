@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.github.teamcalendar.middleware.dto.Event;
+import com.github.teamcalendar.middleware.dto.EventType;
 import com.github.teamcalendar.middleware.dto.Information;
 
 public interface CalendarEventService {
@@ -14,6 +15,8 @@ public interface CalendarEventService {
 	List<Event> getAllEvents();
 	
 	List<Event> getEventsByUserId(Integer userId);
+	
+	List<Event> getEventsByTypeDate(EventType etype, Integer year, Integer month);
 	
 	List<Event> getEventByUserDate(Integer uid, List<Date> d);
 	

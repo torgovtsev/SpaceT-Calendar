@@ -26,7 +26,16 @@ public class TableContent {
 	public List<String> weekDays;
 	public String currentYear;
 	public String color;
+	public List<User> users;
 	
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public String getColor() {
 		return color;
 	}
@@ -201,8 +210,6 @@ public class TableContent {
 	public void setDays(List<Integer> days) {
 		this.days = days;
 	}
-	
-
 	
 	public String getCurrentMonth() {
 		return currentMonth;

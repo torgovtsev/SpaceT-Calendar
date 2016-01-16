@@ -332,4 +332,23 @@ public class UsersServiceImpl implements UsersService
         return MapperService.getInstance().map(user, UserEntity.class);
     }
 
+	@Override
+	public User getUserByName(String first, String last) {
+		User result = null;
+        try
+        {
+            UserEntity userEntity = (UserEntity)dao.getUserByName(first, last);
+            if (userEntity != null)
+            {
+                result = convertEntityToUser(userEntity);
+            }
+        }
+        catch (Exception ex)
+        {
+            LOG.error(String.format("Error loading user by name=%s", first+" "+last), ex);
+        }
+
+        return result;
+	}
+
 }

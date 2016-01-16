@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.github.teamcalendar.dao.UserDAO;
 import com.github.teamcalendar.domain.UserEntity;
+import com.github.teamcalendar.middleware.dto.User;
 
 @Repository("userDAO")
 public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements UserDAO
@@ -50,5 +51,15 @@ public class UserDAOImpl extends AbstractDaoImpl<Integer, UserEntity> implements
         Long count = (Long)criteria.uniqueResult();
         return count;
     }
+
+	@Override
+	public UserEntity getUserByName(String first, String last) {
+		Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("firstName", first));
+        crit.add(Restrictions.eq("lastName", last));
+        UserEntity user = (UserEntity)crit.uniqueResult();
+
+        return user;
+	}
 
 }

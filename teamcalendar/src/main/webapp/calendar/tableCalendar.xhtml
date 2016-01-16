@@ -27,29 +27,27 @@
 			<p:toolbar style="margin-top:3px">
 		    	<f:facet name="left">
 		    		<h:outputText  value="User: " />
-		    		<p:inputText value="%" required="true" label="User: " size="10" />
-		    		<p:commandButton type="button" value="Search" style="margin-left:3px"/>
-		    		<h:outputText value="Group: " style="margin-left:7px"/>
-		    		<p:inputText required="true" value="All" label="Group: " size = "9"/>
-		    		<h:outputText value="Region: " style="margin-left:7px"/>
-		    		<p:inputText required="true" value="default" label="Region: " size = "9"/>
-		    		<h:outputText value="Today: "  style="margin-left:7px"/>
-		    		<p:inputText required="true" value="All" label="Today: " size = "9"/>
+		    		<p:inputText value="#{tableCalendarBean.currentUser}" required="false" label="User: " size="10" />
+		    		<p:commandButton value="Search" update="calendar" 
+		    			actionListener="#{tableCalendarBean.search}" style="margin-left:3px"/>
+		    		<h:outputText value="Today: " style="margin-left:7px"/>
+		    		<p:selectOneMenu value="#{tableCalendarBean.chosenEvent}" required="false" style="vertical-align:middle; margin-left:5px; width:80px;">
+		                <f:selectItems value="#{tableCalendarBean.eventTypes}" />
+		            </p:selectOneMenu>
 		    		<h:outputText value="Start: " style="margin-left:7px"/>
 		    		<p:selectOneMenu value="#{tableCalendarBean.tables.get(0).currentMonth}" required="true" style="vertical-align:middle; width:80px;">		    			    			 		    							    			 	             
 		                <f:selectItems value="#{tableCalendarBean.currentMonths}" />
 		            </p:selectOneMenu>	
-		            <p:selectOneMenu value="#{tableCalendarBean.startYear}" required="true" style="vertical-align:middle; margin-left:5px; width:50px;">		    			    			 		    							    			 	             
+		            <p:selectOneMenu value="#{tableCalendarBean.startYear}" required="true" style="vertical-align:middle; margin-left:5px; width:50px;">
 		                <f:selectItem itemLabel="2015" itemValue="2015" />
-		                <f:selectItem itemLabel="2014" itemValue="2014" />
 		                <f:selectItem itemLabel="2016" itemValue="2016" />
 		                <f:selectItem itemLabel="2017" itemValue="2017" />
 		            </p:selectOneMenu>	
 		            <p:selectOneMenu value="#{tableCalendarBean.month}" required="true" style="vertical-align:middle; margin-left:5px; width:110px;">		    			    			 		    							    			 	             
 		                <f:selectItems value="#{tableCalendarBean.countMonths}" />
 		            </p:selectOneMenu>	
-		    		<p:commandButton value="Help" style="margin-left:3px"/>		    		
-		    		<p:commandButton value="Reset" style="margin-left:3px"/>
+		    		<p:commandButton value="Reset" update="calendar" 
+		    			actionListener="#{tableCalendarBean.reset}" style="margin-left:3px;"/>
 		    		
 		    		<p:commandButton value="Apply" update="calendar"
 							actionListener="#{tableCalendarBean.login}" style="margin-left:3px"/>
@@ -57,7 +55,7 @@
 		    	</f:facet>
 		    </p:toolbar>
 			<c:forEach items="#{tableCalendarBean.tables}" var="table">
-			    <p:dataTable var="user" value="#{tableCalendarBean.users}" style="margin-top:10px">
+			    <p:dataTable var="user" value="#{table.users}" style="margin-top:10px">
 			    	<p:columnGroup type="header">
 			            <p:row>
 			            	<p:column rowspan="2" headerText="#{table.currentMonth}" style="width:200px"/>
@@ -88,7 +86,7 @@
 		        	
 	       	        <p:column>
 	       	        		<p:panelGrid columns="2" layout="grid">
-			           			<h:outputText value="#{user.firstName}" />
+			           			<h:outputText value="#{user.firstName} #{user.lastName}" style="font-size: 9pt;"/>
 			           			<h:graphicImage rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR') or request.remoteUser == user.email}" width="16" height="16" name="images/button_edit_user_events.png" styleClass="button-edit-user-events" />
 			           		</p:panelGrid>
 	        		</p:column>

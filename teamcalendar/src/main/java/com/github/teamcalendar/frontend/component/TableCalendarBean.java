@@ -11,9 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -32,8 +34,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.teamcalendar.middleware.dto.Event;
+import com.github.teamcalendar.middleware.dto.EventType;
 import com.github.teamcalendar.middleware.dto.User;
 import com.github.teamcalendar.middleware.services.CalendarEventService;
+import com.github.teamcalendar.middleware.services.EventTypeService;
 import com.github.teamcalendar.middleware.services.UsersService;
 
 @ManagedBean(name="tableCalendarBean")
@@ -42,25 +46,40 @@ import com.github.teamcalendar.middleware.services.UsersService;
 public class TableCalendarBean {	
 //
 	private String currentUser = "%";
-	private String group = "All";
-	private String region = "default";
 	private String today = "All";
 	private String month = "Show 1 month";
-	
-	
+	private String chosenEvent = "All types";
+	private List<String> eventTypes;
+
+
 	private String startYear = "2016";
 	private List<TableContent> tables;
 	private String onApply;
 	private List<String> countMonths;
 	public List<String> currentMonths;
 	
+	public List<String> getEventTypes() {
+		return eventTypes;
+	}
 
+	public void setEventTypes(List<String> eventTypes) {
+		this.eventTypes = eventTypes;
+	}
+	
 	public List<String> getCountMonths() {
 		return countMonths;
 	}
 
 	public void setCountMonths(List<String> countMonths) {
 		this.countMonths = countMonths;
+	}
+	
+	public String getChosenEvent() {
+		return chosenEvent;
+	}
+
+	public void setChosenEvent(String chosenEvent) {
+		this.chosenEvent = chosenEvent;
 	}
 
 	public List<String> getCurrentMonths() {
@@ -93,6 +112,9 @@ public class TableCalendarBean {
 	
 	@Autowired
 	private CalendarEventService eventService;
+	
+	@Autowired
+	private EventTypeService etypeService;
 	
 	//temp
 	private List<Event> events;
@@ -141,14 +163,21 @@ public class TableCalendarBean {
 	    tables.get(0).currentYear = startYear;
 	    setWeekDaysMethod(tables.get(0).weekDays, cd, tables.get(0).days);
 	    users = userService.getAllUsers();
-	    
+	    tables.get(0).users = users;
 	    countMonths = new ArrayList<String>();
 	    countMonths.add("Show 1 month"); 
 	    countMonths.add("Show 2 months"); 
 	    countMonths.add("Show 3 months"); 
-	    
+	 
+	    eventTypes = new ArrayList<String>();
+	    etypes = etypeService.getAllEventTypes();
+	    for (EventType etype : etypes) {
+	    	eventTypes.add(etype.getName());
+	    }
+	    eventTypes.add("All types");
 	}
 	
+	private List<EventType> etypes;
 	
 	private void setWeekDaysMethod(List<String> weeks, CustomDate cd, List<Integer> days) throws ParseException{
 		for (Integer day : days) {
@@ -279,14 +308,6 @@ public class TableCalendarBean {
 	}
 
 
-	public String getGroup() {
-		return group;
-	}
-
-	public void setGroup(String group) {
-		this.group = group;
-	}
-
 	public String getCurrentUser() {
 		return currentUser;
 	}
@@ -295,12 +316,37 @@ public class TableCalendarBean {
 		this.currentUser = currentUser;
 	}
 	
-//	public String getEvents(User user) {
-//		return "res";
-//	}
+	public void search(ActionEvent event) {
+		String delims = " ";
+		String[] names = currentUser.split(delims);
+		if (currentUser == "%" || currentUser == "") {
+			for (int i = 0; i < tablesCount; i++) {
+				tables.get(i).users = userService.getAllUsers();
+			}
+		}
+		else
+			if (names.length == 2) {
+				User user = userService.getUserByName(names[0], names[1]);
+				if (user != null) {
+					for (int i = 0; i < tablesCount; i++) {
+						tables.get(i).users.clear();
+						tables.get(i).users.add(user);
+					}
+				}
+			}
+	}
 	
+	public void reset(ActionEvent event) throws ParseException {
+		init();
+		currentUser = "%";
+		month = "Show 1 month";
+		chosenEvent = "All types";
+		startYear = "2016";
+	}
+	
+	private int tablesCount = 0;
 	public void login(ActionEvent event) throws ParseException {
-		int tablesCount = 0;
+		//int tablesCount = 0;
 		switch (month) {
 		case ("Show 1 month"):
 			tablesCount = 1;
@@ -334,6 +380,9 @@ public class TableCalendarBean {
 		tables = new ArrayList<TableContent>();
 		DateFormatSymbols dfs = new DateFormatSymbols();
 		String[] mss = dfs.getMonths();
+		boolean etypeIsChosen = !chosenEvent.equals("All types");
+		
+			
 		for (int i = 0; i < tablesCount; i++) {
 			tables.add(new TableContent());
 			tables.get(i).eventService = eventService;
@@ -341,6 +390,32 @@ public class TableCalendarBean {
 			tables.get(i).curMonthInt = MonthToInt(tables.get(i).currentMonth);
 			tables.get(i).days = new ArrayList<Integer>();
 			tables.get(i).currentYear = dates.get(i).year;
+			if (etypeIsChosen) {
+				EventType et = null;
+				for (EventType etype : etypes) {
+					if (etype.getName().equals(chosenEvent)) {
+						et = etype;
+						break;
+					}
+				}
+				List<Event> events = eventService.getEventsByTypeDate(et, Integer.parseInt(tables.get(i).currentYear), tables.get(i).curMonthInt-1);
+				if (events != null) {
+					tables.get(i).users = new ArrayList<User>();
+					Set<Integer> uniqueUsers = new HashSet<Integer>();
+					for (Event e : events){
+						User u = e.getUser();
+						
+						if (!uniqueUsers.contains(u.getId())) {
+							tables.get(i).users.add(u);
+							uniqueUsers.add(u.getId());
+						}
+					}
+					
+				}
+				
+			} else {
+				tables.get(i).users = users;
+			}
 			int iDay = 1;
 			Calendar c = new GregorianCalendar(Integer.parseInt(dates.get(i).year), dates.get(i).month-1, iDay);
 			tables.get(i).daysCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
