@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/masterPage.xhtml"
+	xmlns:fcore="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<title>Teamcalendar</title>
+
+		<f:metadata>
+			<f:viewParam name="Year" value="#{editEventsBean.currentYear}" />
+			<f:viewParam name="Month" value="#{editEventsBean.currentMonth}" />
+			<f:viewParam name="User" value="#{editEventsBean.currentUser}" />
+		</f:metadata>
+	</h:head>
+
+	<ui:define name="content">
+		<p:panelGrid columns="2">
+			<p:outputLabel value="get request year" />
+			<p:outputLabel value="#{editEventsBean.currentYear}" />
+			<p:outputLabel value="get request month" />
+			<p:outputLabel value="#{editEventsBean.currentMonth}" />
+			<p:outputLabel value="get request user" />
+			<p:outputLabel value="#{editEventsBean.currentUser}" />
+
+		</p:panelGrid>
+		
+		
+		<p:dataTable value="#{editEventsBean.etypes}" var="etype">
+
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="#{editEventsBean.currentMonth}"
+						style="width:200px" />
+					<p:column colspan="31" headerText="Days" />
+				</p:row>
+
+				<p:row>
+					<p:columns value="#{editEventsBean.days}" var="day"
+						headerText="#{day}" style="font-size:10px; width:20px;" />
+				</p:row>
+
+				<p:row>
+					<p:column rowspan="2" headerText="Weeks" />
+				</p:row>
+
+				<p:row>
+					<p:columns headerText="#{week.key}" colspan="#{week.value}"
+						value="#{editEventsBean.weeks}" var="week"
+						style="font-size:10px; width:20px;" />
+				</p:row>
+
+				<p:row>
+					<p:column rowspan="2" headerText="Name" />
+				</p:row>
+
+				<p:row>
+					<p:columns headerText="#{wDay}" value="#{editEventsBean.weekDays}"
+						var="wDay"
+						styleClass="#{wDay.equals('Su') || wDay.equals('Sa') ? 'colored' : null}"
+						style="font-size:10px; width:20px;" />
+				</p:row>
+			</p:columnGroup>
+			
+			<p:column  >
+				<h:outputText value="#{etype.description}" style="font-size: 9pt;" />
+			</p:column>
+
+			<c:forEach items="#{editEventsBean.days}" var="dayy">
+					<p:column >
+						<p:selectBooleanCheckbox value=""/>
+					</p:column>
+			</c:forEach>
+				
+
+				
+
+		</p:dataTable>
+
+		<p:commandButton disabled="true" value="Clear" />
+		<p:commandButton disabled="true" value="Close" />
+		<p:commandButton disabled="true" value="Apply" />
+
+	</ui:define>
+</ui:composition>

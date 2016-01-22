@@ -87,7 +87,11 @@
 	       	        <p:column>
 	       	        		<p:panelGrid columns="2" layout="grid">
 			           			<h:outputText value="#{user.firstName} #{user.lastName}" style="font-size: 9pt;"/>
-			           			<h:graphicImage rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR') or request.remoteUser == user.email}" width="16" height="16" name="images/button_edit_user_events.png" styleClass="button-edit-user-events" />
+			           		
+			           			<h:outputLink rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR') or request.remoteUser == user.email}" value="editEvents.xhtml?Year=#{tableCalendarBean.startYear}&amp;Month=#{table.currentMonth}&amp;User=#{user.email}" target="_blank">
+			           				<h:graphicImage width="16" height="16" name="images/button_edit_user_events.png" styleClass="button-edit-user-events" />	
+			           			</h:outputLink>
+
 			           		</p:panelGrid>
 	        		</p:column>
 	        		
