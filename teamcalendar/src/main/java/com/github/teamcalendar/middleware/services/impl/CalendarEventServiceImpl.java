@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +12,6 @@ import com.github.teamcalendar.dao.EventDAO;
 import com.github.teamcalendar.dao.InformationDAO;
 import com.github.teamcalendar.domain.EventEntity;
 import com.github.teamcalendar.domain.InformationEntity;
-import com.github.teamcalendar.domain.UserEntity;
 import com.github.teamcalendar.middleware.dto.Event;
 import com.github.teamcalendar.middleware.dto.EventType;
 import com.github.teamcalendar.middleware.dto.Information;
@@ -35,18 +32,14 @@ public class CalendarEventServiceImpl implements CalendarEventService
     @Override
     public void addEvent(Event event)
     {
-
         EventEntity eventEntity = convertEventToEntity(event);
         dao.create(eventEntity);
     }
     
     @Override
     public List<Event> getEventByUserDate(Integer uid, List<Date> d) {
-    	List<EventEntity> e = dao.getEventByUserDate(uid, d);
-//    	if (e != null)
-//    		return convertEntityToEvent(e);
-//    	else
-//    		return null;
+        List<EventEntity> e = dao.getEventByUserDate(uid, d);
+    	
     	if (e != null) {
     		List<Event> es = new ArrayList<Event>(0);
     		for (EventEntity ent : e) {
@@ -67,8 +60,8 @@ public class CalendarEventServiceImpl implements CalendarEventService
     @Override
     public void updateEvent(Event event)
     {
-        // TODO Auto-generated method stub
-
+        EventEntity eventEntity = convertEventToEntity(event);
+        dao.update(eventEntity);
     }
 
     @Override
@@ -118,14 +111,10 @@ public class CalendarEventServiceImpl implements CalendarEventService
         return MapperService.getInstance().map(info, InformationEntity.class);
     }
 
-
-
 	public Information getInfoById(Integer id) {
 		InformationEntity ie = infDao.getById(id);
         return convertEntityToInformation(ie);
 	}
-
-
 
 	@Override
 	public Integer AddInfo(Information info) {
@@ -146,5 +135,4 @@ public class CalendarEventServiceImpl implements CalendarEventService
         }
         return result;
 	}
-
 }
