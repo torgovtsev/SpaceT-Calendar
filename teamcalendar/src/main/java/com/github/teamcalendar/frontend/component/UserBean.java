@@ -1,6 +1,7 @@
 package com.github.teamcalendar.frontend.component;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,13 @@ public class UserBean
     private String              selectQuestion;
 
     private String              selectRole;
+
+    private String              previousPassword;
+
+    public void onLoad() throws ParseException
+    {
+        previousPassword = user.getPassword();
+    }
 
     public User getUser()
     {
@@ -129,6 +137,7 @@ public class UserBean
             catch (IOException e)
             {
                 e.printStackTrace();
+                //TODO: log it
             }
 
         }
@@ -137,21 +146,32 @@ public class UserBean
 
     public String update()
     {
-        userService.updateUser(user);
+System.out.println("update()");
+        if (user.getPassword() == "")
+        {
+            user.setPassword(previousPassword);
+            System.out.println("empty password" + previousPassword);
+            userService.updateUser(user, false);
+        }
+        else
+        {
+            userService.updateUser(user, true);
+        }
+
         return "UserList?faces-redirect=true";
     }
 
     public String updateBlocked()
     {
         //send email
-        userService.updateUser(user);
+        userService.updateUser(user, false);
         return "UserList?faces-redirect=true";
     }
 
     public String updateDeleted()
     {
         //send email
-        userService.updateUser(user);
+        userService.updateUser(user, false);
         return "UserList?faces-redirect=true";
     }
 
@@ -169,14 +189,14 @@ public class UserBean
     {
         Role role = roleService.getRoleByName(selectRole);
         user.getRoleUser().add(role);
-        userService.updateUser(user);
+        userService.updateUser(user, false);
         return "editUser?faces-redirect=true";
     }
 
     public void deleteRole(Role role)
     {
         user.getRoleUser().remove(role);
-        userService.updateUser(user);
+        userService.updateUser(user, false);
     }
 
     public Map<String, String> getAllCountry()

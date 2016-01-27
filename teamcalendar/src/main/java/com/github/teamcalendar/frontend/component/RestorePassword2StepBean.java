@@ -79,7 +79,7 @@ public class RestorePassword2StepBean
                     {
                         String newPassword = RandomStringUtils.random(10, true, true);
                         user.setPassword(newPassword);
-                        userService.updateUser(user);
+                        userService.updateUser(user, true);
 
                         userResetPassword.setUser_id(user);
                         userResetPasswordService.deleteUserResetPassword(userResetPassword);

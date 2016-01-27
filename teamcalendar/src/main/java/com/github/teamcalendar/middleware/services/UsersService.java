@@ -14,7 +14,7 @@ public interface UsersService
 
     boolean addUser(User user);
 
-    boolean updateUser(User user);
+    boolean updateUser(User user, Boolean encodePassword);
 
     boolean deleteUser(User user);
 

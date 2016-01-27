@@ -50,6 +50,7 @@ public class UsersServiceImpl implements UsersService
 
         try
         {
+            
             ShaPasswordEncoder encoder = new ShaPasswordEncoder(512);
             user.setPassword(encoder.encodePassword(user.getPassword(), null));
             UserEntity userEntity = convertUserToEntity(user);
@@ -70,20 +71,24 @@ public class UsersServiceImpl implements UsersService
      *            if a null object parameter is passed to method, nothing will happen
      * @return true in case of operation success
      */
-    public boolean updateUser(User user)
+    public boolean updateUser(User user, Boolean encodePassword)
     {
         if (user == null)
         {
             return false;
         }
 
-        try
+        if (encodePassword)
         {
             ShaPasswordEncoder encoder = new ShaPasswordEncoder(512);
             user.setPassword(encoder.encodePassword(user.getPassword(), null));
-
+        }
+        
+        try
+        {
             UserEntity userEntity = convertUserToEntity(user);
             dao.update(userEntity);
+
             return true;
         }
         catch (Exception e)
@@ -332,9 +337,10 @@ public class UsersServiceImpl implements UsersService
         return MapperService.getInstance().map(user, UserEntity.class);
     }
 
-	@Override
-	public User getUserByName(String first, String last) {
-		User result = null;
+    @Override
+    public User getUserByName(String first, String last)
+    {
+        User result = null;
         try
         {
             UserEntity userEntity = (UserEntity)dao.getUserByName(first, last);
@@ -345,10 +351,10 @@ public class UsersServiceImpl implements UsersService
         }
         catch (Exception ex)
         {
-            LOG.error(String.format("Error loading user by name=%s", first+" "+last), ex);
+            LOG.error(String.format("Error loading user by name=%s", first + " " + last), ex);
         }
 
         return result;
-	}
+    }
 
 }

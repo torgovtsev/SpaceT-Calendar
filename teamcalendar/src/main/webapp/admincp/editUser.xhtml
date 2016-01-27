@@ -10,6 +10,10 @@
 
 	<h:head>
 		<title>Teamcalendar</title>
+		
+		<f:metadata>
+			<f:viewAction action="#{userBean.onLoad}" />
+		</f:metadata>
 	</h:head>
 
 	<ui:define name="content">
@@ -52,6 +56,21 @@
 										</h:inputText>
 									</p:column>
 								</p:row>
+								
+								
+								<p:row>
+									<p:column>
+							Password
+						</p:column>
+									<p:column>
+										<h:inputSecret value="#{user.password}" id="password" title="Empty to leave previous password">
+										
+										
+										</h:inputSecret>
+										<p:message for="password" id="msgEmail2" display="text" />
+									</p:column>
+								</p:row>
+								
 								<p:row>
 									<p:column>
 							Email adress
@@ -72,7 +91,7 @@
 							Mobile Number
 						</p:column>
 									<p:column>
-										<h:inputText value="#{user.mobile}" required="false"
+										<h:inputText value="#{user.mobile}" required="false" maxlength="11"
 											id="mobile"
 											validatorMessage="Mobile number must containt 11 digits">
 											<p:ajax update="msgMobile" event="keyup" />
