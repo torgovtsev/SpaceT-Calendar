@@ -16,75 +16,75 @@
 			<f:viewParam name="Year" value="#{editEventsBean.currentYear}" />
 			<f:viewParam name="Month" value="#{editEventsBean.currentMonth}" />
 			<f:viewParam name="User" value="#{editEventsBean.currentUser}" />
+			<f:viewAction action="#{editEventsBean.onLoad}" />
 		</f:metadata>
+
+
+
+
 	</h:head>
 
 	<ui:define name="content">
-		<p:panelGrid columns="2">
-			<p:outputLabel value="get request year" />
-			<p:outputLabel value="#{editEventsBean.currentYear}" />
-			<p:outputLabel value="get request month" />
-			<p:outputLabel value="#{editEventsBean.currentMonth}" />
-			<p:outputLabel value="get request user" />
-			<p:outputLabel value="#{editEventsBean.currentUser}" />
+		<h:outputScript library="js" target="body" name="uncheckothers.js" />
 
-		</p:panelGrid>
-		
-		
-		<p:dataTable value="#{editEventsBean.etypes}" var="etype">
 
-			<p:columnGroup type="header">
-				<p:row>
-					<p:column rowspan="2" headerText="#{editEventsBean.currentMonth}"
-						style="width:200px" />
-					<p:column colspan="31" headerText="Days" />
-				</p:row>
+		<p:growl id="growl" showDetail="true" life="3000" />
+		<h:form
+			rendered="#{request.isUserInRole('ROLE_ADMINISTRATOR') or request.isUserInRole('ROLE_SUPERADMINISTRATOR') or request.remoteUser eq editEventsBean.currentUser}">
+			<p:dataTable value="#{editEventsBean.eventTypes}" var="etype">
 
-				<p:row>
-					<p:columns value="#{editEventsBean.days}" var="day"
-						headerText="#{day}" style="font-size:10px; width:20px;" />
-				</p:row>
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column rowspan="2" headerText="#{editEventsBean.currentMonth}"
+							style="width:200px" />
+						<p:column colspan="#{editEventsBean.days.size()}"
+							headerText="Days" />
+					</p:row>
 
-				<p:row>
-					<p:column rowspan="2" headerText="Weeks" />
-				</p:row>
+					<p:row>
+						<p:columns value="#{editEventsBean.days}" var="day"
+							headerText="#{day}" style="font-size:10px; width:20px;">
 
-				<p:row>
-					<p:columns headerText="#{week.key}" colspan="#{week.value}"
-						value="#{editEventsBean.weeks}" var="week"
-						style="font-size:10px; width:20px;" />
-				</p:row>
+						</p:columns>
+					</p:row>
 
-				<p:row>
-					<p:column rowspan="2" headerText="Name" />
-				</p:row>
+					<p:row>
+						<p:column rowspan="2" headerText="Weeks" />
+					</p:row>
 
-				<p:row>
-					<p:columns headerText="#{wDay}" value="#{editEventsBean.weekDays}"
-						var="wDay"
-						styleClass="#{wDay.equals('Su') || wDay.equals('Sa') ? 'colored' : null}"
-						style="font-size:10px; width:20px;" />
-				</p:row>
-			</p:columnGroup>
-			
-			<p:column  >
-				<h:outputText value="#{etype.description}" style="font-size: 9pt;" />
-			</p:column>
+					<p:row>
+						<p:columns headerText="#{week.key}" colspan="#{week.value}"
+							value="#{editEventsBean.weeks}" var="week"
+							style="font-size:10px; width:20px;" />
+					</p:row>
 
-			<c:forEach items="#{editEventsBean.days}" var="dayy">
-					<p:column >
-						<p:selectBooleanCheckbox value=""/>
+					<p:row>
+						<p:column rowspan="2" headerText="Name" />
+					</p:row>
+
+					<p:row>
+						<p:columns headerText="#{wDay}" value="#{editEventsBean.weekDays}"
+							var="wDay"
+							styleClass="#{wDay.equals('Su') || wDay.equals('Sa') ? 'colored' : null}"
+							style="font-size:10px; width:20px;" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+					<h:outputText value="#{etype.description}" style="font-size: 9pt;" />
+				</p:column>
+
+				<c:forEach items="#{editEventsBean.days}" var="day">
+					<p:column>
+						<p:selectBooleanCheckbox onchange="uncheckOthers(this)"
+							value="#{editEventsBean.userEventsByDay[day][etype.id]}" />
 					</p:column>
-			</c:forEach>
-				
+				</c:forEach>
+			</p:dataTable>
 
-				
-
-		</p:dataTable>
-
-		<p:commandButton disabled="true" value="Clear" />
-		<p:commandButton disabled="true" value="Close" />
-		<p:commandButton disabled="true" value="Apply" />
-
+			<p:commandButton actionListener="#{editEventsBean.apply}"
+				update="growl" value="Apply" />
+		</h:form>
+		<text  value="You dont have asccess to this page" rendered="#{request.remoteUser ne editEventsBean.currentUser}" />
 	</ui:define>
 </ui:composition>
